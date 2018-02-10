@@ -1,6 +1,8 @@
 {
   "files-iati": {
     "name": "files-iati",
-    "connector": "loopback-component-storage"
+    "connector": "loopback-component-storage",
+    "provider": "google",
+    "projectId": "dataworkbench-io"
   }
 }
