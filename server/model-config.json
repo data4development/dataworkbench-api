@@ -12,5 +12,9 @@
       "../common/mixins",
       "./mixins"
     ]
+  },
+  "iati-file": {
+    "dataSource": "files-iati",
+    "public": true
   }
 }
