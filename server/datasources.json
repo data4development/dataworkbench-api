@@ -1,1 +1,6 @@
-{}
+{
+  "files-iati": {
+    "name": "files-iati",
+    "connector": "loopback-component-storage"
+  }
+}
