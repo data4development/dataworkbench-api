@@ -1,0 +1,16 @@
+
+# Site settings
+title: Validator API
+email: rolf@drostan.org
+description: >
+  Validator API engine
+brand: DataWorkbench
+
+defaults:
+  -
+    values:
+      layout: "default"
+
+sass:
+  sass_dir: assets/css/lib
+  style: compressed

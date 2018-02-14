@@ -1,0 +1,29 @@
+<!-- inspired by https://thinkshout.com/blog/2014/12/creating-dynamic-menus-in-jekyll/ -->
+{% assign url_parts = page.url | split: '/' %}
+{% assign url_parts_size = url_parts | size %}
+{% assign url_parts_file = url_parts | last %}
+{% assign url_lastchar = page.url | slice: -1 %}
+
+{% if url_parts_size > 2 or (url_parts_size == 2 and url_lastchar == '/') %}
+
+  <div class="list-group">
+    {% assign sorted_pages = site.pages | sort:"suborder", "last" %}
+    {% for node in sorted_pages %}
+      {% assign node_url_parts = node.url | split: '/' %}
+      {% assign node_url_parts_size = node_url_parts | size %}
+      {% assign node_url_lastchar = node.url | slice: -1 %}
+
+      {% if node_url_parts[1] == url_parts[1] %}
+        {% if page.url == node.url %}
+          <a class="list-group-item list-group-item-success" href='{{ node.url | relative_url }}'>{{node.title}}</a>
+          {% include toc.html html=content %}
+        {% elsif node_url_lastchar == '/' %}
+          <a class="list-group-item active" href='{{ node.url | relative_url }}'>{{node.title}}</a>
+        {% else %}
+          <a class="list-group-item" href='{{ node.url | relative_url }}'>{{node.title}}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+{% endif %}
