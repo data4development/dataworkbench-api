@@ -1,8 +1,14 @@
 {
-  "files-iati": {
-    "name": "files-iati",
+  "iati-filestore": {
+    "name": "iati-filestore",
     "connector": "loopback-component-storage",
     "provider": "google",
     "projectId": "dataworkbench-io"
+  },
+  "iati-datasets": {
+    "name": "iati-datasets",
+    "connector": "loopback-connector-gdatastore",
+    "projectId": "dataworkbench-io",
+    "namespace": "public-iati"
   }
 }

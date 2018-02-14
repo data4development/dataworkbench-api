@@ -14,7 +14,11 @@
     ]
   },
   "iati-file": {
-    "dataSource": "files-iati",
+    "dataSource": "iati-filestore",
+    "public": true
+  },
+  "iati-dataset": {
+    "dataSource": "iati-datasets",
     "public": true
   }
 }
