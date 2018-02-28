@@ -19,6 +19,15 @@
   },
   "iati-dataset": {
     "dataSource": "iati-datasets",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": true,
+          "find": true,
+          "findById": true
+        }
+      }
     }
   },
   "iati-publisher": {

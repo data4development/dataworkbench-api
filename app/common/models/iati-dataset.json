@@ -1,5 +1,6 @@
 {
   "name": "iati-dataset",
+  "description": "IATI dataset information",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

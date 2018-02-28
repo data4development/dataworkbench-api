@@ -1,16 +1,67 @@
 {
   "name": "iati-publisher",
+  "description": "IATI publisher (organisation) as available in the IATI Registry",
   "base": "PersistedModel",
   "idInjection": true,
+  "scopes": {
+    "idmap": {
+      "fields": [
+        "id", "registry_id"
+      ]
+    },
+    "current": {
+      "description": "IATI publishers that are active with at least one dataset",
+      "where": {"state": "active"}
+    }
+  },
   "options": {
     "validateUpsert": true
   },
   "properties": {
     "name": {
+      "description": "Name of the publisher to display",
       "type": "string",
-      "required": true
+      "required": true,
+      "index": true
+    },
+    "slug": {
+      "description": "Identifier suitable for URLs (name on the IATI Registry)",
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "logo": {
+      "description": "Potential link to a logo file (may not be a valid URL for an image)",
+      "type": "string"
+    },
+    "country": {
+      "description": "Country code of the publisher",
+      "type": "string",
+      "index": true
+    },
+    "iati_id": {
+      "description": "IATI organisation identifier",
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "registry_id": {
+      "description": "Identifier used on the IATI Registry (id)",
+      "type": "string",
+      "index": true
+    },
+    "datasets": {
+      "description": "Number of datasets available",
+      "type": "number",
+      "index": true
+    },
+    "state": {
+      "description": "Status of the publisher (active?)",
+      "type": "string",
+      "index": true
     }
   },
+  "hidden": ["registry_data"],
   "validations": [],
   "relations": {},
   "acls": [],
