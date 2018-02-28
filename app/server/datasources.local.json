@@ -2,6 +2,9 @@
   "iati-filestore": {
     "keyFilename": "local/DataWorkbench-serviceaccount.json"
   },
+  "iati-publishers": {
+    "keyFilename": "local/DataWorkbench-serviceaccount.json"
+  },
   "iati-datasets": {
     "keyFilename": "local/DataWorkbench-serviceaccount.json"
   }

@@ -5,6 +5,12 @@
     "provider": "google",
     "projectId": "dataworkbench-io"
   },
+  "iati-publishers": {
+    "name": "iati-publishers",
+    "connector": "loopback-connector-gdatastore",
+    "projectId": "dataworkbench-io",
+    "namespace": "public-iati"
+  },
   "iati-datasets": {
     "name": "iati-datasets",
     "connector": "loopback-connector-gdatastore",

@@ -19,6 +19,10 @@
   },
   "iati-dataset": {
     "dataSource": "iati-datasets",
+    }
+  },
+  "iati-publisher": {
+    "dataSource": "iati-publishers",
     "public": true
   }
 }
