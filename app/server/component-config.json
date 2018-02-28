@@ -7,20 +7,22 @@
     "mountPath": "/visualise"
   },
   "loopback-component-ping": {
-   "parts": {
-     "application": true,
-     "environment": true,
-     "resources": false,
-     "system": true,
-     "timestamp": true,
-     "uptime": true
-   },
-   "modelName": "Ping",
-   "acls": [{
-     "accessType": "*",
-     "principalType": "ROLE",
-     "principalId": "$unauthenticated",
-     "permission": "ALLOW"
-   }]
- }
+    "parts": {
+      "application": true,
+      "environment": true,
+      "resources": false,
+      "system": true,
+      "timestamp": true,
+      "uptime": true
+    },
+    "modelName": "Ping",
+    "acls": [
+      {
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "$unauthenticated",
+        "permission": "ALLOW"
+      }
+    ]
+  }
 }
