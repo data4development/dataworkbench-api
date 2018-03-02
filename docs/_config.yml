@@ -5,12 +5,11 @@ email: rolf@drostan.org
 description: >
   Validator API engine
 brand: DataWorkbench
+github: https://github.com/data4development/IATI-data-validator-api
 
 defaults:
   -
     values:
       layout: "default"
 
-sass:
-  sass_dir: assets/css/lib
-  style: compressed
+remote_theme: data4development/dataworkbench-jekyll-theme
