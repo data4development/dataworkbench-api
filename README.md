@@ -18,3 +18,12 @@ nodemon app/server/server.js
 The *.local.js and *.local.json configuration files will be excluded from the Docker image.
 
 The folder `local` can contain for instance the Google account info, and is excluded from git.
+
+Docker
+------
+
+To create a Docker image, run
+
+```
+docker build -t test-me .
+```
