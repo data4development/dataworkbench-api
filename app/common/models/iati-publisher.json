@@ -1,6 +1,6 @@
 {
   "name": "iati-publisher",
-  "description": "IATI publisher (organisation) as available in the IATI Registry",
+  "description": "IATI publishers (organisation) copied from the IATI Registry",
   "base": "PersistedModel",
   "idInjection": true,
   "scopes": {
@@ -20,6 +20,12 @@
   "properties": {
     "name": {
       "description": "Name of the publisher to display",
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "description": {
+      "description": "Description provided by the publisher",
       "type": "string",
       "required": true,
       "index": true
