@@ -6,68 +6,73 @@
   "scopes": {
     "idmap": {
       "fields": [
-        "id", "registry_id"
+        "id",
+        "registry_id"
       ]
     },
     "current": {
       "description": "IATI publishers that are active with at least one dataset",
-      "where": {"state": "active"}
+      "where": {
+        "state": "active",
+        "datasets": {"gt": 0}
+      }
     }
   },
   "options": {
     "validateUpsert": true
   },
+  "hidden": [
+    "registry_data"
+  ],
   "properties": {
     "name": {
-      "description": "Name of the publisher to display",
       "type": "string",
       "required": true,
-      "index": true
+      "index": true,
+      "description": "Name of the publisher to display"
     },
     "description": {
-      "description": "Description provided by the publisher",
       "type": "string",
-      "required": true,
-      "index": true
+      "index": true,
+      "description": "Description provided by the publisher"
     },
     "slug": {
-      "description": "Identifier suitable for URLs (name on the IATI Registry)",
       "type": "string",
       "required": true,
-      "index": true
+      "index": true,
+      "description": "Identifier suitable for URLs (name on the IATI Registry)"
     },
     "logo": {
-      "description": "Potential link to a logo file (may not be a valid URL for an image)",
-      "type": "string"
+      "type": "string",
+      "description": "Potential link to a logo file (may not be a valid URL for an image)"
     },
     "country": {
-      "description": "Country code of the publisher",
       "type": "string",
-      "index": true
+      "index": true,
+      "description": "Country code of the publisher"
     },
     "iati_id": {
-      "description": "IATI organisation identifier",
       "type": "string",
       "required": true,
-      "index": true
+      "index": true,
+      "description": "IATI organisation identifier"
     },
     "registry_id": {
-      "description": "Identifier used on the IATI Registry (id)",
       "type": "string",
-      "index": true
+      "index": true,
+      "description": "Identifier used on the IATI Registry (id)"
     },
     "datasets": {
-      "description": "Number of datasets available",
       "type": "number",
-      "index": true
+      "index": true,
+      "description": "Number of datasets available"
     },
     "state": {
-      "description": "Status of the publisher (active?)",
       "type": "string",
-      "index": true
+      "index": true,
+      "description": "Status of the publisher (active?)"
     }
   },
-  "hidden": ["registry_data"],
   "validations": [],
   "relations": {},
   "acls": [],
