@@ -61,7 +61,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "workspaces": {
+      "type": "hasMany",
+      "model": "workspace",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

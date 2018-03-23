@@ -1,0 +1,39 @@
+{
+  "name": "workspace",
+  "description": "Workspaces with data sets and analyses",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "Identifier suitable for URLs",
+      "required": true
+    },
+    "owner-slug": {
+      "type": "string",
+      "description": "Identifier for owner in URLs"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title for the workspace",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of the workspace's purpose"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "versions": {
+      "type": "hasMany",
+      "model": "version",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,37 @@
+{
+  "name": "version",
+  "description": "Versions of a workspace",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "Identifier suitable for URLs",
+      "required": true
+    },
+    "owner-slug": {
+      "type": "string",
+      "description": "Identifier for owner in URLs"
+    },
+    "workspace-slug": {
+      "type": "string",
+      "description": "Identifier for owner's workspace in URLs"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title for the version",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of the version's purpose"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

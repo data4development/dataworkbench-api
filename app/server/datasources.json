@@ -14,5 +14,15 @@
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-datasets?replicaSet=rs0",
     "name": "iati-datasets",
     "connector": "mongodb"
+  },
+  "workspaces": {
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/workspaces?replicaSet=rs0",
+    "name": "workspaces",
+    "connector": "mongodb"
+  },
+  "versions": {
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/versions?replicaSet=rs0",
+    "name": "versions",
+    "connector": "mongodb"
   }
 }

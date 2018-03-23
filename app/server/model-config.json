@@ -33,5 +33,13 @@
   "iati-publisher": {
     "dataSource": "iati-publishers",
     "public": true
+  },
+  "workspace": {
+    "dataSource": "workspaces",
+    "public": true
+  },
+  "version": {
+    "dataSource": "versions",
+    "public": true
   }
 }
