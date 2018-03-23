@@ -6,6 +6,6 @@
     "url": "mongodb://localhost:27017/iati-publishers"
   },
   "iati-datasets": {
-    "keyFilename": "local/DataWorkbench-serviceaccount.json"
+    "url": "mongodb://localhost:27017/iati-datasets"
   }
 }

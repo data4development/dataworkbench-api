@@ -6,19 +6,13 @@
     "projectId": "dataworkbench-io"
   },
   "iati-publishers": {
-    "host": "",
-    "port": 0,
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-publishers?replicaSet=rs0",
-    "database": "",
-    "password": "",
     "name": "iati-publishers",
-    "user": "",
     "connector": "mongodb"
   },
   "iati-datasets": {
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-datasets?replicaSet=rs0",
     "name": "iati-datasets",
-    "connector": "loopback-connector-gdatastore",
-    "projectId": "dataworkbench-io",
-    "namespace": "public-iati"
+    "connector": "mongodb"
   }
 }
