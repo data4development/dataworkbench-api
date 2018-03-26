@@ -21,6 +21,11 @@
     "registry_data"
   ],
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4"
+    },
     "name": {
       "type": "string",
       "required": true,

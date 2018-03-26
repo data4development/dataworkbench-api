@@ -7,10 +7,16 @@
     "validateUpsert": true
   },
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4"
+    },
     "slug": {
       "type": "string",
-      "description": "Identifier suitable for URLs",
-      "required": true
+      "required": true,
+      "default": "current",
+      "description": "Identifier suitable for URLs"
     },
     "owner-slug": {
       "type": "string",
@@ -22,8 +28,9 @@
     },
     "title": {
       "type": "string",
-      "description": "Title for the version",
-      "required": true
+      "required": true,
+      "default": "Current",
+      "description": "Title for the version"
     },
     "description": {
       "type": "string",
@@ -31,7 +38,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "iati-datasets": {
+      "type": "referencesMany",
+      "model": "iati-dataset",
+      "foreignKey": "md5"
+    }
+  },
   "acls": [],
   "methods": {}
 }

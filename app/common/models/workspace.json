@@ -7,10 +7,15 @@
     "validateUpsert": true
   },
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4"
+    },
     "slug": {
       "type": "string",
-      "description": "Identifier suitable for URLs",
-      "required": true
+      "required": true,
+      "description": "Identifier suitable for URLs"
     },
     "owner-slug": {
       "type": "string",
@@ -18,8 +23,8 @@
     },
     "title": {
       "type": "string",
-      "description": "Title for the workspace",
-      "required": true
+      "required": true,
+      "description": "Title for the workspace"
     },
     "description": {
       "type": "string",

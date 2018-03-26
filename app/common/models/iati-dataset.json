@@ -7,29 +7,51 @@
     "validateUpsert": true
   },
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4"
+    },    
     "name": {
       "type": "string",
-      "required": true
+      "description": "Name of the dataset, consisting of publisher and file name"
     },
     "url": {
       "type": "string",
-      "required": true
+      "description": "URL of the dataset (if available)"
     },
     "md5": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "MD5 hash of the dataset"
     },
     "publisher": {
-      "type": "string"
+      "type": "string",
+      "description": "Publisher slug"
     },
     "filename": {
-      "type": "string"
+      "type": "string",
+      "description": "File name of the dataset"
     },
     "downloaded": {
-      "type": "date"
+      "type": "date",
+      "description": "Timestamp of first download"
     },
     "updated": {
-      "type": "date"
+      "type": "date",
+      "description": "Timestamp of latest download"
+    },
+    "feedback-updated": {
+      "type": "date",
+      "description": "Timestamp of data quality feedback"
+    },
+    "svrl-updated": {
+      "type": "date",
+      "description": "Timestamp of SVRL report"
+    },
+    "json-updated": {
+      "type": "date",
+      "description": "Timestamp of JSON report"
     }
   },
   "validations": [],
