@@ -3,6 +3,22 @@
   "description": "IATI dataset information",
   "base": "PersistedModel",
   "idInjection": true,
+  "scopes": {
+    "completesvrl": {
+      "description": "Datasets of publishers with all relevant fields for SVRL processing",
+      "where": {
+        "name": {"exists": true},
+        "url": {"exists": true},
+        "md5": {"exists": true},
+        "publisher": {"exists": true},
+        "filename": {"exists": true},
+        "downloaded": {"exists": true},
+        "updated": {"exists": true},
+        "svrl-updated": {"exists": true}
+      },
+      "fields": ["name", "url", "md5", "publisher", "filename", "downloaded", "updated", "svrl-updated"]
+    }
+  },
   "options": {
     "validateUpsert": true
   },
@@ -11,7 +27,7 @@
       "type": "string",
       "id": true,
       "defaultFn": "uuidv4"
-    },    
+    },
     "name": {
       "type": "string",
       "description": "Name of the dataset, consisting of publisher and file name"
