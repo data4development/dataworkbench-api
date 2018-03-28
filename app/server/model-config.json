@@ -41,5 +41,13 @@
   "version": {
     "dataSource": "versions",
     "public": true
+  },
+  "container": {
+    "dataSource": "container",
+    "public": true
+  },
+  "file-up": {
+    "dataSource": "files",
+    "public": true
   }
 }
