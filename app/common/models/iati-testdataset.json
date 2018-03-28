@@ -1,0 +1,61 @@
+{
+  "name": "iati-testdataset",
+  "description": "IATI test dataset (maybe not public yet)",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the dataset, consisting of publisher and file name"
+    },
+    "type": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the dataset (if available)"
+    },
+    "md5": {
+      "type": "string",
+      "description": "MD5 hash of the dataset"
+    },
+    "tmpworkspaceId": {
+      "type": "string",
+      "description": "Identifier of the temporary workspace"
+    },
+    "uploaded": {
+      "type": "date",
+      "description": "Timestamp of the upload",
+      "required": true,
+      "defaultFn": "now"
+    },
+    "filename": {
+      "type": "string",
+      "description": "File name of the dataset"
+    },
+    "feedback-updated": {
+      "type": "date",
+      "description": "Timestamp of data quality feedback"
+    },
+    "svrl-updated": {
+      "type": "date",
+      "description": "Timestamp of SVRL report"
+    },
+    "json-updated": {
+      "type": "date",
+      "description": "Timestamp of JSON report"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

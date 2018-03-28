@@ -14,17 +14,10 @@
   "versions": {
     "url": "mongodb://localhost:27017/versions"
   },
-  "container": {
-    "name": "container",
-    "connector": "loopback-component-storage",
-    "provider": "google",
-    "keyFilename": "path/to/keyfile.json" ,
-    "projectId": ".."
-
+  "iati-testfilestore": {
+    "keyFilename": "local/DataWorkbench-serviceaccount.json"
   },
-  "files": {
-    "url": "mongodb://localhost:27017/files",
-    "name": "files",
-    "connector": "mongodb"
+  "iati-testdatasets": {
+    "url": "mongodb://localhost:27017/iati-testdatasets"
   }
 }

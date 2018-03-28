@@ -1,5 +1,5 @@
-var CONTAINERS_URL = '/api/containers/';
-var CONTAINER_NAME = 'hond';
+var CONTAINERS_URL = '/api/iati-testfile/';
+var CONTAINER_NAME = 'dataworkbench-test';
 
 module.exports = function(File) {
 
@@ -7,17 +7,18 @@ module.exports = function(File) {
     File.upload = function (ctx,options,cb) {
         if(!options) options = {};
         ctx.req.params.container = CONTAINER_NAME;
-        File.app.models.container.upload(ctx.req,ctx.result,options,function (err,fileObj) {
+        File.app.models['iati-testfile'].upload(ctx.req,ctx.result,options,function (err,fileObj) {
             if(err) {
                 cb(err);
             } else {
                 var fileInfo = fileObj.files.file[0];
                 File.create({
-                    name: fileInfo.name,
+                    filename: fileInfo.name,
                     type: fileInfo.type,
                     container: fileInfo.container,
                     url: CONTAINERS_URL+fileInfo.container+'/download/'+fileInfo.name,
-                    org_name: options.org_name
+                    org_name: options.org_name,
+                    tmpworkspaceId: options.tmpworkspaceId
                 },function (err,obj) {
                     if (err !== null) {
                         cb(err);

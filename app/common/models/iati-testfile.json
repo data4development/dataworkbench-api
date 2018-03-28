@@ -1,6 +1,7 @@
 
 {
-  "name": "container",
+  "name": "iati-testfile",
+  "description": "IATI test file (may not be public yet)",
   "base": "Model",
   "idInjection": true,
   "options": {

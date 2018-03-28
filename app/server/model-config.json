@@ -42,12 +42,12 @@
     "dataSource": "versions",
     "public": true
   },
-  "container": {
-    "dataSource": "container",
+  "iati-testfile": {
+    "dataSource": "iati-testfilestore",
     "public": true
   },
-  "file-up": {
-    "dataSource": "files",
+  "iati-testdataset": {
+    "dataSource": "iati-testdatasets",
     "public": true
   }
 }

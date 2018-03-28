@@ -25,5 +25,16 @@
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/versions?replicaSet=rs0",
     "name": "versions",
     "connector": "mongodb"
+  },
+  "iati-testfilestore": {
+    "name": "iati-testfilestore",
+    "connector": "loopback-component-storage",
+    "provider": "google",
+    "projectId": "dataworkbench-io"
+  },
+  "iati-testdatasets": {
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-testdatasets?replicaSet=rs0",
+    "name": "iati-testdatasets",
+    "connector": "mongodb"
   }
 }
