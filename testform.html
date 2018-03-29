@@ -1,7 +1,7 @@
 <html>
 <body>
-  <form method='POST' enctype='multipart/form-data' action='http://localhost:3000/api/iati-testdatasets/upload'>
-    <input type="hidden" name="tmpworkspaceId" value="something-hard-to-guess">
+  <form method='POST' enctype='multipart/form-data' action='http://localhost:3000/api/iati-testdatasets/upload?[options][ws]=hello-world'>
+    <!-- <input type="hidden" name="tmpworkspaceId" value="something-hard-to-guess"> -->
     File to upload: <input type=file name=file><br>
     Name of the file: <input type=text name=name><br>
     <br>

@@ -15,10 +15,9 @@ module.exports = function(File) {
                 File.create({
                     filename: fileInfo.name,
                     type: fileInfo.type,
-                    container: fileInfo.container,
+                    // container: fileInfo.container,
                     url: CONTAINERS_URL+fileInfo.container+'/download/'+fileInfo.name,
-                    org_name: options.org_name,
-                    tmpworkspaceId: options.tmpworkspaceId
+                    tmpworkspaceId: options.ws
                 },function (err,obj) {
                     if (err !== null) {
                         cb(err);
