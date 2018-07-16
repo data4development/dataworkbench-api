@@ -12,7 +12,7 @@ To run a local version without docker, and responsive to changes in the code:
 
 ```
 npm install
-NODE_ENV=sandbox nodemon app/server/server.js
+NODE_ENV=sandbox nodemon server/server.js
 ```
 
 The *.local.js and *.local.json configuration files will be excluded from the Docker image.
