@@ -55,7 +55,7 @@
     },
     "updated": {
       "type": "date",
-      "description": "Timestamp of latest download"
+      "description": "Timestamp of latest update of the dataset record"
     },
     "feedback-updated": {
       "type": "date",

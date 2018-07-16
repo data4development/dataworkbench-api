@@ -21,7 +21,7 @@ COPY app/package*.json /app/
 # as well.
 # This command will also cat the npm-debug.log file after the
 # build, if it exists.
-RUN npm install --unsafe-perm --dev || \
+RUN npm install --unsafe-perm  || \
   ((if [ -f npm-debug.log ]; then \
       cat npm-debug.log; \
     fi) && false)

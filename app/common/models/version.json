@@ -15,8 +15,8 @@
     "slug": {
       "type": "string",
       "required": true,
-      "default": "current",
-      "description": "Identifier suitable for URLs"
+      "description": "Identifier suitable for URLs",
+      "default": "current"
     },
     "owner-slug": {
       "type": "string",
@@ -29,8 +29,8 @@
     "title": {
       "type": "string",
       "required": true,
-      "default": "Current",
-      "description": "Title for the version"
+      "description": "Title for the version",
+      "default": "Current"
     },
     "description": {
       "type": "string",
