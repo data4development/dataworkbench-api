@@ -15,7 +15,8 @@
     "url": "mongodb://localhost:27017/versions"
   },
   "iati-testfilestore": {
-    "keyFilename": "local/DataWorkbench-serviceaccount.json"
+    "keyFilename": "local/DataWorkbench-serviceaccount.json",
+    "nameConflict": "makeUnique"
   },
   "iati-testdatasets": {
     "url": "mongodb://localhost:27017/iati-testdatasets"
