@@ -1,6 +1,6 @@
 {
   "name": "iati-testdataset",
-  "description": "IATI test dataset (maybe not public yet)",
+  "description": "IATI dataset to test",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

@@ -1,6 +1,6 @@
 {
   "name": "iati-publisher",
-  "description": "IATI publishers (organisation) copied from the IATI Registry",
+  "description": "IATI publishers copied from the IATI Registry",
   "base": "PersistedModel",
   "idInjection": true,
   "scopes": {
