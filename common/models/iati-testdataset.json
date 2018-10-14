@@ -33,8 +33,8 @@
     },
     "uploaded": {
       "type": "date",
-      "description": "Timestamp of the upload",
       "required": true,
+      "description": "Timestamp of the upload",
       "defaultFn": "now"
     },
     "filename": {
@@ -57,5 +57,5 @@
   "validations": [],
   "relations": {},
   "acls": [],
-  "methods": []
+  "methods": {}
 }

@@ -1,4 +1,3 @@
-
 {
   "name": "iati-testfile",
   "description": "IATI file to test",
@@ -11,5 +10,5 @@
   "validations": [],
   "relations": {},
   "acls": [],
-  "methods": []
+  "methods": {}
 }

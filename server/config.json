@@ -17,6 +17,14 @@
       "extended": true,
       "limit": "100kb"
     },
-    "cors": false
+    "cors": false,
+    "sharedMethods": {
+      "*": false,
+      "find": true,
+      "findById": true,
+      "findOne": true,
+      "count": true,
+      "exists": true
+    }
   }
 }

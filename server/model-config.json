@@ -15,7 +15,16 @@
   },
   "iati-file": {
     "dataSource": "iati-filestore",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "download": true,
+          "getFile": true,
+          "getFiles": true
+        }
+      }
+    }
   },
   "iati-dataset": {
     "dataSource": "iati-datasets",
@@ -23,16 +32,27 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true,
-          "find": true,
-          "findById": true
+          "__get__completesvrl": true,
+          "__count__completesvrl": true
         }
       }
     }
   },
   "iati-publisher": {
     "dataSource": "iati-publishers",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "__get__workspaces": true,
+          "__count__workspaces": true,
+          "prototype.__findById__workspaces": true,
+          "__get__current": true,
+          "__count__current": true,
+          "__findOne__current": true
+        }
+      }
+    }
   },
   "workspace": {
     "dataSource": "workspaces",
@@ -44,10 +64,29 @@
   },
   "iati-testfile": {
     "dataSource": "iati-testfilestore",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "download": true,
+          "getFile": true
+        }
+      }
+    }    
   },
   "iati-testdataset": {
     "dataSource": "iati-testdatasets",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "find": false,
+          "count": false,
+          "findOne": false,
+          "create": true,
+          "upload": true
+        }
+      }
+    }
   }
 }
