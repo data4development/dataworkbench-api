@@ -19,3 +19,5 @@ docker.properties
 node_modules/
 npm-debug.log
 local/*
+
+\.settings/
