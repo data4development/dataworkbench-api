@@ -11,16 +11,16 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
-    "compression": "^1.7.2",
+    "compression": "^1.7.3",
     "cors": "^2.5.2",
-    "helmet": "^3.12.1",
-    "loopback": "^3.23.0",
+    "helmet": "^3.14.0",
+    "loopback": "^3.23.2",
     "loopback-boot": "^2.27.1",
-    "loopback-component-explorer": "^6.3.0",
+    "loopback-component-explorer": "^6.3.1",
     "loopback-component-ping": "^2.0.2",
     "loopback-component-storage": "^3.5.0",
     "loopback-connector-gdatastore": "^1.0.9",
-    "loopback-connector-mongodb": "^3.8.0",
+    "loopback-connector-mongodb": "^3.9.1",
     "serve-favicon": "^2.5.0",
     "strong-error-handler": "^2.3.2"
   },
