@@ -15,7 +15,7 @@
       "timestamp": true,
       "uptime": true
     },
-    "modelName": "Ping",
+    "modelName": "ping",
     "acls": [
       {
         "accessType": "*",
