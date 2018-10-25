@@ -35,5 +35,5 @@
     "url": ""
   },
   "license": "AGPL-3.0-or-later",
-  "description": "validator-api"
+  "description": "IATI data validation service. [General technical documentation is available here.](https://data4development.github.io/IATI-data-validator/)"
 }

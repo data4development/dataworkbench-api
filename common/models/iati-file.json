@@ -1,6 +1,6 @@
 {
   "name": "iati-file",
-  "description": "IATI file (original, processed, SVRL, JSON)",
+  "description": "IATI file storage (original IATI, processed IATI, SVRL, JSON)",
   "base": "Model",
   "idInjection": true,
   "options": {
