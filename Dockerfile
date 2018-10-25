@@ -3,7 +3,7 @@
 FROM gcr.io/google_appengine/nodejs
 
 # By default build for development
-# ARG NODE_ENV=development
+ARG NODE_ENV=production
 
 # Check to see if the the version included in the base runtime satisfies
 # '>=0.12.7', if not then do an npm install of the latest available
