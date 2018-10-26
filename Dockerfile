@@ -2,8 +2,10 @@
 # single application.
 FROM gcr.io/google_appengine/nodejs
 
-# By default build for development
-ARG NODE_ENV=production
+# Allow specifying a build/run environment, use production as default
+# NODE_ENV is set to 'production' in the Google base image so it can't be overridden by an ARG with that name 
+ARG BUILD_ENV
+ENV NODE_ENV=${BUILD_ENV:-production}
 
 # Check to see if the the version included in the base runtime satisfies
 # '>=0.12.7', if not then do an npm install of the latest available
@@ -21,7 +23,7 @@ COPY package*.json /app/
 # as well.
 # This command will also cat the npm-debug.log file after the
 # build, if it exists.
-RUN npm install --unsafe-perm  || \
+RUN npm install --unsafe-perm || \
   ((if [ -f npm-debug.log ]; then \
       cat npm-debug.log; \
     fi) && false)
@@ -30,4 +32,5 @@ RUN npm install --unsafe-perm  || \
 COPY . /app/
 
 EXPOSE 8080
-CMD npm start
+# Implicit in base image:
+# CMD npm start
