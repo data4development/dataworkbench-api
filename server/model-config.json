@@ -56,7 +56,16 @@
   },
   "workspace": {
     "dataSource": "workspaces",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "__get__versions": true,
+          "__count__versions": true,
+          "prototype.__findById__versions": true
+        }
+      }
+    }
   },
   "version": {
     "dataSource": "versions",
