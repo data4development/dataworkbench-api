@@ -44,8 +44,8 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "__get__workspaces": true,
-          "__count__workspaces": true,
+          "prototype.__get__workspaces": true,
+          "prototype.__count__workspaces": true,
           "prototype.__findById__workspaces": true,
           "__get__current": true,
           "__count__current": true,
@@ -60,8 +60,8 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "__get__versions": true,
-          "__count__versions": true,
+          "prototype.__get__versions": true,
+          "prototype.__count__versions": true,
           "prototype.__findById__versions": true
         }
       }
