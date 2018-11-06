@@ -1,4 +1,4 @@
-var CONTAINERS_URL = '/api/iati-testfile/';
+var CONTAINERS_URL = '/api/iati-testfiles/';
 var CONTAINER_NAME = 'dataworkbench-test';
 var PUBSUB_TOPIC_NEW_FILE = 'newIatiFile';
 
