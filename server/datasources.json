@@ -3,7 +3,8 @@
     "name": "iati-filestore",
     "connector": "loopback-component-storage",
     "provider": "google",
-    "projectId": "dataworkbench-io"
+    "projectId": "dataworkbench-io",
+    "maxFileSize": "52428800"
   },
   "iati-publishers": {
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-publishers?replicaSet=rs0",
@@ -31,7 +32,8 @@
     "connector": "loopback-component-storage",
     "provider": "google",
     "projectId": "dataworkbench-io",
-    "nameConflict": "makeUnique"
+    "nameConflict": "makeUnique",
+    "maxFileSize": "52428800"
   },
   "iati-testdatasets": {
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-testdatasets?replicaSet=rs0",

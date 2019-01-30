@@ -1,6 +1,6 @@
 {
   "name": "validator-api",
-  "version": "0.4.1-public",
+  "version": "0.4.2",
   "main": "server/server.js",
   "engines": {
     "node": ">=4"
@@ -35,5 +35,5 @@
     "url": "git+https://github.com/data4development/dataworkbench-api.git"
   },
   "license": "AGPL-3.0-or-later",
-  "description": "IATI data validation service. [General technical documentation is available here.](https://data4development.github.io/IATI-data-validator/)"
+  "description": "IATI data validation service. [General technical documentation is available here.](https://data4development.github.io/dataworkbench-api/)"
 }
