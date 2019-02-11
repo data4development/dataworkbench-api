@@ -20,7 +20,6 @@
     "loopback-component-ping": "^2.0.2",
     "loopback-component-storage": "^3.5.0",
     "loopback-component-visualizer": "^1.2.1",
-    "loopback-connector-gdatastore": "^1.0.9",
     "loopback-connector-mongodb": "^3.9.2",
     "serve-favicon": "^2.5.0",
     "strong-error-handler": "^2.3.2"
