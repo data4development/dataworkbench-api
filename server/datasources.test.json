@@ -1,0 +1,26 @@
+{
+  "iati-filestore": {
+    "provider": "filesystem",
+    "root": "./test/tmp"    
+  },
+  "iati-publishers": {
+    "connector": "memory"
+  },
+  "iati-datasets": {
+    "connector": "memory"
+  },
+  "workspaces": {
+    "connector": "memory"
+  },
+  "versions": {
+    "connector": "memory"
+  },
+  "iati-testfilestore": {
+    "provider": "filesystem",
+    "root": "./test/tmp",    
+    "nameConflict": "makeUnique"
+  },
+  "iati-testdatasets": {
+    "connector": "memory"
+  }
+}

@@ -9,7 +9,7 @@ module.exports = function(app, cb) {
    * for more info.
    */
 
-  app.models['iati-publisher'].nestRemoting('workspaces')
+  app.models['iati-publisher'].nestRemoting('workspaces');
 
   process.nextTick(cb); // Remove if you pass `cb` to an async function yourself
 };
