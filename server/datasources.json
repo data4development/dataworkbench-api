@@ -4,7 +4,7 @@
     "connector": "loopback-component-storage",
     "provider": "google",
     "projectId": "dataworkbench-io",
-    "maxFileSize": "200000000"
+    "maxFileSize": "250000000"
   },
   "iati-publishers": {
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-publishers?replicaSet=rs0",
@@ -33,7 +33,7 @@
     "provider": "google",
     "projectId": "dataworkbench-io",
     "nameConflict": "makeUnique",
-    "maxFileSize": "200000000"
+    "maxFileSize": "250000000"
   },
   "iati-testdatasets": {
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-testdatasets?replicaSet=rs0",
