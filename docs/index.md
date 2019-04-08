@@ -29,17 +29,21 @@ C->>API: get dataset info
 activate API
 
 API->>DS: get info about dataset
-DS->>API: return md5, download date, ...
+activate DS
+DS-->>API: return md5, download date, ...
+deactivate DS
 
-API->>C: dataset info
+API-->>C: dataset info
 deactivate API
 
 C->>API: get file a in specific format
 activate API
 API->>FS: get dataset file
-FS->>API: results as IATI, SVRL, HTML, ...
+activate FS
+FS-->>API: results as IATI, SVRL, HTML, ...
+deactivate FS
 
-API->>C: 
+API-->>C: 
 deactivate API
 ```
 
@@ -53,38 +57,63 @@ To be developed:
 - Clean up the results after a period (API storage?).
 
 ```mermaid
+
 sequenceDiagram
 participant C as Client
 participant API
 participant FS as File Store
-participant VE as Validation Engine
+participant DS as Test Datasets
 
-C->>API: upload file or URL
+note over C: create random workspace <wid>
+
+C->>API: upload file with <wid>
 activate API
+activate C
 
-note over API: store copy of file and calculate MD5
+API->>FS: store copy of file
+activate FS
+FS-->>API: unique filename
+deactivate FS
 
-API->>FS: get dataset info for MD5
+API->>DS: store test dataset info and <wid>
+activate DS
+DS-->>API: unique dataset id
+deactivate DS
 
-alt already available
-	FS->>API: results as IATI, SVRL, HTML, ...
+API-->>C: dataset id + filename
 
-else not available yet
-	FS->>API: not found
-	API->>VE: trigger validation pipeline
-	activate VE
-	note over API,VE: process files and create validation reports
-
-	VE->>API: new files ready
-	deactivate VE
-	
-	opt store results
-    	API->>FS: save results for reuse
-	end
-end
-
-API->>C: return results
 deactivate API
+deactivate C
+
+note over C: continue to /validate/<wid>
+
+activate C
+loop every second
+
+C->>API: get test-datasets for <wid>
+API->>DS: get
+activate DS
+DS-->>API: results
+deactivate DS
+API-->>C: results
+note over C: update list of known datasets
+
+end
+deactivate C
+
+note over C: continue to /...
+
+C->>API: get JSON file
+activate C
+activate API
+API->>FS: get JSON file
+activate FS
+FS-->>API: return file
+deactivate FS
+API-->>C: return file
+deactivate API
+deactivate C
+
 ```
 
 ### Data Refresher
