@@ -17,8 +17,7 @@
   },
   "iati-testfilestore": {
     "provider": "filesystem",
-    "root": "./test/tmp",    
-    "nameConflict": "makeUnique"
+    "root": "./test/tmp"
   },
   "iati-testdatasets": {
     "connector": "memory"
