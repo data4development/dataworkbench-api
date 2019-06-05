@@ -1,7 +1,7 @@
 'use strict';
 
 var CONTAINERS_URL = '/api/iati-testfiles/';
-var CONTAINER_NAME = 'dataworkbench-test';
+var CONTAINER_NAME = 'dataworkbench-test-staging-d4d-dataworkbench';
 
 module.exports = function(File) {
   File.upload = function(ctx, options, cb) {
