@@ -3,22 +3,22 @@
     "keyFilename": "local/DataWorkbench-serviceaccount.json"
   },
   "iati-publishers": {
-    "url": "mongodb://mongo:27017/iati-publishers"
+    "url": "mongodb://localhost:27017/iati-registry"
   },
   "iati-datasets": {
-    "url": "mongodb://mongo:27017/iati-datasets"
+    "url": "mongodb://localhost:27017/iati-registry"
   },
   "workspaces": {
-    "url": "mongodb://mongo:27017/workspaces"
+    "url": "mongodb://localhost:27017/iati-registry"
   },
   "versions": {
-    "url": "mongodb://mongo:27017/versions"
+    "url": "mongodb://localhost:27017/iati-registry"
   },
   "iati-testfilestore": {
     "keyFilename": "local/DataWorkbench-serviceaccount.json",
     "nameConflict": "makeUnique"
   },
   "iati-testdatasets": {
-    "url": "mongodb://mongo:27017/iati-testdatasets"
+    "url": "mongodb://localhost:27017/iati-registry"
   }
 }
