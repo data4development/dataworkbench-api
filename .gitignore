@@ -15,7 +15,6 @@
 .project
 .strong-pm
 coverage
-docker.properties
 node_modules/
 npm-debug.log
 local/*
