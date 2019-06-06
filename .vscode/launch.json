@@ -12,7 +12,8 @@
             "runtimeExecutable": "nodemon",
             "program": "${workspaceRoot}/server/server.js",
             "env": {
-                "NODE_ENV": "sandbox"
+                "NODE_ENV": "sandbox",
+                "DEBUG": "loopback:storage:service,loopback:storage:handler,loopback:connector:mongodb,dwb:api:upload"
             },
             "restart": true,
             "console": "integratedTerminal",
