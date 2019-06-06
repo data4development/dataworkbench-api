@@ -33,6 +33,17 @@ describe('Work with test files', function() {
 
   it('should handle uploading a small file', function(done) {
     chai.request(api)
+      .post('/api/iati-testfiles/' + container + '/upload')
+      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+              'file-small.xml')
+      .end(function(err, res) {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('should handle uploading a file as a dataset', function(done) {
+    chai.request(api)
       .post('/api/iati-testdatasets/upload')
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
