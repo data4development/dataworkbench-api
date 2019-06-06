@@ -7,23 +7,23 @@
     "maxFileSize": "250000000"
   },
   "iati-publishers": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-publishers?replicaSet=rs0",
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "iati-publishers",
     "connector": "mongodb"
   },
   "iati-datasets": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-datasets?replicaSet=rs0",
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "iati-datasets",
     "connector": "mongodb",
     "allowExtendedOperators": true
   },
   "workspaces": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/workspaces?replicaSet=rs0",
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "workspaces",
     "connector": "mongodb"
   },
   "versions": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/versions?replicaSet=rs0",
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "versions",
     "connector": "mongodb"
   },
@@ -36,7 +36,7 @@
     "maxFileSize": "250000000"
   },
   "iati-testdatasets": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-testdatasets?replicaSet=rs0",
+    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "iati-testdatasets",
     "connector": "mongodb"
   }

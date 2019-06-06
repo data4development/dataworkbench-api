@@ -1,15 +1,17 @@
 'use strict';
 
 var CONTAINERS_URL = '/api/iati-testfiles/';
-var CONTAINER_NAME = 'dataworkbench-test';
-var PUBSUB_TOPIC_NEW_FILE = 'newIatiFile';
+var CONTAINER_NAME = 'dataworkbench-test-staging-d4d-dataworkbench';
+var debug = require('debug')('dwb:api:upload');
 
 module.exports = function(File) {
   File.upload = function(ctx, options, cb) {
     if (!options) options = {};
     ctx.req.params.container = CONTAINER_NAME;
+    debug('Starting upload');
     File.app.models['iati-testfile'].upload(ctx.req, ctx.result, options,
     		function(err, fileObj) {
+      debug('Upload done');
       if (err) {
         cb(err);
       } else {
@@ -26,11 +28,6 @@ module.exports = function(File) {
             cb(err);
           } else {
             cb(null, obj);
-
-            // Send message with pub/sub to inform the upload of the new file
-            var pubSubMessage = {};
-            pubSubMessage.tempWorkspaceId = options.ws;
-            publishMessage(PUBSUB_TOPIC_NEW_FILE, pubSubMessage);
           }
         });
       }
@@ -52,30 +49,4 @@ module.exports = function(File) {
     }
   );
 
-  // Send a message to Google Pub/sub to inform the upload of a new File
-  function publishMessage(topicName, data) {
-    // [START pubsub_publish_message]
-    // Imports the Google Cloud client library
-    const PubSub = require('@google-cloud/pubsub');
-
-    // Creates a client
-    // const pubsub = new PubSub();
-    const pubsub = new PubSub({
-    	keyFilename: 'local/DataWorkbench-serviceaccount.json'});
-
-    // Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
-    const dataBuffer = Buffer.from(JSON.stringify(data));
-
-    pubsub
-      .topic(topicName)
-      .publisher()
-      .publish(dataBuffer)
-      .then(messageId => {
-        console.log(`Message ${messageId} published.`);
-      })
-      .catch(err => {
-        console.error('ERROR:', err);
-      });
-    // [END pubsub_publish_message]
-  }
 };
