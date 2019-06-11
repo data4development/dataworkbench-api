@@ -18,6 +18,7 @@ module.exports = function(File) {
         var fileInfo = fileObj.files.file[0];
         File.create({
           filename: fileInfo.name,
+          fileid: fileInfo.name,
           type: fileInfo.type,
           // container: fileInfo.container,
           url: CONTAINERS_URL + fileInfo.container +
@@ -48,5 +49,4 @@ module.exports = function(File) {
       http: {verb: 'post'},
     }
   );
-
 };

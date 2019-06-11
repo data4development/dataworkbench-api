@@ -38,6 +38,7 @@
   "iati-testdatasets": {
     "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "iati-testdatasets",
-    "connector": "mongodb"
+    "connector": "mongodb",
+    "allowExtendedOperators": true
   }
 }

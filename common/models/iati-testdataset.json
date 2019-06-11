@@ -23,9 +23,9 @@
       "type": "string",
       "description": "URL of the dataset (if available)"
     },
-    "md5": {
+    "fileid": {
       "type": "string",
-      "description": "MD5 hash of the dataset"
+      "description": "unique file id for the dataset"
     },
     "tmpworkspaceId": {
       "type": "string",
