@@ -48,5 +48,4 @@ module.exports = function(File) {
       http: {verb: 'post'},
     }
   );
-
 };
