@@ -1,13 +1,22 @@
 'use strict';
 
+var formidable = require('formidable');
+
 var CONTAINERS_URL = '/api/iati-testfiles/';
 var CONTAINER_NAME = 'dataworkbench-test-staging-d4d-dataworkbench';
 var debug = require('debug')('dwb:api:upload');
+var filename='dummy';
 
 module.exports = function(File) {
   File.upload = function(ctx, options, cb) {
     if (!options) options = {};
     ctx.req.params.container = CONTAINER_NAME;
+
+    var form = new formidable.IncomingForm();
+    form.parse(ctx.req, function(err, fields, files) {
+      filename = files.file.name;
+    });
+
     debug('Starting upload');
     File.app.models['iati-testfile'].upload(ctx.req, ctx.result, options,
     		function(err, fileObj) {
@@ -16,8 +25,9 @@ module.exports = function(File) {
         cb(err);
       } else {
         var fileInfo = fileObj.files.file[0];
+        debug('File %s uploaded as %s', filename, fileInfo.name);
         File.create({
-          filename: fileInfo.name,
+          filename: filename,
           fileid: fileInfo.name,
           type: fileInfo.type,
           // container: fileInfo.container,
