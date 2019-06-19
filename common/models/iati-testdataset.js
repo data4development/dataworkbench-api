@@ -33,7 +33,7 @@ module.exports = function(File) {
           // container: fileInfo.container,
           url: CONTAINERS_URL + fileInfo.container +
               '/download/' + fileInfo.name,
-          tmpworkspaceId: options.ws},
+          status: 'File uploaded'},
         function(err, obj) {
           if (err !== null) {
             cb(err);
