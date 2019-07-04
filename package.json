@@ -8,7 +8,8 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "test": "NODE_ENV=test mocha"
+    "test": "NODE_ENV=test mocha",
+    "dev": "NODE_ENV=sandbox nodemon server/server.js"
   },
   "dependencies": {
     "compression": "^1.7.3",
