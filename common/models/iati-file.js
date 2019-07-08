@@ -4,7 +4,6 @@ var config = require('../config/google-storage');
 var app = require('../../server/server');
 var formidable = require('formidable');
 var version = require('../../server/config.local');
-var CONTAINERS_URL = version.restApiRoot + '/iati-files/';
 var testdataset = require('./iati-testdataset.json');
 var utils = require('../../utils/convertors');
 
@@ -51,9 +50,7 @@ module.exports = function(Iatifile) {
           filename: filename,
           fileid: fileInfo.name,
           type: fileInfo.type,
-          shortUrl: CONTAINERS_URL + 'file/' + type + '/' + fileInfo.name,
-          url: CONTAINERS_URL + fileInfo.container +
-              '/download/' + fileInfo.name,
+          url: version.restApiRoot + '/iati-files/file/' + type + '/' + fileInfo.name,
           status: 'File uploaded'},
           function(err, data) {
             if (err !== null) {

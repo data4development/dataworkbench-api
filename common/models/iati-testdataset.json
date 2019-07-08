@@ -23,11 +23,6 @@
       "type": "string",
       "description": "URL of the dataset (if available)"
     },
-    "shortUrl": {
-      "type": "string",
-      "description": "Short URL of the dataset (if available)",
-      "default": ""
-    },
     "fileid": {
       "type": "string",
       "description": "unique file id for the dataset"
