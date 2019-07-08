@@ -4,20 +4,22 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var api = require('../server/server');
 var version = require('../server/config.local');
+var config = require('../common/config/google-storage');
 
 var should = chai.should();
 
 chai.use(chaiHttp);
 
 var fs = require('fs');
-var tmpdir = './test/tmp/';
-var container = 'test-files';
+var tmpdir = './test/tmp/'; // should match /server/datasources.test.json
 
 describe('Work with test files', function() {
   before(function() {
-    if (!fs.existsSync(tmpdir + container)) {
-	  fs.mkdirSync(tmpdir + container);
-    }
+    config.container_upload.enum.forEach((bucket) => {
+      if (!fs.existsSync(tmpdir + config.container_upload[bucket])) {
+        fs.mkdirSync(tmpdir + config.container_upload[bucket]);
+      }
+    });
   });
 
   after(function() {
@@ -34,7 +36,7 @@ describe('Work with test files', function() {
 
   it('should handle uploading a small file', function(done) {
     chai.request(api)
-      .post(version.restApiRoot + '/iati-testfiles/' + container + '/upload')
+      .post(version.restApiRoot + '/iati-testfiles/' + config.container_upload.source + '/upload')
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
       .end(function(err, res) {
