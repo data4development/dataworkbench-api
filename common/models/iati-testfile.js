@@ -9,7 +9,7 @@ var testdataset = require('./iati-testdataset.json');
 
 module.exports = function(Iatitestfile) {
   Iatitestfile.fileDownload = function(req, res, type, filename, cb) {
-    Iatitestfile.download(config.container[type], filename, req, res, cb);
+    Iatitestfile.download(config.container_upload[type], filename, req, res, cb);
   };
 
   Iatitestfile.remoteMethod('fileDownload', {
@@ -23,7 +23,7 @@ module.exports = function(Iatitestfile) {
   });
 
   Iatitestfile.fileUpload = function(req, res, type, cb) {
-    if (!config.container.enum.includes(type)) {
+    if (!config.container_upload.enum.includes(type)) {
       return cb({messsage: 'Unsupported type', statusCode: 400});
     }
 
@@ -36,7 +36,7 @@ module.exports = function(Iatitestfile) {
     });
 
     Iatitestfile.upload(
-      config.container[type],
+      config.container_upload[type],
       req,
       res,
       function(err, uploadedFile) {

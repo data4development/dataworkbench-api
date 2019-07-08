@@ -9,7 +9,7 @@ var utils = require('../../utils/convertors');
 
 module.exports = function(Iatifile) {
   Iatifile.fileDownload = function(req, res, type, filename, cb) {
-    Iatifile.download(config.container[type], filename, req, res, cb);
+    Iatifile.download(config.container_public[type], filename, req, res, cb);
   };
 
   Iatifile.remoteMethod('fileDownload', {
@@ -23,7 +23,7 @@ module.exports = function(Iatifile) {
   });
 
   Iatifile.fileUpload = function(req, res, type, cb) {
-    if (!config.container.enum.includes(type)) {
+    if (!config.container_public.enum.includes(type)) {
       return cb({messsage: 'Unsupported type', statusCode: 400});
     }
 
@@ -36,7 +36,7 @@ module.exports = function(Iatifile) {
     });
 
     Iatifile.upload(
-      config.container[type],
+      config.container_public[type],
       req,
       res,
       function(err, uploadedFile) {
