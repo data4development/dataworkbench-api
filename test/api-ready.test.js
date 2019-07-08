@@ -3,13 +3,18 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var api = require('../server/server');
-var version = require('../server/config.sandbox');
+var version = require('../server/config.local');
 
 var should = chai.should();
 
 chai.use(chaiHttp);
 
 describe('When checking the API', function() {
+  it('should be in the test environment', function(done) {
+    process.env.NODE_ENV.should.equal('test');
+    done();
+  });
+
   it('should have the API available', function(done) {
     chai.request(api)
       .get('/')

@@ -3,7 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var api = require('../server/server');
-var version = require('../server/config.sandbox');
+var version = require('../server/config.local');
 
 var should = chai.should();
 
