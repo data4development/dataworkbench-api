@@ -11,9 +11,9 @@ var should = chai.should();
 chai.use(chaiHttp);
 
 var fs = require('fs');
-var tmpdir = './test/tmp/';
+var tmpdir = './test/tmp/'; // should match /server/datasources.test.json
 
-describe('Work with files', function() {
+describe('When working with public IATI files', function() {
   before(function() {
     config.container_public.enum.forEach((bucket) => {
       if (!fs.existsSync(tmpdir + config.container_public[bucket])) {
@@ -34,16 +34,18 @@ describe('Work with files', function() {
       });
   });
 
-  it('should have the iati-files container endpoint', function(done) {
+  // TODO: this should become not available (404)
+  it('should have a container files endpoint', function(done) {
     chai.request(api)
-      .get(version.restApiRoot + '/iati-files/' + config.container_public.source + '/files')
+      .get(version.restApiRoot + '/iati-files/any-container-name/files')
       .end(function(err, res) {
         res.should.have.status(200);
         done();
       });
   });
 
-  it('should handle uploading a small file', function(done) {
+  // TODO: this file upload should not be available in the public API
+  it('should handle uploading a small file as source', function(done) {
     chai.request(api)
       .post(version.restApiRoot + '/iati-files/file/source')
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
@@ -54,7 +56,8 @@ describe('Work with files', function() {
       });
   });
 
-  it('should handle uploading a large file', function(done) {
+  // TODO: this file upload should not be available in the public API
+  it('should handle uploading a large file as source', function(done) {
     chai.request(api)
       .post(version.restApiRoot + '/iati-files/file/source')
       .attach('file', fs.readFileSync('./test/fixtures/file-large.xml'),
