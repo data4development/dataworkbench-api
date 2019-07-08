@@ -25,5 +25,5 @@ Docker
 To create a Docker image, run
 
 ```
-docker build -t test-me .
+docker build --no-cache --build-arg BUILD_ENV=sandbox -t my-api:v1 .
 ```
