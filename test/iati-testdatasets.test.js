@@ -3,6 +3,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var api = require('../server/server');
+var version = require('../server/config.sandbox');
 
 var should = chai.should();
 
@@ -24,7 +25,7 @@ describe('Work with test files', function() {
 
   it('should have the iati-testdatasets endpoint', function(done) {
     chai.request(api)
-      .get('/api/iati-testdatasets/')
+      .get(version.restApiRoot + '/iati-testdatasets/')
       .end(function(err, res) {
         res.should.have.status(200);
         done();
@@ -33,7 +34,7 @@ describe('Work with test files', function() {
 
   it('should handle uploading a small file', function(done) {
     chai.request(api)
-      .post('/api/iati-testfiles/' + container + '/upload')
+      .post(version.restApiRoot + '/iati-testfiles/' + container + '/upload')
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
       .end(function(err, res) {
@@ -44,7 +45,7 @@ describe('Work with test files', function() {
 
   it('should handle uploading a file as a dataset', function(done) {
     chai.request(api)
-      .post('/api/iati-testdatasets/upload')
+      .post(version.restApiRoot + '/iati-testdatasets/upload')
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
       .end(function(err, res) {
