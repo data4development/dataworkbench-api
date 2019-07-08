@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<iati-activities generated-datetime="2018-12-21T02:41:29.594Z" version="2.03" xmlns:usg="https://explorer.usaid.gov/">
+  <iati-activity default-currency="USD" hierarchy="1" last-updated-datetime="2018-12-21T02:41:29.594Z" xml:lang="en">
+    <iati-identifier>US-GOV-1-UY-AID-528-F-16-00001</iati-identifier>
+    <reporting-org ref="US-GOV-1" type="10">
+      <narrative>U.S. Agency for International Development</narrative>
+    </reporting-org>
+    <title>
+      <narrative>OFDA Uruguay Flood Assistance</narrative>
+    </title>
+    <description>
+      <narrative>OFDA Uruguay Flood Assistance</narrative>
+    </description>
+    <participating-org ref="US-GOV-1" role="1" type="10">
+      <narrative>U.S. Agency for International Development</narrative>
+    </participating-org>
+    <participating-org ref="US-GOV-1" role="2" type="10">
+      <narrative>U.S. Agency for International Development</narrative>
+    </participating-org>
+    <participating-org ref="US-GOV-1" role="3" type="10">
+      <narrative>U.S. Agency for International Development</narrative>
+    </participating-org>
+    <participating-org role="4" type="22">
+      <narrative>Adventist Development and Relief Agency International, Inc. (ADRA)</narrative>
+    </participating-org>
+    <activity-status code="3"/>
+    <activity-date iso-date="2015-10-01" type="1"/>
+    <activity-date iso-date="2015-10-01" type="2"/>
+    <activity-date iso-date="2016-09-30" type="3"/>
+    <activity-date iso-date="2016-09-30" type="4"/>
+    <contact-info type="1">
+      <organisation>
+        <narrative>U.S. Agency for International Development</narrative>
+      </organisation>
+      <person-name>
+        <narrative/>
+      </person-name>
+      <telephone/>
+      <email/>
+      <website>https://www.usaid.gov/who-we-are/organization/bureaus/bureau-democracy-conflict-and-humanitarian-assistance/office-us</website>
+      <mailing-address>
+        <narrative>1300 Pennsylvania Ave NW, Washington DC 20004</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="UY" percentage="100"/>
+    <collaboration-type code="1"/>
+    <default-flow-type code="10"/>
+    <default-finance-type code="110"/>
+    <default-aid-type code="C01"/>
+    <default-tied-status code="5"/>
+    <transaction humanitarian="1" ref="3BCF7C146333">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2015-12-31"/>
+      <value value-date="2015-12-31">50000.00</value>
+      <description>
+        <narrative>OFDA Uruguay Flood Assistance</narrative>
+      </description>
+      <disbursement-channel code="2"/>
+      <sector code="72010" vocabulary="1">
+        <narrative>Material relief assistance and services</narrative>
+      </sector>
+      <sector code="7001" vocabulary="99">
+        <narrative>Protection, Assistance and Solutions</narrative>
+      </sector>
+      <usg:treasury-account>
+        <usg:regular-account code="72"/>
+        <usg:main-account code="1035">International Disaster and Famine Assistance</usg:main-account>
+        <usg:fiscal-funding-year begin="2016" end="2018"/>
+      </usg:treasury-account>
+    </transaction>
+    <transaction humanitarian="1" ref="17C9133BE439">
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2015-12-31"/>
+      <value value-date="2015-12-31">50000.00</value>
+      <description>
+        <narrative>OFDA Uruguay Flood Assistance</narrative>
+      </description>
+      <disbursement-channel code="2"/>
+      <sector code="72010" vocabulary="1">
+        <narrative>Material relief assistance and services</narrative>
+      </sector>
+      <sector code="7001" vocabulary="99">
+        <narrative>Protection, Assistance and Solutions</narrative>
+      </sector>
+      <usg:treasury-account>
+        <usg:regular-account code="72"/>
+        <usg:main-account code="1035">International Disaster and Famine Assistance</usg:main-account>
+        <usg:fiscal-funding-year begin="2016" end="2018"/>
+      </usg:treasury-account>
+    </transaction>
+    <conditions attached="0"/>
+    <usg:mechanism-signing-date iso-date="2017-10-01"/>
+    <usg:duns-number>
+      <narrative>123456787</narrative>
+    </usg:duns-number>
+    <usg:state-location>
+      <narrative>Uruguay</narrative>
+    </usg:state-location>
+  </iati-activity>
+</iati-activities>
