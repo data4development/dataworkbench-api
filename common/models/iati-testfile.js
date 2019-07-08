@@ -3,7 +3,8 @@
 var config = require('../config/google-storage');
 var app = require('../../server/server');
 var formidable = require('formidable');
-var CONTAINERS_URL = '/api/iati-testfiles/';
+var version = require('../../server/config.local');
+var CONTAINERS_URL = version.restApiRoot + '/iati-testfiles/';
 var utils = require('../../utils/convertors');
 var testdataset = require('./iati-testdataset.json');
 
