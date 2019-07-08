@@ -8,7 +8,7 @@
 
   <target name="build" description="Docker build image for next version">
     <echo message="version ${tag}"></echo>
-    <echo message="docker build --build-arg ENV=${build_env} -t ${repo}:next ."></echo>
+    <echo message="docker build --build-arg BUILD_ENV=${build_env} -t ${repo}:next ."></echo>
 
     <exec executable="docker">
       <arg value="build"/>
