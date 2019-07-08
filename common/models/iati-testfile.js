@@ -1,10 +1,10 @@
 'use strict';
 
-var CANTAINER_NAME = 'dataworkbench-test-staging-d4d-dataworkbench';
+var CONTAINER_NAME = 'dataworkbench-test-staging-d4d-dataworkbench';
 
 module.exports = function(Iatitestfile) {
   Iatitestfile.file = function(req, res, filename, cb) {
-    Iatitestfile.download(CANTAINER_NAME, filename, req, res, cb);
+    Iatitestfile.download(CONTAINER_NAME, filename, req, res, cb);
   };
 
   Iatitestfile.remoteMethod('file', {
