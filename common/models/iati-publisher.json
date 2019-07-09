@@ -70,7 +70,10 @@
     "workspaces": {
       "type": "hasMany",
       "model": "workspace",
-      "foreignKey": ""
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [],

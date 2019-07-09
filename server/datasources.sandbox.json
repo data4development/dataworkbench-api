@@ -1,7 +1,7 @@
 {
   "iati-filestore": {
     "keyFilename": "local/d4d-dataworkbench-ec4542b6f8cb.json",
-    "projectId": "d4d-dataworkbench",
+    "projectId": "d4d-dataworkbench"
   },
   "iati-publishers": {
     "url": "mongodb://localhost:27017/iati-registry"
@@ -17,7 +17,7 @@
   },
   "iati-testfilestore": {
     "keyFilename": "local/d4d-dataworkbench-ec4542b6f8cb.json",
-    "projectId": "d4d-dataworkbench",
+    "projectId": "d4d-dataworkbench"
   },
   "iati-testdatasets": {
     "url": "mongodb://localhost:27017/iati-registry"
