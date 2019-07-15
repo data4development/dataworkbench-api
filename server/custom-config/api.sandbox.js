@@ -3,9 +3,7 @@
 module.exports = {
   'iati-file': {
     public: {
-      download: true,
-      getFiles: true,
-      getFile: true,
+      fileDownload: true,
     },
   },
   'iati-dataset': {
@@ -36,8 +34,7 @@ module.exports = {
   },
   'iati-testfile': {
     public: {
-      download: true,
-      getFile: true,
+      fileDownload: true,
     },
   },
   'iati-testdataset': {
