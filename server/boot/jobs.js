@@ -1,3 +1,5 @@
 'use strict';
 
-require('./jobs/datastore');
+if (process.env.RUN_JOBS === 'run') {
+  require('./jobs/datastore');
+}

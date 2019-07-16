@@ -46,3 +46,7 @@ const bootstrap = require('./custom-config/bootstrap');
 
 module.exports = bootstrap(modelConfig);
 ```
+
+## process.env
+
+`RUN_JOBS` - could be `run|empty`. This var used to run `job tasks` only on one cluster instance.

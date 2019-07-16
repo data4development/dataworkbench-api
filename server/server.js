@@ -1,5 +1,7 @@
 'use strict';
 
+process.env.NODE_ENV = 'sandbox';
+
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 

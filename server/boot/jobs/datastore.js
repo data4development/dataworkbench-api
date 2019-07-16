@@ -46,17 +46,23 @@ const cloneFile = async (file) => {
       {}
     );
     image.data.pipe(resp)
-    resp.on('error', reject)
-    resp.on('end', resolve)
 
-  })
+    const fileBuffer = [];
+    resp.on('data', (data) => {
+      fileBuffer.push(data);
+    });
+    resp.on('error', reject);
+    resp.on('end', () => {
+      resolve(Buffer.concat(fileBuffer));
+    });
+  });
 }
 const fetchPage = async (url, pageN) => {
   if (!url) {
     return
   }
 
-  const files = await Dataset.find({ oder: 'sha1 DESC', limit: 10, skip: (pageN - 1) * 9 });
+  const files = await Dataset.find({ oder: 'sha1 DESC', limit: 2000, skip: (pageN - 1) * 2000 });
   const filesSha1 = files.map(({ sha1 }) => sha1);
 
   return axios.get(url)
@@ -64,27 +70,30 @@ const fetchPage = async (url, pageN) => {
       const {data: { next, results }} = resp;
       const listOfSha1 = results.map(({ sha1 }) => sha1);
       const sha1DiffTmp = _.differenceWith(listOfSha1, filesSha1, _.isEqual);
-      const incorrectSha1Diff = (await Dataset.find({ where: { sha1: { inq: sha1DiffTmp } }, fields: {'sha1': true} })).map(({ sha1 }) => sha1)
-
+      const incorrectSha1Diff = (await Dataset.find({ where: { sha1: { inq: sha1DiffTmp } }, fields: {'sha1': true} }))
+        .map(({ sha1 }) => sha1)
       const sha1Diff = _.differenceWith(sha1DiffTmp, incorrectSha1Diff, _.isEqual);
 
       if (!sha1Diff.length) {
         return fetchPage(next, pageN + 1);
       }
 
-      const filteredResults = results.filter(({ sha1 }) => sha1Diff.indexOf(sha1) !== -1)
+      const filteredResults = results.filter(({ sha1 }) => sha1Diff.indexOf(sha1) !== -1);
 
       for(const file of filteredResults) {
-        await cloneFile(file);
-        const md5hash = md5(`${file.publisher.name}/${file.name}`);
-        await saveFileMetadata({ ...file, md5: md5hash });
+        try {
+          const fileAsBuffer = await cloneFile(file);
+          const md5hash = md5(fileAsBuffer);
+          await saveFileMetadata({ ...file, md5: md5hash });
+        } catch(err) {
+          console.error('File error2: ', err.message);
+        }
       }
-
       return fetchPage(next, pageN + 1);
     });
 };
 const job = schedule.scheduleJob('* * */1 * * *', () => {
-  fetchPage('https://api.datastore.iati.cloud/api/datasets/?fields=all&format=json&page=1&ordering=-sha1', 1);
+  fetchPage('https://api.datastore.iati.cloud/api/datasets/?fields=all&format=json&page=1&ordering=-sha1&page_size=2000', 1);
 });
 
-module.exports = {name: 'datastore', job};
+module.exports = {name: 'datastore'};
