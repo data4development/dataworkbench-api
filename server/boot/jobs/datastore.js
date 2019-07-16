@@ -68,17 +68,17 @@ const fetchPage = async (url, pageN) => {
   return axios.get(url)
     .then(async (resp) => {
       const {data: { next, results }} = resp;
-      const listOfSha1 = results.map(({ sha1 }) => sha1);
-      const sha1DiffTmp = _.differenceWith(listOfSha1, filesSha1, _.isEqual);
-      const incorrectSha1Diff = (await Dataset.find({ where: { sha1: { inq: sha1DiffTmp } }, fields: {'sha1': true} }))
+      const resultSha1 = results.map(({ sha1 }) => sha1);
+      const fileAndResultDiff = _.differenceWith(resultSha1, filesSha1, _.isEqual);
+      const duplicatedSha1 = (await Dataset.find({ where: { sha1: { inq: fileAndResultDiff } }, fields: {'sha1': true} }))
         .map(({ sha1 }) => sha1)
-      const sha1Diff = _.differenceWith(sha1DiffTmp, incorrectSha1Diff, _.isEqual);
+      const filteredSha1 = _.differenceWith(fileAndResultDiff, duplicatedSha1, _.isEqual);
 
-      if (!sha1Diff.length) {
+      if (!filteredSha1.length) {
         return fetchPage(next, pageN + 1);
       }
 
-      const filteredResults = results.filter(({ sha1 }) => sha1Diff.indexOf(sha1) !== -1);
+      const filteredResults = results.filter(({ sha1 }) => filteredSha1.indexOf(sha1) !== -1);
 
       for(const file of filteredResults) {
         try {
@@ -96,4 +96,4 @@ const job = schedule.scheduleJob('* * */1 * * *', () => {
   fetchPage('https://api.datastore.iati.cloud/api/datasets/?fields=all&format=json&page=1&ordering=-sha1&page_size=2000', 1);
 });
 
-module.exports = {name: 'datastore'};
+module.exports = {name: 'datastore', job};
