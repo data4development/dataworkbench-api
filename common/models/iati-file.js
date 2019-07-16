@@ -25,6 +25,7 @@ module.exports = function(Iatifile) {
     if (!config.container_public.enum.includes(type)) {
       return cb({messsage: 'Unsupported type', statusCode: 400});
     }
+    console.log('req: ');
 
     var File = app.models['iati-dataset'];
 
@@ -36,6 +37,7 @@ module.exports = function(Iatifile) {
         if (err) {
           return cb(err);
         }
+        console.log('info');
 
         cb(null, uploadedFile);
 
