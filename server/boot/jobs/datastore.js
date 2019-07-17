@@ -62,7 +62,7 @@ const fetchPage = async (url, pageN) => {
     return
   }
 
-  const files = await Dataset.find({ oder: 'sha1 DESC', limit: 2000, skip: (pageN - 1) * 2000 });
+  const files = await Dataset.find({ order: 'sha1 DESC', limit: 2000, skip: (pageN - 1) * 2000 });
   const filesSha1 = files.map(({ sha1 }) => sha1);
 
   return axios.get(url)
