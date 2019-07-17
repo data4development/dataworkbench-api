@@ -7,13 +7,28 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Nodemon Launch API",
+            "name": "Run private API",
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": "nodemon",
             "program": "${workspaceRoot}/server/server.js",
             "env": {
                 "NODE_ENV": "sandbox",
                 "DEBUG": "loopback:storage:service,loopback:storage:handler,loopback:connector:mongodb,dwb:api:upload"
+            },
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run public API",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceRoot}/server/server.js",
+            "env": {
+                "NODE_ENV": "sandbox",
+                "API_TYPE": "public"
             },
             "restart": true,
             "console": "integratedTerminal",
