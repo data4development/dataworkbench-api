@@ -28,35 +28,36 @@ const saveFileMetadata = file => new Promise((resolve, reject) => {
     }
 
     resolve(data);
-  })
+  });
 });
 
 const cloneFile = async (file) => {
   const image = await axios.get(file['source_url'], {
     responseType: 'stream',
+    timeout: 15 * 1000,
     httpsAgent: new https.Agent({
       rejectUnauthorized: false
     })
   });
 
   return new Promise((resolve, reject) => {
-    const resp = iatifile.uploadStream(
+    const uploadStream = iatifile.uploadStream(
       googleStorageConfig.container_upload.source,
       `${file.publisher.name}-${path.basename(file['source_url'])}`,
-      {}
     );
-    image.data.pipe(resp)
+    image.data.pipe(uploadStream);
 
     const fileBuffer = [];
-    resp.on('data', (data) => {
+    uploadStream.on('data', (data) => {
       fileBuffer.push(data);
     });
-    resp.on('error', reject);
-    resp.on('end', () => {
+    uploadStream.on('error', reject);
+    uploadStream.on('end', () => {
       resolve(Buffer.concat(fileBuffer));
     });
   });
 }
+
 const fetchPage = async (url, pageN) => {
   if (!url) {
     return
@@ -64,36 +65,41 @@ const fetchPage = async (url, pageN) => {
 
   const files = await Dataset.find({ order: 'sha1 DESC', limit: 2000, skip: (pageN - 1) * 2000 });
   const filesSha1 = files.map(({ sha1 }) => sha1);
+  const {data: { next, results }} = await axios.get(url);
+  const resultSha1 = results.map(({ sha1 }) => sha1);
+  const fileAndResultDiff = _.differenceWith(resultSha1, filesSha1, _.isEqual);
+  const duplicatedSha1 = (await Dataset.find({ where: { sha1: { inq: fileAndResultDiff } }, fields: {'sha1': true} }))
+    .map(({ sha1 }) => sha1)
+  const filteredSha1 = _.differenceWith(fileAndResultDiff, duplicatedSha1, _.isEqual);
 
-  return axios.get(url)
-    .then(async (resp) => {
-      const {data: { next, results }} = resp;
-      const resultSha1 = results.map(({ sha1 }) => sha1);
-      const fileAndResultDiff = _.differenceWith(resultSha1, filesSha1, _.isEqual);
-      const duplicatedSha1 = (await Dataset.find({ where: { sha1: { inq: fileAndResultDiff } }, fields: {'sha1': true} }))
-        .map(({ sha1 }) => sha1)
-      const filteredSha1 = _.differenceWith(fileAndResultDiff, duplicatedSha1, _.isEqual);
+  if (!filteredSha1.length) {
+    return fetchPage(next, pageN + 1);
+  }
 
-      if (!filteredSha1.length) {
-        return fetchPage(next, pageN + 1);
-      }
+  const filteredResults = _.chunk(results.filter(({ sha1 }) => filteredSha1.indexOf(sha1) !== -1), 5);
+  const processFile = async file => {
+    try {
+      const fileAsBuffer = await cloneFile(file);
+      const md5hash = md5(fileAsBuffer);
+      await saveFileMetadata({ ...file, md5: md5hash })
+    } catch(err) {
+      console.error('File error: ', err.message);
+    }
+  }
 
-      const filteredResults = results.filter(({ sha1 }) => filteredSha1.indexOf(sha1) !== -1);
+  for(let filesChunk of filteredResults) {
+    try {
+      await Promise.all(filesChunk.map(processFile));
+    } catch(err) {
+      console.log('Error sending: ', err.message)
+    }
+  }
 
-      for(const file of filteredResults) {
-        try {
-          const fileAsBuffer = await cloneFile(file);
-          const md5hash = md5(fileAsBuffer);
-          await saveFileMetadata({ ...file, md5: md5hash });
-        } catch(err) {
-          console.error('File error2: ', err.message);
-        }
-      }
-      return fetchPage(next, pageN + 1);
-    });
+  return fetchPage(next, pageN + 1);
 };
-const job = schedule.scheduleJob('* * */1 * * *', () => {
+
+const job = schedule.scheduleJob(`0 0 */${process.env.DATASTORE_JOBS_PER_HOURS || 1} * *`, () => {
   fetchPage('https://api.datastore.iati.cloud/api/datasets/?fields=all&format=json&page=1&ordering=-sha1&page_size=2000', 1);
 });
 
-module.exports = {name: 'datastore', job};
+module.exports = {name: 'datastore'};

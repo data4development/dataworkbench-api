@@ -50,3 +50,5 @@ module.exports = bootstrap(modelConfig);
 ## process.env
 
 `RUN_JOBS` - could be `run|empty`. This var used to run `job tasks` only on one cluster instance.
+
+`DATASTORE_JOBS_PER_HOURS` - could be `1-23|default: 1`. It uses for configure how often run `Datastore clone` [script](./server/boot/jobs/datastore.js)
