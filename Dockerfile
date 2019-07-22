@@ -1,6 +1,24 @@
-# Dockerfile extending the generic Node image with application files for a
-# single application.
 FROM gcr.io/google_appengine/nodejs
+
+LABEL maintainer="Rolf Kleef <rolf@data4development.nl>" \
+  description="DataWorkbench API" \
+  repository="https://github.com/data4development/dataworkbench-api"
+
+# To be adapted in the cluster or runtime config
+ENV \
+    # run the API in public mode: \
+    # API_TYPE=public \
+    \
+    CONTAINER_PUBLIC_SOURCE=dataworkbench-iati \
+    CONTAINER_PUBLIC_FEEDBACK=dataworkbench-iatifeedback \
+    CONTAINER_PUBLIC_JSON=dataworkbench-json \
+    CONTAINER_PUBLIC_SVRL=dataworkbench-svrl \
+    \
+    CONTAINER_UPLOAD_SOURCE=dataworkbench-testfile \
+    CONTAINER_UPLOAD_FEEDBACK=dataworkbench-testiatifeedback \
+    CONTAINER_UPLOAD_JSON=dataworkbench-testjson \
+    CONTAINER_UPLOAD_SVRL=dataworkbench-testsvrl
+# ----------
 
 # Allow specifying a build/run environment, use production as default
 # NODE_ENV is set to 'production' in the Google base image so it can't be overridden by an ARG with that name 
