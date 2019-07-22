@@ -2,7 +2,6 @@
 
 var config = require('../config/google-storage');
 var app = require('../../server/server');
-var formidable = require('formidable');
 var version = require('../../server/config.local');
 var testdataset = require('./iati-testdataset.json');
 var utils = require('../../utils/convertors');
@@ -28,12 +27,6 @@ module.exports = function(Iatifile) {
     }
 
     var File = app.models['iati-testdataset'];
-    var form = new formidable.IncomingForm();
-    var filename = '';
-
-    form.parse(req, function(err, fields, files) {
-      filename = files.file.name;
-    });
 
     Iatifile.upload(
       config.container_public[type],
@@ -47,7 +40,7 @@ module.exports = function(Iatifile) {
         var fileInfo = uploadedFile.files.file[0];
 
         File.create({
-          filename: filename,
+          filename: fileInfo.originalFilename,
           fileid: fileInfo.name,
           type: fileInfo.type,
           url: version.restApiRoot + '/iati-files/file/' + type + '/' + fileInfo.name,

@@ -1,17 +1,17 @@
 'use strict';
 
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var api = require('../server/server');
-var version = require('../server/config.local');
-var config = require('../common/config/google-storage');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const api = require('../../server/server');
+const version = require('../../server/config.local');
+const config = require('../../common/config/google-storage');
 
-var should = chai.should();
+const should = chai.should();
 
 chai.use(chaiHttp);
 
-var fs = require('fs');
-var tmpdir = './test/tmp/'; // should match /server/datasources.test.json
+const fs = require('fs');
+const tmpdir = './test/tmp/'; // should match /server/datasources.test.json
 
 describe('When working with public IATI files', function() {
   before(function() {
@@ -34,7 +34,6 @@ describe('When working with public IATI files', function() {
       });
   });
 
-  // TODO: this should become not available (404)
   it('should have a container files endpoint', function(done) {
     chai.request(api)
       .get(version.restApiRoot + '/iati-files/any-container-name/files')
@@ -44,7 +43,6 @@ describe('When working with public IATI files', function() {
       });
   });
 
-  // TODO: this file upload should not be available in the public API
   it('should handle uploading a small file as source', function(done) {
     chai.request(api)
       .post(version.restApiRoot + '/iati-files/file/source')
@@ -56,7 +54,6 @@ describe('When working with public IATI files', function() {
       });
   });
 
-  // TODO: this file upload should not be available in the public API
   it('should handle uploading a large file as source', function(done) {
     chai.request(api)
       .post(version.restApiRoot + '/iati-files/file/source')

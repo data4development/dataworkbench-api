@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "test": "NODE_ENV=test mocha",
+    "test": "NODE_ENV=test mocha && NODE_ENV=test API_TYPE=public mocha",
     "dev": "NODE_ENV=sandbox nodemon server/server.js"
   },
   "dependencies": {
@@ -31,7 +31,7 @@
     "chai-http": "^4.2.1",
     "eslint": "^3.17.1",
     "eslint-config-loopback": "^8.0.0",
-    "mocha": "^5.2.0"
+    "mocha": "^6.2.0"
   },
   "repository": {
     "type": "git",
