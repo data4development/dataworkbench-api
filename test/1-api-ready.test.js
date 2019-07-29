@@ -1,5 +1,9 @@
 'use strict';
 
+console.log(
+  `Type of API "${process.env.API_TYPE === 'public' ? 'public' : 'private'}"`
+);
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var api = require('../server/server');
