@@ -3,8 +3,8 @@
 var config = require('../config/google-storage');
 var app = require('../../server/server');
 var version = require('../../server/config.local');
-var testdataset = require('./iati-testdataset.json');
 var utils = require('../../utils/convertors');
+var dataset = require('./iati-dataset.json');
 
 module.exports = function(Iatifile) {
   Iatifile.fileDownload = function(req, res, type, filename, cb) {
@@ -26,7 +26,7 @@ module.exports = function(Iatifile) {
       return cb({messsage: 'Unsupported type', statusCode: 400});
     }
 
-    var File = app.models['iati-testdataset'];
+    var File = app.models['iati-dataset'];
 
     Iatifile.upload(
       config.container_public[type],
@@ -67,7 +67,7 @@ module.exports = function(Iatifile) {
         arg: 'body',
         type: 'object',
         root: true,
-        default: utils.propertiesToResponse(testdataset.properties),
+        default: utils.propertiesToResponse(dataset.properties),
       },
       {arg: 'Content-Type', type: 'application/json', http: {target: 'header'}},
     ],

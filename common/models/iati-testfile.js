@@ -6,12 +6,12 @@ var version = require('../../server/config.local');
 var utils = require('../../utils/convertors');
 var testdataset = require('./iati-testdataset.json');
 
-module.exports = function(Iatitestfile) {
-  Iatitestfile.fileDownload = function(req, res, type, filename, cb) {
-    Iatitestfile.download(config.container_upload[type], filename, req, res, cb);
+module.exports = function(Iatifile) {
+  Iatifile.fileDownload = function(req, res, type, filename, cb) {
+    Iatifile.download(config.container_upload[type], filename, req, res, cb);
   };
 
-  Iatitestfile.remoteMethod('fileDownload', {
+  Iatifile.remoteMethod('fileDownload', {
     accepts: [
       {arg: 'req', type: 'object', 'http': {source: 'req'}},
       {arg: 'res', type: 'object', 'http': {source: 'res'}},
@@ -21,14 +21,14 @@ module.exports = function(Iatitestfile) {
     http: {verb: 'get', path: '/file/:type/:filename'},
   });
 
-  Iatitestfile.fileUpload = function(req, res, type, cb) {
+  Iatifile.fileUpload = function(req, res, type, cb) {
     if (!config.container_upload.enum.includes(type)) {
       return cb({messsage: 'Unsupported type', statusCode: 400});
     }
 
     var File = app.models['iati-testdataset'];
 
-    Iatitestfile.upload(
+    Iatifile.upload(
       config.container_upload[type],
       req,
       res,
@@ -56,7 +56,7 @@ module.exports = function(Iatitestfile) {
       });
   };
 
-  Iatitestfile.remoteMethod('fileUpload', {
+  Iatifile.remoteMethod('fileUpload', {
     accepts: [
       {arg: 'req', type: 'object', 'http': {source: 'req'}},
       {arg: 'res', type: 'object', 'http': {source: 'res'}},
