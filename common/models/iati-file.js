@@ -41,7 +41,7 @@ module.exports = function(Iatifile) {
 
         File.create({
           filename: fileInfo.originalFilename,
-          fileid: fileInfo.name,
+          md5: fileInfo.name,
           type: fileInfo.type,
           url: version.restApiRoot + '/iati-files/file/' + type + '/' + fileInfo.name,
           status: 'File uploaded'},
