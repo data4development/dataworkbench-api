@@ -34,6 +34,7 @@ module.exports = {
   },
   'iati-testfile': {
     public: {
+      fileUpload: true,
       fileDownload: true,
     },
   },
@@ -43,7 +44,7 @@ module.exports = {
       count: false,
       findOne: false,
       create: true,
-      upload: true,
+      upload: false,
     },
   },
 };
