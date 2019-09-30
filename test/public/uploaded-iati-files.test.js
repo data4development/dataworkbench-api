@@ -68,7 +68,7 @@ describe('When working with uploaded files to test', function() {
       .attach('file', fs.readFileSync('./test/fixtures/file-large.xml'),
               'file-large.xml')
       .end(function(err, res) {
-        res.should.have.status(404);
+        res.should.have.status(200);
         done();
       });
   });
@@ -79,7 +79,7 @@ describe('When working with uploaded files to test', function() {
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
       .end(function(err, res) {
-        res.should.have.status(404);
+        res.should.have.status(200);
         done();
       });
   });
@@ -90,7 +90,7 @@ describe('When working with uploaded files to test', function() {
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
       .end(function(err, res) {
-        res.should.have.status(404);
+        res.should.have.status(200);
         done();
       });
   });
@@ -101,7 +101,7 @@ describe('When working with uploaded files to test', function() {
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
       .end(function(err, res) {
-        res.should.have.status(404);
+        res.should.have.status(200);
         done();
       });
   });
@@ -112,7 +112,7 @@ describe('When working with uploaded files to test', function() {
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
               'file-small.xml')
       .end(function(err, res) {
-        res.should.have.status(404);
+        res.should.have.status(200);
         done();
       });
   });
