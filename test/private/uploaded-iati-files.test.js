@@ -34,6 +34,21 @@ describe('When working with uploaded files to test', function() {
       });
   });
 
+  it('should handle uploading a small file', function(done) {
+    chai.request(api)
+      .post(
+        `${
+          version.restApiRoot
+        }/iati-testfiles/file/source`
+      )
+      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+              'file-small.xml')
+      .end(function(err, res) {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
   it('should handle uploading a small file into a container', function(done) {
     chai.request(api)
       .post(
@@ -49,16 +64,16 @@ describe('When working with uploaded files to test', function() {
       });
   });
 
-  it('should handle uploading a file as a dataset', function(done) {
-    chai.request(api)
-      .post(version.restApiRoot + '/iati-testdatasets/upload')
-      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
-              'file-small.xml')
-      .end(function(err, res) {
-        res.should.have.status(200);
-        done();
-      });
-  });
+  // it('should handle uploading a file as a dataset', function(done) {
+  //   chai.request(api)
+  //     .post(version.restApiRoot + '/iati-testdatasets/upload')
+  //     .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+  //             'file-small.xml')
+  //     .end(function(err, res) {
+  //       res.should.have.status(200);
+  //       done();
+  //     });
+  // });
 
   it('should handle uploading a large file as source', function(done) {
     chai.request(api)

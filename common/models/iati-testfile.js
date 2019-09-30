@@ -5,6 +5,7 @@ var app = require('../../server/server');
 var version = require('../../server/config.local');
 var utils = require('../../utils/convertors');
 var testdataset = require('./iati-testdataset.json');
+var debug = require('debug')('dwb:api:upload');
 
 module.exports = function(Iatifile) {
   Iatifile.fileDownload = function(req, res, type, filename, cb) {
@@ -26,6 +27,7 @@ module.exports = function(Iatifile) {
       return cb({messsage: 'Unsupported type', statusCode: 400});
     }
 
+    debug('Starting upload in %s', type);
     var File = app.models['iati-testdataset'];
 
     Iatifile.upload(
