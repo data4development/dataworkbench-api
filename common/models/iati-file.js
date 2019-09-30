@@ -37,22 +37,24 @@ module.exports = function(Iatifile) {
           return cb(err);
         }
 
-        var fileInfo = uploadedFile.files.file[0];
+        cb(null, uploadedFile);
 
-        File.create({
-          filename: fileInfo.originalFilename,
-          md5: fileInfo.name,
-          type: fileInfo.type,
-          url: version.restApiRoot + '/iati-files/file/' + type + '/' + fileInfo.name,
-          status: 'File uploaded'},
-          function(err, data) {
-            if (err !== null) {
-              return cb(err);
-            }
+        // var fileInfo = uploadedFile.files.file[0];
 
-            cb(null, data);
-          }
-        );
+        // File.create({
+        //   filename: fileInfo.originalFilename,
+        //   md5: fileInfo.name,
+        //   type: fileInfo.type,
+        //   url: version.restApiRoot + '/iati-files/file/' + type + '/' + fileInfo.name,
+        //   status: 'File uploaded'},
+        //   function(err, data) {
+        //     if (err !== null) {
+        //       return cb(err);
+        //     }
+
+        //     cb(null, data);
+        //   }
+        // );
       });
   };
 
