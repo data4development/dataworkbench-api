@@ -42,6 +42,13 @@
     </exec>
   </target>
 
+  <target name="openapi-spec" description="Update the OpenAPI definition">
+    <exec executable="npm">
+      <arg value="run"/>
+      <arg value="openapi-spec"/>
+    </exec>
+  </target>
+
   <target name="shell"
     description="How to start a shell in the Docker image to inspect files etc.">
 

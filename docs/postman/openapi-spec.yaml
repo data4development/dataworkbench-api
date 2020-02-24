@@ -1,0 +1,1280 @@
+swagger: '2.0'
+info:
+  version: 1.0.0-alpha-0
+  title: validator-api
+  description: >-
+    IATI data validation service. [General technical documentation is available
+    here.](https://data4development.github.io/dataworkbench-api/)
+basePath: /api/v1
+paths:
+  '/iati-files/file/{type}/{filename}':
+    get:
+      tags:
+        - iati-file
+      operationId: iati-file.fileDownload
+      parameters:
+        - name: type
+          in: path
+          required: true
+          type: string
+        - name: filename
+          in: path
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  /iati-datasets/completesvrl:
+    get:
+      tags:
+        - iati-dataset
+      summary: Queries completesvrl of iati-dataset.
+      operationId: iati-dataset.__get__completesvrl
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/iati-dataset'
+      deprecated: false
+  /iati-datasets/completesvrl/count:
+    get:
+      tags:
+        - iati-dataset
+      summary: Counts completesvrl of iati-dataset.
+      operationId: iati-dataset.__count__completesvrl
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/iati-datasets/{id}/exists':
+    get:
+      tags:
+        - iati-dataset
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'iati-dataset.exists__get_iati-datasets_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/iati-datasets/{id}':
+    head:
+      tags:
+        - iati-dataset
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'iati-dataset.exists__head_iati-datasets_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - iati-dataset
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: iati-dataset.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/iati-dataset'
+      deprecated: false
+  /iati-datasets:
+    get:
+      tags:
+        - iati-dataset
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: iati-dataset.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/iati-dataset'
+      deprecated: false
+  /iati-datasets/findOne:
+    get:
+      tags:
+        - iati-dataset
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: iati-dataset.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/iati-dataset'
+      deprecated: false
+  /iati-datasets/count:
+    get:
+      tags:
+        - iati-dataset
+      summary: Count instances of the model matched by where from the data source.
+      operationId: iati-dataset.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/iati-publishers/{id}/workspaces/{fk}':
+    get:
+      tags:
+        - iati-publisher
+      summary: Find a related item by id for workspaces.
+      operationId: iati-publisher.prototype.__findById__workspaces
+      parameters:
+        - name: id
+          in: path
+          description: iati-publisher id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for workspaces
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/workspace'
+      deprecated: false
+  /iati-publishers/current:
+    get:
+      tags:
+        - iati-publisher
+      summary: Queries current of iati-publisher.
+      operationId: iati-publisher.__get__current
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/iati-publisher'
+      deprecated: false
+  /iati-publishers/current/count:
+    get:
+      tags:
+        - iati-publisher
+      summary: Counts current of iati-publisher.
+      operationId: iati-publisher.__count__current
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/iati-publishers/{id}/workspaces':
+    get:
+      tags:
+        - iati-publisher
+      summary: Queries workspaces of iati-publisher.
+      operationId: iati-publisher.prototype.__get__workspaces
+      parameters:
+        - name: id
+          in: path
+          description: iati-publisher id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/workspace'
+      deprecated: false
+  '/iati-publishers/{id}/workspaces/count':
+    get:
+      tags:
+        - iati-publisher
+      summary: Counts workspaces of iati-publisher.
+      operationId: iati-publisher.prototype.__count__workspaces
+      parameters:
+        - name: id
+          in: path
+          description: iati-publisher id
+          required: true
+          type: string
+          format: JSON
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/iati-publishers/{id}/exists':
+    get:
+      tags:
+        - iati-publisher
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'iati-publisher.exists__get_iati-publishers_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/iati-publishers/{id}':
+    head:
+      tags:
+        - iati-publisher
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'iati-publisher.exists__head_iati-publishers_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - iati-publisher
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: iati-publisher.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/iati-publisher'
+      deprecated: false
+  /iati-publishers:
+    get:
+      tags:
+        - iati-publisher
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: iati-publisher.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/iati-publisher'
+      deprecated: false
+  /iati-publishers/findOne:
+    get:
+      tags:
+        - iati-publisher
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: iati-publisher.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/iati-publisher'
+      deprecated: false
+  /iati-publishers/count:
+    get:
+      tags:
+        - iati-publisher
+      summary: Count instances of the model matched by where from the data source.
+      operationId: iati-publisher.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/iati-publishers/{id}/workspaces/{nk}/versions/{fk}':
+    get:
+      tags:
+        - iati-publisher
+      summary: Find a related item by id for versions.
+      operationId: iati-publisher.prototype.__findById__workspaces__versions
+      parameters:
+        - name: id
+          in: path
+          description: iati-publisher id
+          required: true
+          type: string
+          format: JSON
+        - name: nk
+          in: path
+          description: Foreign key for workspaces.
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for versions
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/version'
+      deprecated: false
+  '/iati-publishers/{id}/workspaces/{nk}/versions':
+    get:
+      tags:
+        - iati-publisher
+      summary: Queries versions of workspace.
+      operationId: iati-publisher.prototype.__get__workspaces__versions
+      parameters:
+        - name: id
+          in: path
+          description: iati-publisher id
+          required: true
+          type: string
+          format: JSON
+        - name: nk
+          in: path
+          description: Foreign key for workspaces.
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/version'
+      deprecated: false
+  '/iati-publishers/{id}/workspaces/{nk}/versions/count':
+    get:
+      tags:
+        - iati-publisher
+      summary: Counts versions of workspace.
+      operationId: iati-publisher.prototype.__count__workspaces__versions
+      parameters:
+        - name: id
+          in: path
+          description: iati-publisher id
+          required: true
+          type: string
+          format: JSON
+        - name: nk
+          in: path
+          description: Foreign key for workspaces.
+          required: true
+          type: string
+          format: JSON
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/workspaces/{id}/versions/{fk}':
+    get:
+      tags:
+        - workspace
+      summary: Find a related item by id for versions.
+      operationId: workspace.prototype.__findById__versions
+      parameters:
+        - name: id
+          in: path
+          description: workspace id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for versions
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/version'
+      deprecated: false
+  '/workspaces/{id}/versions':
+    get:
+      tags:
+        - workspace
+      summary: Queries versions of workspace.
+      operationId: workspace.prototype.__get__versions
+      parameters:
+        - name: id
+          in: path
+          description: workspace id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/version'
+      deprecated: false
+  '/workspaces/{id}/versions/count':
+    get:
+      tags:
+        - workspace
+      summary: Counts versions of workspace.
+      operationId: workspace.prototype.__count__versions
+      parameters:
+        - name: id
+          in: path
+          description: workspace id
+          required: true
+          type: string
+          format: JSON
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/workspaces/{id}/exists':
+    get:
+      tags:
+        - workspace
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'workspace.exists__get_workspaces_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/workspaces/{id}':
+    head:
+      tags:
+        - workspace
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'workspace.exists__head_workspaces_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - workspace
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: workspace.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/workspace'
+      deprecated: false
+  /workspaces:
+    get:
+      tags:
+        - workspace
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: workspace.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/workspace'
+      deprecated: false
+  /workspaces/findOne:
+    get:
+      tags:
+        - workspace
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: workspace.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/workspace'
+      deprecated: false
+  /workspaces/count:
+    get:
+      tags:
+        - workspace
+      summary: Count instances of the model matched by where from the data source.
+      operationId: workspace.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/versions/{id}/exists':
+    get:
+      tags:
+        - version
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'version.exists__get_versions_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/versions/{id}':
+    head:
+      tags:
+        - version
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'version.exists__head_versions_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - version
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: version.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/version'
+      deprecated: false
+  /versions:
+    get:
+      tags:
+        - version
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: version.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/version'
+      deprecated: false
+  /versions/findOne:
+    get:
+      tags:
+        - version
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: version.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/version'
+      deprecated: false
+  /versions/count:
+    get:
+      tags:
+        - version
+      summary: Count instances of the model matched by where from the data source.
+      operationId: version.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/iati-testfiles/file/{type}/{filename}':
+    get:
+      tags:
+        - iati-testfile
+      operationId: iati-testfile.fileDownload
+      parameters:
+        - name: type
+          in: path
+          required: true
+          type: string
+        - name: filename
+          in: path
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/iati-testfiles/file/{type}':
+    post:
+      tags:
+        - iati-testfile
+      operationId: iati-testfile.fileUpload
+      parameters:
+        - name: type
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            default:
+              id: uuidv4
+              name: string
+              type: string
+              url: string
+              fileid: string
+              tmpworkspaceId: string
+              uploaded: now
+              filename: string
+              feedback-updated: date
+              svrl-updated: date
+              json-updated: date
+            type: object
+      deprecated: false
+  /iati-testdatasets:
+    post:
+      tags:
+        - iati-testdataset
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: iati-testdataset.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/iati-testdataset'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/iati-testdataset'
+      deprecated: false
+  '/iati-testdatasets/{id}/exists':
+    get:
+      tags:
+        - iati-testdataset
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'iati-testdataset.exists__get_iati-testdatasets_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/iati-testdatasets/{id}':
+    head:
+      tags:
+        - iati-testdataset
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'iati-testdataset.exists__head_iati-testdatasets_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - iati-testdataset
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: iati-testdataset.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/iati-testdataset'
+      deprecated: false
+  /ping:
+    get:
+      tags:
+        - ping
+      summary: Ping the API to retrieve its internal state
+      operationId: ping.ping
+      parameters: []
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+tags:
+  - name: iati-file
+    description: 'IATI file storage (original IATI, processed IATI, SVRL, JSON)'
+  - name: iati-dataset
+    description: IATI dataset information
+  - name: iati-publisher
+    description: IATI publishers copied from the IATI Registry
+  - name: workspace
+    description: Workspaces with data sets and analyses
+  - name: version
+    description: Versions of a workspace
+  - name: iati-testfile
+    description: IATI file to test
+  - name: iati-testdataset
+    description: IATI dataset to test
+  - name: ping
+    description: Ping the API to retrieve its internal state
+consumes:
+  - application/json
+  - application/x-www-form-urlencoded
+  - application/xml
+  - text/xml
+produces:
+  - application/json
+  - application/xml
+  - text/xml
+  - application/javascript
+  - text/javascript
+definitions:
+  iati-dataset:
+    description: IATI dataset information
+    properties:
+      id:
+        type: string
+      name:
+        description: 'Name of the dataset, consisting of publisher and file name'
+        type: string
+      url:
+        description: URL of the dataset (if available)
+        type: string
+      md5:
+        description: MD5 hash of the dataset
+        type: string
+      publisher:
+        description: Publisher slug
+        type: string
+      filename:
+        description: File name of the dataset
+        type: string
+      downloaded:
+        description: Timestamp of first download
+        type: string
+        format: date-time
+      updated:
+        description: Timestamp of latest update of the dataset record
+        type: string
+        format: date-time
+      feedback-updated:
+        description: Timestamp of data quality feedback
+        type: string
+        format: date-time
+      svrl-updated:
+        description: Timestamp of SVRL report
+        type: string
+        format: date-time
+      json-updated:
+        description: Timestamp of JSON report
+        type: string
+        format: date-time
+    required:
+      - id
+      - md5
+    additionalProperties: false
+  x-any:
+    properties: {}
+  workspace:
+    description: Workspaces with data sets and analyses
+    properties:
+      id:
+        type: string
+      slug:
+        description: Identifier suitable for URLs
+        type: string
+      owner-slug:
+        description: Identifier for owner in URLs
+        type: string
+      title:
+        description: Title for the workspace
+        type: string
+      description:
+        description: Short description of the workspace's purpose
+        type: string
+      iati-publisherId:
+        type: string
+    required:
+      - id
+      - slug
+      - title
+    additionalProperties: false
+  iati-publisher:
+    description: IATI publishers copied from the IATI Registry
+    properties:
+      id:
+        type: string
+      name:
+        description: Name of the publisher to display
+        type: string
+      description:
+        description: Description provided by the publisher
+        type: string
+      slug:
+        description: Identifier suitable for URLs (name on the IATI Registry)
+        type: string
+      logo:
+        description: Potential link to a logo file (may not be a valid URL for an image)
+        type: string
+      country:
+        description: Country code of the publisher
+        type: string
+      iati_id:
+        description: IATI organisation identifier
+        type: string
+      registry_id:
+        description: Identifier used on the IATI Registry (id)
+        type: string
+      datasets:
+        description: Number of datasets available
+        type: number
+        format: double
+      state:
+        description: Status of the publisher (active?)
+        type: string
+    required:
+      - id
+      - name
+      - slug
+    additionalProperties: false
+  version:
+    description: Versions of a workspace
+    properties:
+      id:
+        type: string
+      slug:
+        default: current
+        description: Identifier suitable for URLs
+        type: string
+      owner-slug:
+        description: Identifier for owner in URLs
+        type: string
+      workspace-slug:
+        description: Identifier for owner's workspace in URLs
+        type: string
+      title:
+        default: Current
+        description: Title for the version
+        type: string
+      description:
+        description: Short description of the version's purpose
+        type: string
+      md5:
+        type: array
+        items:
+          type: string
+      workspaceId:
+        type: string
+    required:
+      - id
+      - slug
+      - title
+    additionalProperties: false
+  iati-testdataset:
+    description: IATI dataset to test
+    properties:
+      id:
+        type: string
+      name:
+        description: 'Name of the dataset, consisting of publisher and file name'
+        type: string
+      type:
+        type: string
+      url:
+        description: URL of the dataset (if available)
+        type: string
+      fileid:
+        description: unique file id for the dataset
+        type: string
+      tmpworkspaceId:
+        description: Identifier of the temporary workspace
+        type: string
+      uploaded:
+        description: Timestamp of the upload
+        type: string
+        format: date-time
+      filename:
+        description: File name of the dataset
+        type: string
+      feedback-updated:
+        description: Timestamp of data quality feedback
+        type: string
+        format: date-time
+      svrl-updated:
+        description: Timestamp of SVRL report
+        type: string
+        format: date-time
+      json-updated:
+        description: Timestamp of JSON report
+        type: string
+        format: date-time
+    required:
+      - id
+      - uploaded
+    additionalProperties: false
