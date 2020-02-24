@@ -7,167 +7,6 @@ info:
     here.](https://data4development.github.io/dataworkbench-api/)
 basePath: /api/v1
 paths:
-  /iati-files:
-    get:
-      tags:
-        - iati-file
-      operationId: iati-file.getContainers
-      parameters: []
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/x-any'
-      deprecated: false
-    post:
-      tags:
-        - iati-file
-      operationId: iati-file.createContainer
-      parameters:
-        - name: options
-          in: body
-          required: false
-          schema:
-            type: object
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-  '/iati-files/{container}':
-    delete:
-      tags:
-        - iati-file
-      operationId: iati-file.destroyContainer
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              undefined:
-                type: object
-      deprecated: false
-    get:
-      tags:
-        - iati-file
-      operationId: iati-file.getContainer
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-  '/iati-files/{container}/files':
-    get:
-      tags:
-        - iati-file
-      operationId: iati-file.getFiles
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/x-any'
-      deprecated: false
-  '/iati-files/{container}/files/{file}':
-    get:
-      tags:
-        - iati-file
-      operationId: iati-file.getFile
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-        - name: file
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    delete:
-      tags:
-        - iati-file
-      operationId: iati-file.removeFile
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-        - name: file
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              undefined:
-                type: object
-      deprecated: false
-  '/iati-files/{container}/upload':
-    post:
-      tags:
-        - iati-file
-      operationId: iati-file.upload
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              result:
-                type: object
-      deprecated: false
-  '/iati-files/{container}/download/{file}':
-    get:
-      tags:
-        - iati-file
-      operationId: iati-file.download
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-        - name: file
-          in: path
-          required: true
-          type: string
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
   '/iati-files/file/{type}/{filename}':
     get:
       tags:
@@ -185,34 +24,6 @@ paths:
       responses:
         '204':
           description: Request was successful
-      deprecated: false
-  '/iati-files/file/{type}':
-    post:
-      tags:
-        - iati-file
-      operationId: iati-file.fileUpload
-      parameters:
-        - name: type
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            default:
-              id: uuidv4
-              name: string
-              url: string
-              md5: string
-              publisher: string
-              filename: string
-              downloaded: date
-              updated: date
-              feedback-updated: date
-              svrl-updated: date
-              json-updated: date
-            type: object
       deprecated: false
   /iati-datasets/completesvrl:
     get:
@@ -233,33 +44,6 @@ paths:
             type: array
             items:
               $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    post:
-      tags:
-        - iati-dataset
-      summary: Creates a new instance in completesvrl of this model.
-      operationId: iati-dataset.__create__completesvrl
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    delete:
-      tags:
-        - iati-dataset
-      summary: Deletes all completesvrl of this model.
-      operationId: iati-dataset.__delete__completesvrl
-      parameters: []
-      responses:
-        '204':
-          description: Request was successful
       deprecated: false
   /iati-datasets/completesvrl/count:
     get:
@@ -283,159 +67,6 @@ paths:
               count:
                 type: number
                 format: double
-      deprecated: false
-  /iati-datasets:
-    post:
-      tags:
-        - iati-dataset
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: iati-dataset.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    patch:
-      tags:
-        - iati-dataset
-      summary: >-
-        Patch an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-dataset.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    put:
-      tags:
-        - iati-dataset
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-dataset.replaceOrCreate__put_iati-datasets
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    get:
-      tags:
-        - iati-dataset
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: iati-dataset.find
-      parameters:
-        - name: filter
-          in: query
-          description: >-
-            Filter defining fields, where, include, order, offset, and limit -
-            must be a JSON-encoded string ({"something":"value"})
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    delete:
-      tags:
-        - iati-dataset
-      summary: Delete all matching records.
-      operationId: iati-dataset.destroyAll
-      parameters:
-        - name: where
-          in: formData
-          description: filter.where object
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: The number of instances deleted
-            type: object
-      deprecated: false
-  /iati-datasets/replaceOrCreate:
-    post:
-      tags:
-        - iati-dataset
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-dataset.replaceOrCreate__post_iati-datasets_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-  /iati-datasets/upsertWithWhere:
-    post:
-      tags:
-        - iati-dataset
-      summary: >-
-        Update an existing model instance or insert a new one into the data
-        source based on the where criteria.
-      operationId: iati-dataset.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
       deprecated: false
   '/iati-datasets/{id}/exists':
     get:
@@ -507,105 +138,28 @@ paths:
           schema:
             $ref: '#/definitions/iati-dataset'
       deprecated: false
-    put:
+  /iati-datasets:
+    get:
       tags:
         - iati-dataset
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'iati-dataset.replaceById__put_iati-datasets_{id}'
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: iati-dataset.find
       parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
           required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    delete:
-      tags:
-        - iati-dataset
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: iati-dataset.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
           type: string
           format: JSON
       responses:
         '200':
           description: Request was successful
           schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - iati-dataset
-      summary: >-
-        Patch attributes for a model instance and persist it into the data
-        source.
-      operationId: iati-dataset.prototype.patchAttributes
-      parameters:
-        - name: id
-          in: path
-          description: iati-dataset id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-  '/iati-datasets/{id}/replace':
-    post:
-      tags:
-        - iati-dataset
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'iati-dataset.replaceById__post_iati-datasets_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
+            type: array
+            items:
+              $ref: '#/definitions/iati-dataset'
       deprecated: false
   /iati-datasets/findOne:
     get:
@@ -627,38 +181,6 @@ paths:
           description: Request was successful
           schema:
             $ref: '#/definitions/iati-dataset'
-      deprecated: false
-  /iati-datasets/update:
-    post:
-      tags:
-        - iati-dataset
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: iati-dataset.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
       deprecated: false
   /iati-datasets/count:
     get:
@@ -682,41 +204,6 @@ paths:
               count:
                 type: number
                 format: double
-      deprecated: false
-  /iati-datasets/change-stream:
-    post:
-      tags:
-        - iati-dataset
-      summary: Create a change stream.
-      operationId: iati-dataset.createChangeStream__post_iati-datasets_change-stream
-      parameters:
-        - name: options
-          in: formData
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
-    get:
-      tags:
-        - iati-dataset
-      summary: Create a change stream.
-      operationId: iati-dataset.createChangeStream__get_iati-datasets_change-stream
-      parameters:
-        - name: options
-          in: query
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
       deprecated: false
   '/iati-publishers/{id}/workspaces/{fk}':
     get:
@@ -743,57 +230,6 @@ paths:
           schema:
             $ref: '#/definitions/workspace'
       deprecated: false
-    delete:
-      tags:
-        - iati-publisher
-      summary: Delete a related item by id for workspaces.
-      operationId: iati-publisher.prototype.__destroyById__workspaces
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for workspaces
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - iati-publisher
-      summary: Update a related item by id for workspaces.
-      operationId: iati-publisher.prototype.__updateById__workspaces
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for workspaces
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
   /iati-publishers/current:
     get:
       tags:
@@ -813,33 +249,6 @@ paths:
             type: array
             items:
               $ref: '#/definitions/iati-publisher'
-      deprecated: false
-    post:
-      tags:
-        - iati-publisher
-      summary: Creates a new instance in current of this model.
-      operationId: iati-publisher.__create__current
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      deprecated: false
-    delete:
-      tags:
-        - iati-publisher
-      summary: Deletes all current of this model.
-      operationId: iati-publisher.__delete__current
-      parameters: []
-      responses:
-        '204':
-          description: Request was successful
       deprecated: false
   /iati-publishers/current/count:
     get:
@@ -890,45 +299,6 @@ paths:
             items:
               $ref: '#/definitions/workspace'
       deprecated: false
-    post:
-      tags:
-        - iati-publisher
-      summary: Creates a new instance in workspaces of this model.
-      operationId: iati-publisher.prototype.__create__workspaces
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
-    delete:
-      tags:
-        - iati-publisher
-      summary: Deletes all workspaces of this model.
-      operationId: iati-publisher.prototype.__delete__workspaces
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
   '/iati-publishers/{id}/workspaces/count':
     get:
       tags:
@@ -957,159 +327,6 @@ paths:
               count:
                 type: number
                 format: double
-      deprecated: false
-  /iati-publishers:
-    post:
-      tags:
-        - iati-publisher
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: iati-publisher.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      deprecated: false
-    patch:
-      tags:
-        - iati-publisher
-      summary: >-
-        Patch an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-publisher.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      deprecated: false
-    put:
-      tags:
-        - iati-publisher
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-publisher.replaceOrCreate__put_iati-publishers
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      deprecated: false
-    get:
-      tags:
-        - iati-publisher
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: iati-publisher.find
-      parameters:
-        - name: filter
-          in: query
-          description: >-
-            Filter defining fields, where, include, order, offset, and limit -
-            must be a JSON-encoded string ({"something":"value"})
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/iati-publisher'
-      deprecated: false
-    delete:
-      tags:
-        - iati-publisher
-      summary: Delete all matching records.
-      operationId: iati-publisher.destroyAll
-      parameters:
-        - name: where
-          in: formData
-          description: filter.where object
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: The number of instances deleted
-            type: object
-      deprecated: false
-  /iati-publishers/replaceOrCreate:
-    post:
-      tags:
-        - iati-publisher
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-publisher.replaceOrCreate__post_iati-publishers_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      deprecated: false
-  /iati-publishers/upsertWithWhere:
-    post:
-      tags:
-        - iati-publisher
-      summary: >-
-        Update an existing model instance or insert a new one into the data
-        source based on the where criteria.
-      operationId: iati-publisher.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
       deprecated: false
   '/iati-publishers/{id}/exists':
     get:
@@ -1181,105 +398,28 @@ paths:
           schema:
             $ref: '#/definitions/iati-publisher'
       deprecated: false
-    put:
+  /iati-publishers:
+    get:
       tags:
         - iati-publisher
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'iati-publisher.replaceById__put_iati-publishers_{id}'
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: iati-publisher.find
       parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
           required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      deprecated: false
-    delete:
-      tags:
-        - iati-publisher
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: iati-publisher.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
           type: string
           format: JSON
       responses:
         '200':
           description: Request was successful
           schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - iati-publisher
-      summary: >-
-        Patch attributes for a model instance and persist it into the data
-        source.
-      operationId: iati-publisher.prototype.patchAttributes
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
-      deprecated: false
-  '/iati-publishers/{id}/replace':
-    post:
-      tags:
-        - iati-publisher
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'iati-publisher.replaceById__post_iati-publishers_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-publisher'
+            type: array
+            items:
+              $ref: '#/definitions/iati-publisher'
       deprecated: false
   /iati-publishers/findOne:
     get:
@@ -1301,38 +441,6 @@ paths:
           description: Request was successful
           schema:
             $ref: '#/definitions/iati-publisher'
-      deprecated: false
-  /iati-publishers/update:
-    post:
-      tags:
-        - iati-publisher
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: iati-publisher.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-publisher'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
       deprecated: false
   /iati-publishers/count:
     get:
@@ -1356,41 +464,6 @@ paths:
               count:
                 type: number
                 format: double
-      deprecated: false
-  /iati-publishers/change-stream:
-    post:
-      tags:
-        - iati-publisher
-      summary: Create a change stream.
-      operationId: iati-publisher.createChangeStream__post_iati-publishers_change-stream
-      parameters:
-        - name: options
-          in: formData
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
-    get:
-      tags:
-        - iati-publisher
-      summary: Create a change stream.
-      operationId: iati-publisher.createChangeStream__get_iati-publishers_change-stream
-      parameters:
-        - name: options
-          in: query
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
       deprecated: false
   '/iati-publishers/{id}/workspaces/{nk}/versions/{fk}':
     get:
@@ -1417,69 +490,6 @@ paths:
           required: true
           type: string
           format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-    delete:
-      tags:
-        - iati-publisher
-      summary: Delete a related item by id for versions.
-      operationId: iati-publisher.prototype.__destroyById__workspaces__versions
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: nk
-          in: path
-          description: Foreign key for workspaces.
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for versions
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - iati-publisher
-      summary: Update a related item by id for versions.
-      operationId: iati-publisher.prototype.__updateById__workspaces__versions
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: nk
-          in: path
-          description: Foreign key for workspaces.
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for versions
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/version'
       responses:
         '200':
           description: Request was successful
@@ -1517,57 +527,6 @@ paths:
             type: array
             items:
               $ref: '#/definitions/version'
-      deprecated: false
-    post:
-      tags:
-        - iati-publisher
-      summary: Creates a new instance in versions of this model.
-      operationId: iati-publisher.prototype.__create__workspaces__versions
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: nk
-          in: path
-          description: Foreign key for workspaces.
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-    delete:
-      tags:
-        - iati-publisher
-      summary: Deletes all versions of this model.
-      operationId: iati-publisher.prototype.__delete__workspaces__versions
-      parameters:
-        - name: id
-          in: path
-          description: iati-publisher id
-          required: true
-          type: string
-          format: JSON
-        - name: nk
-          in: path
-          description: Foreign key for workspaces.
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
       deprecated: false
   '/iati-publishers/{id}/workspaces/{nk}/versions/count':
     get:
@@ -1629,57 +588,6 @@ paths:
           schema:
             $ref: '#/definitions/version'
       deprecated: false
-    delete:
-      tags:
-        - workspace
-      summary: Delete a related item by id for versions.
-      operationId: workspace.prototype.__destroyById__versions
-      parameters:
-        - name: id
-          in: path
-          description: workspace id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for versions
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - workspace
-      summary: Update a related item by id for versions.
-      operationId: workspace.prototype.__updateById__versions
-      parameters:
-        - name: id
-          in: path
-          description: workspace id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for versions
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
   '/workspaces/{id}/versions':
     get:
       tags:
@@ -1705,45 +613,6 @@ paths:
             type: array
             items:
               $ref: '#/definitions/version'
-      deprecated: false
-    post:
-      tags:
-        - workspace
-      summary: Creates a new instance in versions of this model.
-      operationId: workspace.prototype.__create__versions
-      parameters:
-        - name: id
-          in: path
-          description: workspace id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-    delete:
-      tags:
-        - workspace
-      summary: Deletes all versions of this model.
-      operationId: workspace.prototype.__delete__versions
-      parameters:
-        - name: id
-          in: path
-          description: workspace id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
       deprecated: false
   '/workspaces/{id}/versions/count':
     get:
@@ -1773,159 +642,6 @@ paths:
               count:
                 type: number
                 format: double
-      deprecated: false
-  /workspaces:
-    post:
-      tags:
-        - workspace
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: workspace.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
-    patch:
-      tags:
-        - workspace
-      summary: >-
-        Patch an existing model instance or insert a new one into the data
-        source.
-      operationId: workspace.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
-    put:
-      tags:
-        - workspace
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: workspace.replaceOrCreate__put_workspaces
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
-    get:
-      tags:
-        - workspace
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: workspace.find
-      parameters:
-        - name: filter
-          in: query
-          description: >-
-            Filter defining fields, where, include, order, offset, and limit -
-            must be a JSON-encoded string ({"something":"value"})
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/workspace'
-      deprecated: false
-    delete:
-      tags:
-        - workspace
-      summary: Delete all matching records.
-      operationId: workspace.destroyAll
-      parameters:
-        - name: where
-          in: formData
-          description: filter.where object
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: The number of instances deleted
-            type: object
-      deprecated: false
-  /workspaces/replaceOrCreate:
-    post:
-      tags:
-        - workspace
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: workspace.replaceOrCreate__post_workspaces_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
-  /workspaces/upsertWithWhere:
-    post:
-      tags:
-        - workspace
-      summary: >-
-        Update an existing model instance or insert a new one into the data
-        source based on the where criteria.
-      operationId: workspace.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
       deprecated: false
   '/workspaces/{id}/exists':
     get:
@@ -1997,105 +713,28 @@ paths:
           schema:
             $ref: '#/definitions/workspace'
       deprecated: false
-    put:
+  /workspaces:
+    get:
       tags:
         - workspace
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'workspace.replaceById__put_workspaces_{id}'
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: workspace.find
       parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
           required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
-    delete:
-      tags:
-        - workspace
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: workspace.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
           type: string
           format: JSON
       responses:
         '200':
           description: Request was successful
           schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - workspace
-      summary: >-
-        Patch attributes for a model instance and persist it into the data
-        source.
-      operationId: workspace.prototype.patchAttributes
-      parameters:
-        - name: id
-          in: path
-          description: workspace id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
-      deprecated: false
-  '/workspaces/{id}/replace':
-    post:
-      tags:
-        - workspace
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'workspace.replaceById__post_workspaces_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/workspace'
+            type: array
+            items:
+              $ref: '#/definitions/workspace'
       deprecated: false
   /workspaces/findOne:
     get:
@@ -2117,38 +756,6 @@ paths:
           description: Request was successful
           schema:
             $ref: '#/definitions/workspace'
-      deprecated: false
-  /workspaces/update:
-    post:
-      tags:
-        - workspace
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: workspace.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/workspace'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
       deprecated: false
   /workspaces/count:
     get:
@@ -2172,435 +779,6 @@ paths:
               count:
                 type: number
                 format: double
-      deprecated: false
-  /workspaces/change-stream:
-    post:
-      tags:
-        - workspace
-      summary: Create a change stream.
-      operationId: workspace.createChangeStream__post_workspaces_change-stream
-      parameters:
-        - name: options
-          in: formData
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
-    get:
-      tags:
-        - workspace
-      summary: Create a change stream.
-      operationId: workspace.createChangeStream__get_workspaces_change-stream
-      parameters:
-        - name: options
-          in: query
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
-  '/versions/{id}/iati-datasets/{fk}':
-    get:
-      tags:
-        - version
-      summary: Find a related item by id for iati-datasets.
-      operationId: version.prototype.__findById__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for iati-datasets
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    delete:
-      tags:
-        - version
-      summary: Delete a related item by id for iati-datasets.
-      operationId: version.prototype.__destroyById__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for iati-datasets
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - version
-      summary: Update a related item by id for iati-datasets.
-      operationId: version.prototype.__updateById__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for iati-datasets
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-  '/versions/{id}/iati-datasets/rel/{fk}':
-    put:
-      tags:
-        - version
-      summary: Add a related item by id for iati-datasets.
-      operationId: version.prototype.__link__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for iati-datasets
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    delete:
-      tags:
-        - version
-      summary: Remove the iati-datasets relation to an item by id.
-      operationId: version.prototype.__unlink__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for iati-datasets
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    head:
-      tags:
-        - version
-      summary: Check the existence of iati-datasets relation to an item by id.
-      operationId: version.prototype.__exists__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: fk
-          in: path
-          description: Foreign key for iati-datasets
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: boolean
-      deprecated: false
-  '/versions/{id}/iati-datasets':
-    get:
-      tags:
-        - version
-      summary: Queries iati-datasets of version.
-      operationId: version.prototype.__get__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    post:
-      tags:
-        - version
-      summary: Creates a new instance in iati-datasets of this model.
-      operationId: version.prototype.__create__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-dataset'
-      deprecated: false
-    delete:
-      tags:
-        - version
-      summary: Deletes all iati-datasets of this model.
-      operationId: version.prototype.__delete__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/versions/{id}/iati-datasets/count':
-    get:
-      tags:
-        - version
-      summary: Counts iati-datasets of version.
-      operationId: version.prototype.__count__iati-datasets
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /versions:
-    post:
-      tags:
-        - version
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: version.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-    patch:
-      tags:
-        - version
-      summary: >-
-        Patch an existing model instance or insert a new one into the data
-        source.
-      operationId: version.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-    put:
-      tags:
-        - version
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: version.replaceOrCreate__put_versions
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-    get:
-      tags:
-        - version
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: version.find
-      parameters:
-        - name: filter
-          in: query
-          description: >-
-            Filter defining fields, where, include, order, offset, and limit -
-            must be a JSON-encoded string ({"something":"value"})
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/version'
-      deprecated: false
-    delete:
-      tags:
-        - version
-      summary: Delete all matching records.
-      operationId: version.destroyAll
-      parameters:
-        - name: where
-          in: formData
-          description: filter.where object
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: The number of instances deleted
-            type: object
-      deprecated: false
-  /versions/replaceOrCreate:
-    post:
-      tags:
-        - version
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: version.replaceOrCreate__post_versions_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-  /versions/upsertWithWhere:
-    post:
-      tags:
-        - version
-      summary: >-
-        Update an existing model instance or insert a new one into the data
-        source based on the where criteria.
-      operationId: version.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
       deprecated: false
   '/versions/{id}/exists':
     get:
@@ -2672,105 +850,28 @@ paths:
           schema:
             $ref: '#/definitions/version'
       deprecated: false
-    put:
+  /versions:
+    get:
       tags:
         - version
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'version.replaceById__put_versions_{id}'
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: version.find
       parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string ({"something":"value"})
           required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-    delete:
-      tags:
-        - version
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: version.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
           type: string
           format: JSON
       responses:
         '200':
           description: Request was successful
           schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - version
-      summary: >-
-        Patch attributes for a model instance and persist it into the data
-        source.
-      operationId: version.prototype.patchAttributes
-      parameters:
-        - name: id
-          in: path
-          description: version id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
-      deprecated: false
-  '/versions/{id}/replace':
-    post:
-      tags:
-        - version
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'version.replaceById__post_versions_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/version'
+            type: array
+            items:
+              $ref: '#/definitions/version'
       deprecated: false
   /versions/findOne:
     get:
@@ -2792,38 +893,6 @@ paths:
           description: Request was successful
           schema:
             $ref: '#/definitions/version'
-      deprecated: false
-  /versions/update:
-    post:
-      tags:
-        - version
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: version.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/version'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
       deprecated: false
   /versions/count:
     get:
@@ -2847,202 +916,6 @@ paths:
               count:
                 type: number
                 format: double
-      deprecated: false
-  /versions/change-stream:
-    post:
-      tags:
-        - version
-      summary: Create a change stream.
-      operationId: version.createChangeStream__post_versions_change-stream
-      parameters:
-        - name: options
-          in: formData
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
-    get:
-      tags:
-        - version
-      summary: Create a change stream.
-      operationId: version.createChangeStream__get_versions_change-stream
-      parameters:
-        - name: options
-          in: query
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
-  /iati-testfiles:
-    get:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.getContainers
-      parameters: []
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/x-any'
-      deprecated: false
-    post:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.createContainer
-      parameters:
-        - name: options
-          in: body
-          required: false
-          schema:
-            type: object
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-  '/iati-testfiles/{container}':
-    delete:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.destroyContainer
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              undefined:
-                type: object
-      deprecated: false
-    get:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.getContainer
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-  '/iati-testfiles/{container}/files':
-    get:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.getFiles
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/x-any'
-      deprecated: false
-  '/iati-testfiles/{container}/files/{file}':
-    get:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.getFile
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-        - name: file
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    delete:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.removeFile
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-        - name: file
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              undefined:
-                type: object
-      deprecated: false
-  '/iati-testfiles/{container}/upload':
-    post:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.upload
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              result:
-                type: object
-      deprecated: false
-  '/iati-testfiles/{container}/download/{file}':
-    get:
-      tags:
-        - iati-testfile
-      operationId: iati-testfile.download
-      parameters:
-        - name: container
-          in: path
-          required: true
-          type: string
-        - name: file
-          in: path
-          required: true
-          type: string
-      responses:
-        '204':
-          description: Request was successful
       deprecated: false
   '/iati-testfiles/file/{type}/{filename}':
     get:
@@ -3103,139 +976,6 @@ paths:
           required: false
           schema:
             description: Model instance data
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-    patch:
-      tags:
-        - iati-testdataset
-      summary: >-
-        Patch an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-testdataset.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-    put:
-      tags:
-        - iati-testdataset
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-testdataset.replaceOrCreate__put_iati-testdatasets
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-    get:
-      tags:
-        - iati-testdataset
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: iati-testdataset.find
-      parameters:
-        - name: filter
-          in: query
-          description: >-
-            Filter defining fields, where, include, order, offset, and limit -
-            must be a JSON-encoded string ({"something":"value"})
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-    delete:
-      tags:
-        - iati-testdataset
-      summary: Delete all matching records.
-      operationId: iati-testdataset.destroyAll
-      parameters:
-        - name: where
-          in: formData
-          description: filter.where object
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: The number of instances deleted
-            type: object
-      deprecated: false
-  /iati-testdatasets/replaceOrCreate:
-    post:
-      tags:
-        - iati-testdataset
-      summary: >-
-        Replace an existing model instance or insert a new one into the data
-        source.
-      operationId: iati-testdataset.replaceOrCreate__post_iati-testdatasets_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-  /iati-testdatasets/upsertWithWhere:
-    post:
-      tags:
-        - iati-testdataset
-      summary: >-
-        Update an existing model instance or insert a new one into the data
-        source based on the where criteria.
-      operationId: iati-testdataset.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
             $ref: '#/definitions/iati-testdataset'
       responses:
         '200':
@@ -3313,218 +1053,6 @@ paths:
           schema:
             $ref: '#/definitions/iati-testdataset'
       deprecated: false
-    put:
-      tags:
-        - iati-testdataset
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'iati-testdataset.replaceById__put_iati-testdatasets_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-    delete:
-      tags:
-        - iati-testdataset
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: iati-testdataset.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - iati-testdataset
-      summary: >-
-        Patch attributes for a model instance and persist it into the data
-        source.
-      operationId: iati-testdataset.prototype.patchAttributes
-      parameters:
-        - name: id
-          in: path
-          description: iati-testdataset id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-  '/iati-testdatasets/{id}/replace':
-    post:
-      tags:
-        - iati-testdataset
-      summary: >-
-        Replace attributes for a model instance and persist it into the data
-        source.
-      operationId: 'iati-testdataset.replaceById__post_iati-testdatasets_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-  /iati-testdatasets/findOne:
-    get:
-      tags:
-        - iati-testdataset
-      summary: Find first instance of the model matched by filter from the data source.
-      operationId: iati-testdataset.findOne
-      parameters:
-        - name: filter
-          in: query
-          description: >-
-            Filter defining fields, where, include, order, offset, and limit -
-            must be a JSON-encoded string ({"something":"value"})
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/iati-testdataset'
-      deprecated: false
-  /iati-testdatasets/update:
-    post:
-      tags:
-        - iati-testdataset
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: iati-testdataset.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/iati-testdataset'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
-      deprecated: false
-  /iati-testdatasets/count:
-    get:
-      tags:
-        - iati-testdataset
-      summary: Count instances of the model matched by where from the data source.
-      operationId: iati-testdataset.count
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /iati-testdatasets/change-stream:
-    post:
-      tags:
-        - iati-testdataset
-      summary: Create a change stream.
-      operationId: >-
-        iati-testdataset.createChangeStream__post_iati-testdatasets_change-stream
-      parameters:
-        - name: options
-          in: formData
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
-    get:
-      tags:
-        - iati-testdataset
-      summary: Create a change stream.
-      operationId: iati-testdataset.createChangeStream__get_iati-testdatasets_change-stream
-      parameters:
-        - name: options
-          in: query
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: file
-      deprecated: false
   /ping:
     get:
       tags:
@@ -3567,8 +1095,6 @@ produces:
   - application/javascript
   - text/javascript
 definitions:
-  x-any:
-    properties: {}
   iati-dataset:
     description: IATI dataset information
     properties:
@@ -3613,6 +1139,8 @@ definitions:
       - id
       - md5
     additionalProperties: false
+  x-any:
+    properties: {}
   workspace:
     description: Workspaces with data sets and analyses
     properties:

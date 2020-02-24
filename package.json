@@ -10,7 +10,7 @@
     "start": "node .",
     "test": "NODE_ENV=test mocha && NODE_ENV=test API_TYPE=public mocha",
     "dev": "NODE_ENV=sandbox nodemon server/server.js",
-    "openapi-spec": "NODE_ENV=test lb export-api-def -o docs/postman/openapi-spec.yaml"
+    "openapi-spec": "NODE_ENV=test lb export-api-def -o docs/postman/openapi-spec-private.yaml && NODE_ENV=test API_TYPE=public lb export-api-def -o docs/postman/openapi-spec.yaml"
   },
   "dependencies": {
     "compression": "^1.7.3",
