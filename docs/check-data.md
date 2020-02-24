@@ -1,0 +1,73 @@
+---
+title: Check data flow
+order: 2
+---
+
+### API on unpublished files
+
+To be developed:
+
+- Provide an interface to upload a file or URL.
+- Check of MD5 of file has been processed already
+- Process the specific file and return the results.
+- Clean up the results after a period (API storage?).
+
+```mermaid
+
+sequenceDiagram
+participant C as Client
+participant API
+participant FS as File Store
+participant DS as Test Datasets
+
+note over C: create random workspace <wid>
+
+C->>API: upload file with <wid>
+activate API
+activate C
+
+API->>FS: store copy of file
+activate FS
+FS-->>API: unique filename
+deactivate FS
+
+API->>DS: store test dataset info and <wid>
+activate DS
+DS-->>API: unique dataset id
+deactivate DS
+
+API-->>C: dataset id + filename
+
+deactivate API
+deactivate C
+
+note over C: continue to /validate/<wid>
+
+activate C
+loop every second
+
+C->>API: get test-datasets for <wid>
+API->>DS: get
+activate DS
+DS-->>API: results
+deactivate DS
+API-->>C: results
+note over C: update list of known datasets
+
+end
+deactivate C
+
+note over C: continue to /...
+
+C->>API: get JSON file
+activate C
+activate API
+API->>FS: get JSON file
+activate FS
+FS-->>API: return file
+deactivate FS
+API-->>C: return file
+deactivate API
+deactivate C
+
+```
