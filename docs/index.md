@@ -7,7 +7,7 @@ The IATI data validator API provides access to a store of IATI data files and th
 
 The pages here explain the architecture and data model behind the API.
 
-## End point documentation
+## API end point and metadata documentation
 
 API end point documentation is available in a couple of ways.
 
@@ -33,4 +33,8 @@ The [Specification page](specification.html) uses the OpenAPI specification file
 
 ## Query language documentation
 
-The query language is provided by Loopback version 3. Filtering, ordering and limiting results and including fields is documented on [the Loopback site](https://loopback.io/doc/en/lb3/Querying-data.html).  
+The query language is provided by Loopback version 3. Filtering, ordering and limiting results and including fields is documented on [the Loopback site](https://loopback.io/doc/en/lb3/Querying-data.html).
+
+## Result format documentation
+
+The available validation report formats are documented as part of the [Validator documentation](IATI-data-validator/formats/).
