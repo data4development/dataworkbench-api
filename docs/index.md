@@ -37,4 +37,4 @@ The query language is provided by Loopback version 3. Filtering, ordering and li
 
 ## Result format documentation
 
-The available validation report formats are documented as part of the [Validator documentation](IATI-data-validator/formats/).
+The available validation report formats are documented as part of the [Validator documentation](/IATI-data-validator/formats/).
