@@ -7,6 +7,7 @@ const Dataset = app.models['iati-dataset'];
 const iatifile = app.models['iati-file'];
 const path = require('path');
 const https = require('https');
+// TODO: rename googleStorageConfig to more generic config identifier
 const googleStorageConfig = require('../../../common/config/google-storage');
 const _ = require('lodash');
 const md5 = require('md5');
@@ -99,7 +100,7 @@ const fetchPage = async (url, pageN) => {
 };
 
 const job = schedule.scheduleJob(`0 0 */${process.env.DATASTORE_JOBS_PER_HOURS || 1} * *`, () => {
-  fetchPage('https://api.datastore.iati.cloud/api/datasets/?fields=all&format=json&page=1&ordering=-sha1&page_size=2000', 1);
+  fetchPage(googleStorageConfig.datastore.api_url + '/datasets/?fields=all&format=json&page=1&ordering=-sha1&page_size=2000', 1);
 });
 
 module.exports = {name: 'datastore'};

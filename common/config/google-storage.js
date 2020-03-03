@@ -24,4 +24,9 @@ module.exports = {
     svrl: process.env.CONTAINER_UPLOAD_SVRL ||
       'dataworkbench-testsvrl-staging-d4d-dataworkbench',
   },
+
+  datastore: {
+    api_url: process.env.DATASTORE_API_URL ||
+      'https://iati.cloud/api',
+  }
 };
