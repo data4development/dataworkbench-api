@@ -59,48 +59,59 @@ const cloneFile = async (file) => {
   });
 }
 
-const fetchPage = async (url, pageN) => {
+const fetchDatastorePage = async(url) => {
   if (!url) {
-    return
+    return [];
   }
 
-  const files = await Dataset.find({ order: 'sha1 DESC', limit: 2000, skip: (pageN - 1) * 2000 });
-  const filesSha1 = files.map(({ sha1 }) => sha1);
+  console.log('fetching page from datastore:', url);
   const {data: { next, results }} = await axios.get(url);
-  const resultSha1 = results.map(({ sha1 }) => sha1);
-  const fileAndResultDiff = _.differenceWith(resultSha1, filesSha1, _.isEqual);
-  const duplicatedSha1 = (await Dataset.find({ where: { sha1: { inq: fileAndResultDiff } }, fields: {'sha1': true} }))
-    .map(({ sha1 }) => sha1)
-  const filteredSha1 = _.differenceWith(fileAndResultDiff, duplicatedSha1, _.isEqual);
 
-  if (!filteredSha1.length) {
-    return fetchPage(next, pageN + 1);
-  }
+  return _.concat(
+    _.filter(results, function(o) {return o.sha1 != ''}), 
+    // await fetchDatastorePage(next)
+  )
+}
 
-  const filteredResults = _.chunk(results.filter(({ sha1 }) => filteredSha1.indexOf(sha1) !== -1), 5);
-  const processFile = async file => {
-    try {
-      const fileAsBuffer = await cloneFile(file);
-      const md5hash = md5(fileAsBuffer);
-      await saveFileMetadata({ ...file, md5: md5hash })
-    } catch(err) {
-      console.error('File error: ', err.message);
-    }
-  }
+const fetchFiles = async () => {
+  // const sha1sValidator = await Dataset.find({ order: 'sha1 ASC', fields: {sha1: true}, where: {sha1: {exists: true}} });
+  const filesResponse = await axios.get('http://localhost:18081/api/v1/iati-datasets?filter={"where":{"sha1":{"exists":true}}}');
+  const filesValidator = filesResponse.data;
+  // const filesValidator = _.filter(filesResponse.data, {sha1: '833356ba0f36b5a1c5e27a1040b7978f61217f9f'});
+  console.log('number of datasets in the validator:', filesValidator.length);
 
-  for(let filesChunk of filteredResults) {
-    try {
-      await Promise.all(filesChunk.map(processFile));
-    } catch(err) {
-      console.log('Error sending: ', err.message)
-    }
-  }
+  const filesDatastore = await fetchDatastorePage(googleStorageConfig.datastore.api_url + 
+    '/datasets/?format=json&page=1&page_size=1000');
 
-  return fetchPage(next, pageN + 1);
-};
+  const filesDiff = _.differenceWith(filesDatastore, filesValidator, function (a,b) {return a.sha1 == b.sha1});
 
-const job = schedule.scheduleJob(`0 0 */${process.env.DATASTORE_JOBS_PER_HOURS || 1} * *`, () => {
-  fetchPage(googleStorageConfig.datastore.api_url + '/datasets/?fields=all&format=json&page=1&ordering=-sha1&page_size=2000', 1);
-});
+  console.log('number of datasets in the datastore:', filesDatastore.length);
+  console.log('number of datasets to be retrieved:', filesDiff.length);
+
+  // const filteredResults = _.chunk(results.filter(({ sha1 }) => filteredSha1.indexOf(sha1) !== -1), 5);
+  // const processFile = async file => {
+  //   try {
+  //     const fileAsBuffer = await cloneFile(file);
+  //     const md5hash = md5(fileAsBuffer);
+  //     await saveFileMetadata({ ...file, md5: md5hash })
+  //   } catch(err) {
+  //     console.error('File error: ', err.message);
+  //   }
+  // }
+
+  // for(let filesChunk of filteredResults) {
+  //   try {
+  //     await Promise.all(filesChunk.map(processFile));
+  //   } catch(err) {
+  //     console.log('Error sending: ', err.message)
+  //   }
+  // }
+}
+
+// const job = schedule.scheduleJob(`0 0 */${process.env.DATASTORE_JOBS_PER_HOURS || 1} * *`, () => {
+//   fetchFiles();
+// });
+
+const job = fetchFiles();
 
 module.exports = {name: 'datastore'};
