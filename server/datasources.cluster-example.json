@@ -1,0 +1,32 @@
+{
+  "iati-filestore": {
+    "provider": "google",
+    "projectId": "dataworkbench-io",
+    "keyFilename": "local/dataworkbench-serviceaccount.json"    
+  },
+  "iati-publishers": {
+    "connector": "mongodb",
+    "url": "mongodb://localhost:27017/dataworkbench"
+  },
+  "iati-datasets": {
+    "connector": "mongodb",
+    "url": "mongodb://localhost:27017/dataworkbench"
+  },
+  "workspaces": {
+    "connector": "mongodb",
+    "url": "mongodb://localhost:27017/dataworkbench"
+  },
+  "versions": {
+    "connector": "mongodb",
+    "url": "mongodb://localhost:27017/dataworkbench"
+  },
+  "iati-testfilestore": {
+    "provider": "google",
+    "projectId": "dataworkbench-io",
+    "keyFilename": "local/dataworkbench-serviceaccount.json"        
+  },
+  "iati-testdatasets": {
+    "connector": "mongodb",
+    "url": "mongodb://localhost:27017/dataworkbench"
+  }
+}
