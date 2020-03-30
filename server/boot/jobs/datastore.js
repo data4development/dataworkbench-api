@@ -119,6 +119,7 @@ const fetchFiles = async () => {
   }
 }
 
+console.log('datastore sync cron schedule:', googleStorageConfig.datastore.cronschedule);
 const job = schedule.scheduleJob(googleStorageConfig.datastore.cronschedule, () => {
   fetchFiles();
 });
