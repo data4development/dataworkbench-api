@@ -74,7 +74,7 @@ const fetchDatastorePage = async(url) => {
 
   return _.concat(
     _.filter(results, function(o) {return o.sha1 != ''}), 
-    // await fetchDatastorePage(next)
+    await fetchDatastorePage(next)
   )
 }
 
@@ -86,7 +86,9 @@ const fetchFiles = async () => {
   console.log('number of datasets in the validator:', filesValidator.length);
 
   const filesDatastore = _.filter(
-    await fetchDatastorePage(googleStorageConfig.datastore.api_url + '/datasets/?format=json&page=1&page_size=100'),
+    await fetchDatastorePage(googleStorageConfig.datastore.api_url 
+      + '/datasets/?format=json&page=1&page_size=' 
+      + googleStorageConfig.datastore.pagesize),
     function(o) {return o.internal_url != null}
   );
 

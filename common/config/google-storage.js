@@ -31,7 +31,8 @@ module.exports = {
   },
 
   datastore: {
-    api_url: process.env.DATASTORE_API_URL ||
+    api_url: process.env.DATASTORE_API_URL || 
       'https://iati.cloud/api',
+    pagesize: process.env.DATASTORE_PAGESIZE || 1000,
   }
 };
