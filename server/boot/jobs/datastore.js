@@ -11,16 +11,17 @@ const https = require('https');
 const googleStorageConfig = require('../../../common/config/google-storage');
 const _ = require('lodash');
 const md5 = require('md5');
+const stream = require('stream');
 
 const saveFileMetadata = file => new Promise((resolve, reject) => {
   Dataset.create(new Dataset({
     name: `${file.publisher.name}/${file.name}`,
-    url: file.internal_url,
+    url: file['source_url'],
     publisher: file.publisher.name,
     filename: `${file.publisher.name}-${path.basename(file['source_url'])}`,
     updated: file['date_updated'],
-    created: file['date_created'],
-    sourceUrl: file['source_url'],
+    downloaded: file['date_created'],
+    internal_url: file['internal_url'],
     sha1: file.sha1,
     md5: file.md5
   }), function(err, data) {
@@ -33,28 +34,32 @@ const saveFileMetadata = file => new Promise((resolve, reject) => {
 });
 
 const cloneFile = async (file) => {
-  const image = await axios.get(file['internal_url'], {
-    responseType: 'stream',
+  const sourceFile = await axios.get(file['internal_url'], {
+    responseType: 'arraybuffer',
     timeout: 15 * 1000,
     httpsAgent: new https.Agent({
       rejectUnauthorized: false
     })
   });
+
+  const md5hash = md5(sourceFile.data);
+  console.log('md5:', md5hash, 'for downloaded file:', file.internal_url);
   
+  var fileStream = new stream.PassThrough();
+  fileStream.end(sourceFile.data);
+
   return new Promise((resolve, reject) => {
     const uploadStream = iatifile.uploadStream(
-      googleStorageConfig.container_upload.source,
-      `${file.publisher.name}-${path.basename(file['source_url'])}`,
+      googleStorageConfig.container_public.source,
+      md5hash + '.xml',
     );
-    image.data.pipe(uploadStream);
 
-    const fileBuffer = [];
-    uploadStream.on('data', (data) => {
-      fileBuffer.push(data);
-    });
+    fileStream.pipe(uploadStream);
+
+    uploadStream.on('data', (data) => {});
     uploadStream.on('error', reject);
-    uploadStream.on('end', () => {
-      resolve(Buffer.concat(fileBuffer));
+    uploadStream.on('finish', () => {
+      resolve(md5hash);
     });
   });
 }
@@ -94,11 +99,7 @@ const fetchFiles = async () => {
 
   const processFile = async file => {
     try {
-      console.log('getting:', file.internal_url);
-      const fileAsBuffer = await cloneFile(file);
-      console.log('downloaded:', file.internal_url)
-      const md5hash = md5(fileAsBuffer);
-      console.log('md5 of new file:', md5hash);
+      const md5hash = await cloneFile(file);
       await saveFileMetadata({ ...file, md5: md5hash })
     } catch(err) {
       console.error('File error: ', err.message);
