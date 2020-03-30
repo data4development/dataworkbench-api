@@ -27,7 +27,7 @@ module.exports = {
 
   validator: {
     api_url: process.env.VALIDATOR_API_URL ||
-      'http://localhost:18081/api/v1',
+      'http://validator-api/api/v1',
   },
 
   datastore: {
