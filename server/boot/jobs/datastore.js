@@ -33,14 +33,14 @@ const saveFileMetadata = file => new Promise((resolve, reject) => {
 });
 
 const cloneFile = async (file) => {
-  const image = await axios.get(file['source_url'], {
+  const image = await axios.get(file['internal_url'], {
     responseType: 'stream',
     timeout: 15 * 1000,
     httpsAgent: new https.Agent({
       rejectUnauthorized: false
     })
   });
-
+  
   return new Promise((resolve, reject) => {
     const uploadStream = iatifile.uploadStream(
       googleStorageConfig.container_upload.source,
@@ -80,8 +80,10 @@ const fetchFiles = async () => {
   // const filesValidator = _.filter(filesResponse.data, {sha1: '833356ba0f36b5a1c5e27a1040b7978f61217f9f'});
   console.log('number of datasets in the validator:', filesValidator.length);
 
-  const filesDatastore = await fetchDatastorePage(googleStorageConfig.datastore.api_url + 
-    '/datasets/?format=json&page=1&page_size=1000');
+  const filesDatastore = _.filter(
+    await fetchDatastorePage(googleStorageConfig.datastore.api_url + '/datasets/?format=json&page=1&page_size=100'),
+    function(o) {return o.internal_url != null}
+  );
 
   const filesDiff = _.differenceWith(filesDatastore, filesValidator, function (a,b) {return a.sha1 == b.sha1});
 
