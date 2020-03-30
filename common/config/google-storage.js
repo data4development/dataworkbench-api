@@ -25,6 +25,11 @@ module.exports = {
       'dataworkbench-testsvrl-staging-d4d-dataworkbench',
   },
 
+  validator: {
+    api_url: process.env.VALIDATOR_API_URL ||
+      'http://localhost:18081/api/v1',
+  },
+
   datastore: {
     api_url: process.env.DATASTORE_API_URL ||
       'https://iati.cloud/api',

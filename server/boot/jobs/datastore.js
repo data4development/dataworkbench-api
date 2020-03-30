@@ -75,7 +75,7 @@ const fetchDatastorePage = async(url) => {
 
 const fetchFiles = async () => {
   // const sha1sValidator = await Dataset.find({ order: 'sha1 ASC', fields: {sha1: true}, where: {sha1: {exists: true}} });
-  const filesResponse = await axios.get('http://localhost:18081/api/v1/iati-datasets?filter={"where":{"sha1":{"exists":true}}}');
+  const filesResponse = await axios.get(googleStorageConfig.validator.api_url + '/iati-datasets?filter={"where":{"sha1":{"exists":true}}}');
   const filesValidator = filesResponse.data;
   // const filesValidator = _.filter(filesResponse.data, {sha1: '833356ba0f36b5a1c5e27a1040b7978f61217f9f'});
   console.log('number of datasets in the validator:', filesValidator.length);
