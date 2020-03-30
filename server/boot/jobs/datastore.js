@@ -80,6 +80,7 @@ const fetchDatastorePage = async(url) => {
 }
 
 const fetchFiles = async () => {
+  console.log('starting datastore sync');
   // const sha1sValidator = await Dataset.find({ order: 'sha1 ASC', fields: {sha1: true}, where: {sha1: {exists: true}} });
   const filesResponse = await axios.get(googleStorageConfig.validator.api_url + '/iati-datasets?filter={"where":{"sha1":{"exists":true}}}');
   const filesValidator = filesResponse.data;
@@ -98,7 +99,7 @@ const fetchFiles = async () => {
   console.log('number of datasets in the datastore:', filesDatastore.length);
   console.log('number of datasets to be retrieved:', filesDiff.length);
 
-  const filteredResults = _.chunk(filesDiff, 5);
+  const filteredResults = _.chunk(filesDiff, 2);
 
   const processFile = async file => {
     try {
@@ -111,7 +112,7 @@ const fetchFiles = async () => {
 
   for(let filesChunk of filteredResults) {
     try {
-      console.log('start batch of 5');
+      console.log('start batch of 2');
       await Promise.all(filesChunk.map(processFile));
     } catch(err) {
       console.log('Error sending: ', err.message)
