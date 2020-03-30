@@ -23,7 +23,8 @@ const saveFileMetadata = file => new Promise((resolve, reject) => {
     downloaded: file['date_created'],
     internal_url: file['internal_url'],
     sha1: file.sha1,
-    md5: file.md5
+    md5: file.md5,
+    origin: 'datastore'
   }), function(err, data) {
     if (err) {
       return reject(err)
