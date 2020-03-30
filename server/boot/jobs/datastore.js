@@ -119,10 +119,8 @@ const fetchFiles = async () => {
   }
 }
 
-// const job = schedule.scheduleJob(`0 0 */${process.env.DATASTORE_JOBS_PER_HOURS || 1} * *`, () => {
-//   fetchFiles();
-// });
-
-const job = fetchFiles();
+const job = schedule.scheduleJob(googleStorageConfig.datastore.cronschedule, () => {
+  fetchFiles();
+});
 
 module.exports = {name: 'datastore'};
