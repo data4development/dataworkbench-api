@@ -90,24 +90,29 @@ const fetchFiles = async () => {
   console.log('number of datasets in the datastore:', filesDatastore.length);
   console.log('number of datasets to be retrieved:', filesDiff.length);
 
-  // const filteredResults = _.chunk(results.filter(({ sha1 }) => filteredSha1.indexOf(sha1) !== -1), 5);
-  // const processFile = async file => {
-  //   try {
-  //     const fileAsBuffer = await cloneFile(file);
-  //     const md5hash = md5(fileAsBuffer);
-  //     await saveFileMetadata({ ...file, md5: md5hash })
-  //   } catch(err) {
-  //     console.error('File error: ', err.message);
-  //   }
-  // }
+  const filteredResults = _.chunk(filesDiff, 5);
 
-  // for(let filesChunk of filteredResults) {
-  //   try {
-  //     await Promise.all(filesChunk.map(processFile));
-  //   } catch(err) {
-  //     console.log('Error sending: ', err.message)
-  //   }
-  // }
+  const processFile = async file => {
+    try {
+      console.log('getting:', file.internal_url);
+      const fileAsBuffer = await cloneFile(file);
+      console.log('downloaded:', file.internal_url)
+      const md5hash = md5(fileAsBuffer);
+      console.log('md5 of new file:', md5hash);
+      await saveFileMetadata({ ...file, md5: md5hash })
+    } catch(err) {
+      console.error('File error: ', err.message);
+    }
+  }
+
+  for(let filesChunk of filteredResults) {
+    try {
+      console.log('start batch of 5');
+      await Promise.all(filesChunk.map(processFile));
+    } catch(err) {
+      console.log('Error sending: ', err.message)
+    }
+  }
 }
 
 // const job = schedule.scheduleJob(`0 0 */${process.env.DATASTORE_JOBS_PER_HOURS || 1} * *`, () => {
