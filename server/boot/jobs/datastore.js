@@ -18,7 +18,7 @@ const saveFileMetadata = file => new Promise((resolve, reject) => {
     name: `${file.publisher.name}/${file.name}`,
     url: file['source_url'],
     publisher: file.publisher.name,
-    filename: `${file.publisher.name}-${path.basename(file['source_url'])}`,
+    filename: `${path.basename(file['source_url'])}`,
     updated: file['date_updated'],
     downloaded: file['date_created'],
     internal_url: file['internal_url'],
