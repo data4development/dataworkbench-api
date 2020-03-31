@@ -36,5 +36,6 @@ module.exports = {
     pagesize: process.env.DATASTORE_PAGESIZE || 1000,
     cronschedule: process.env.DATASTORE_CRONSCHEDULE ||
       '51 * * * *',
+    workers: process.env.DATASTORE_WORKERS || 3,
   }
 };

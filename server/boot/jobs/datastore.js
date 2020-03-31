@@ -99,7 +99,7 @@ const fetchFiles = async () => {
   console.log('number of datasets in the datastore:', filesDatastore.length);
   console.log('number of datasets to be retrieved:', filesDiff.length);
 
-  const filteredResults = _.chunk(filesDiff, 2);
+  const filteredResults = _.chunk(filesDiff, googleStorageConfig.datastore.workers);
 
   const processFile = async file => {
     try {
@@ -112,7 +112,7 @@ const fetchFiles = async () => {
 
   for(let filesChunk of filteredResults) {
     try {
-      console.log('start batch of 2');
+      console.log('start batch of', googleStorageConfig.datastore.workers);
       await Promise.all(filesChunk.map(processFile));
     } catch(err) {
       console.log('Error sending: ', err.message)
