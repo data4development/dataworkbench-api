@@ -106,7 +106,7 @@ const fetchFiles = async () => {
       const md5hash = await cloneFile(file);
       await saveFileMetadata({ ...file, md5: md5hash })
     } catch(err) {
-      console.error('File error: ', err.message);
+      console.error('File error: ', err.message, file.internal_url);
     }
   }
 
