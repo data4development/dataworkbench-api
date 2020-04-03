@@ -20,7 +20,8 @@ const saveFileMetadata = file => new Promise((resolve, reject) => {
     publisher: file.publisher.name,
     filename: `${path.basename(file['source_url'])}`,
     updated: file['date_updated'],
-    downloaded: file['date_created'],
+    downloaded: file['date_updated'],
+    created: file['date_created'],
     internal_url: file['internal_url'],
     sha1: file.sha1,
     md5: file.md5,
@@ -87,17 +88,18 @@ const fetchFiles = async () => {
   // const filesValidator = _.filter(filesResponse.data, {sha1: '833356ba0f36b5a1c5e27a1040b7978f61217f9f'});
   console.log('number of datasets in the validator:', filesValidator.length);
 
-  const filesDatastore = _.filter(
-    await fetchDatastorePage(googleStorageConfig.datastore.api_url 
+  const filesDatastoreRaw = await fetchDatastorePage(googleStorageConfig.datastore.api_url 
       + '/datasets/?format=json&page=1&page_size=' 
-      + googleStorageConfig.datastore.pagesize),
+      + googleStorageConfig.datastore.pagesize);
+  const filesDatastore = _.filter(filesDatastoreRaw,
     function(o) {return o.internal_url != null}
   );
 
   const filesDiff = _.differenceWith(filesDatastore, filesValidator, function (a,b) {return a.sha1 == b.sha1});
 
-  console.log('number of datasets in the datastore:', filesDatastore.length);
-  console.log('number of datasets to be retrieved:', filesDiff.length);
+  console.log('number of datasets in the datastore (raw):', filesDatastore.length);
+  console.log('number of datasets in the datastore (with internal_url):', filesDatastore.length);
+  console.log('number of datasets to be retrieved (diff with validator):', filesDiff.length);
 
   const filteredResults = _.chunk(filesDiff, googleStorageConfig.datastore.workers);
 
