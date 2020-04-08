@@ -8,8 +8,8 @@ module.exports = {
   },
   'iati-dataset': {
     public: {
-      '__get__completesvrl': true,
-      '__count__completesvrl': true,
+      __get__completesvrl: true,
+      __count__completesvrl: true,
     },
   },
   'iati-publisher': {
@@ -17,9 +17,9 @@ module.exports = {
       'prototype.__get__workspaces': true,
       'prototype.__count__workspaces': true,
       'prototype.__findById__workspaces': true,
-      '__get__current': true,
-      '__count__current': true,
-      '__findOne__current': true,
+      __get__current: true,
+      __count__current: true,
+      __findOne__current: true,
     },
   },
   workspace: {

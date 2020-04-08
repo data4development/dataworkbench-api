@@ -15,6 +15,7 @@
   "dependencies": {
     "compression": "^1.7.3",
     "cors": "^2.8.5",
+    "debug": "^4.1.1",
     "helmet": "^3.15.1",
     "lodash": "^4.17.13",
     "loopback": "^3.25.0",
@@ -30,8 +31,10 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
-    "eslint": "^4.18.2",
-    "eslint-config-loopback": "^8.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-loopback": "^13.1.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
     "mocha": "^6.2.0"
   },
   "repository": {
@@ -39,5 +42,14 @@
     "url": "git+https://github.com/data4development/dataworkbench-api.git"
   },
   "license": "AGPL-3.0-or-later",
-  "description": "IATI data validation service. [General technical documentation is available here.](https://data4development.github.io/dataworkbench-api/)"
+  "description": "IATI data validation service. [General technical documentation is available here.](https://data4development.github.io/dataworkbench-api/)",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "*.js": ["./node_modules/.bin/eslint ."]
+  }
 }

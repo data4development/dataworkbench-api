@@ -1,11 +1,12 @@
 'use strict';
 
-var config = require('../config/google-storage');
-var app = require('../../server/server');
-var version = require('../../server/config.local');
-var utils = require('../../utils/convertors');
-var testdataset = require('./iati-testdataset.json');
-var debug = require('debug')('dwb:api:upload');
+const debug = require('debug')('dwb:api:upload');
+
+const config = require('../config/google-storage');
+const app = require('../../server/server');
+const version = require('../../server/config.local');
+const utils = require('../../utils/convertors');
+const testdataset = require('./iati-testdataset.json');
 
 module.exports = function(Iatifile) {
   Iatifile.fileDownload = function(req, res, type, filename, cb) {
@@ -14,8 +15,8 @@ module.exports = function(Iatifile) {
 
   Iatifile.remoteMethod('fileDownload', {
     accepts: [
-      {arg: 'req', type: 'object', 'http': {source: 'req'}},
-      {arg: 'res', type: 'object', 'http': {source: 'res'}},
+      {arg: 'req', type: 'object', http: {source: 'req'}},
+      {arg: 'res', type: 'object', http: {source: 'res'}},
       {arg: 'type', type: 'string', required: true},
       {arg: 'filename', type: 'string', required: true},
     ],
@@ -28,40 +29,41 @@ module.exports = function(Iatifile) {
     }
 
     debug('Starting upload in %s', type);
-    var File = app.models['iati-testdataset'];
+    const File = app.models['iati-testdataset'];
 
     Iatifile.upload(
       config.container_upload[type],
       req,
       res,
-      function(err, uploadedFile) {
+      (err, uploadedFile) => {
         if (err) {
           return cb(err);
         }
 
-        var fileInfo = uploadedFile.files.file[0];
+        const fileInfo = uploadedFile.files.file[0];
 
         File.create({
           filename: fileInfo.originalFilename,
           fileid: fileInfo.name,
           type: fileInfo.type,
-          url: version.restApiRoot + '/iati-testfiles/file/' + type + '/' + fileInfo.name,
-          status: 'File uploaded (step 1 of 3)'},
-          function(err, data) {
-            if (err !== null) {
-              return cb(err);
-            }
-
-            cb(null, data);
+          url: `${version.restApiRoot}/iati-testfiles/file/${type}/${fileInfo.name}`,
+          status: 'File uploaded (step 1 of 3)',
+        },
+        (error, data) => {
+          if (error !== null) {
+            return cb(error);
           }
-        );
-      });
+
+          cb(null, data);
+        });
+      }
+    );
   };
 
   Iatifile.remoteMethod('fileUpload', {
     accepts: [
-      {arg: 'req', type: 'object', 'http': {source: 'req'}},
-      {arg: 'res', type: 'object', 'http': {source: 'res'}},
+      {arg: 'req', type: 'object', http: {source: 'req'}},
+      {arg: 'res', type: 'object', http: {source: 'res'}},
       {arg: 'type', type: 'string', required: true},
     ],
     returns: [
