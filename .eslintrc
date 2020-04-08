@@ -11,5 +11,8 @@
     "max-len": ["error", {"code": 120}],
     "newline-before-return": "error",
     "newline-after-var": "error"
+  },
+  "globals": {
+    "chai": true
   }
 }

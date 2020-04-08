@@ -3,7 +3,8 @@
 const loopback = require('loopback');
 const boot = require('loopback-boot');
 
-const app = loopback();
+// eslint-disable-next-line
+const app = module.exports = loopback();
 
 app.start = function() {
   // start the web server
@@ -28,5 +29,3 @@ boot(app, __dirname, (err) => {
   // start the server if `$ node server.js`
   if (require.main === module) app.start();
 });
-
-module.exports = app;
