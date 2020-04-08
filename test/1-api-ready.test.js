@@ -4,12 +4,8 @@ console.log(
   `Type of API "${process.env.API_TYPE === 'public' ? 'public' : 'private'}"`
 );
 
-const chai = require('chai');
-const chaiHttp = require('chai-http');
 const api = require('../server/server');
 const version = require('../server/config.local');
-
-chai.use(chaiHttp);
 
 describe('When checking the API', () => {
   it('should be in the test environment', (done) => {
