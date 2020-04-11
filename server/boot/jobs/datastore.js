@@ -88,18 +88,18 @@ const fetchFiles = async () => {
   const filesDatastoreRaw = await fetchDatastorePage(googleStorageConfig.datastore.api_url 
       + '/datasets/?format=json&page=1&page_size=' 
       + googleStorageConfig.datastore.pagesize);
-  const filesDatastoreSha1 = _filter(filesDatastoreRaw,
-    function(o) {return o.sha1 != ''}
-  );
-  const filesDatastore = _.filter(filesDatastoreSha1,
+  const filesDatastoreUrl = _.filter(filesDatastoreRaw,
     function(o) {return o.internal_url != null}
+  );
+  const filesDatastore = _filter(filesDatastoreUrl,
+    function(o) {return o.sha1 != ''}
   );
 
   const filesDiff = _.differenceWith(filesDatastore, filesValidator, function (a,b) {return a.sha1 == b.sha1});
 
   console.log('number of datasets in the datastore (raw):', filesDatastoreRaw.length);
-  console.log('number of datasets in the datastore (with sha1):', filesDatastoreSha1.length);
-  console.log('number of datasets in the datastore (with sha1 and internal_url):', filesDatastore.length);
+  console.log('number of datasets in the datastore (with internal_url):', filesDatastoreUrl.length);
+  console.log('number of datasets in the datastore (with internal_url and sha1):', filesDatastore.length);
   console.log('number of datasets to be retrieved (diff with validator):', filesDiff.length);
 
   const filteredResults = _.chunk(filesDiff, googleStorageConfig.datastore.workers);
