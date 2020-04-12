@@ -1,20 +1,15 @@
 'use strict';
 
-const chai = require('chai');
-const chaiHttp = require('chai-http');
+const fs = require('fs');
+
 const api = require('../../server/server');
 const version = require('../../server/config.local');
 const config = require('../../common/config/google-storage');
 
-const should = chai.should();
-
-chai.use(chaiHttp);
-
-const fs = require('fs');
 const tmpdir = './test/tmp/'; // should match /server/datasources.test.json
 
-describe('When working with public IATI files', function() {
-  before(function() {
+describe('When working with public IATI files', () => {
+  before(() => {
     config.container_public.enum.forEach((bucket) => {
       if (!fs.existsSync(tmpdir + config.container_public[bucket])) {
         fs.mkdirSync(tmpdir + config.container_public[bucket]);
@@ -22,44 +17,44 @@ describe('When working with public IATI files', function() {
     });
   });
 
-  after(function() {
+  after(() => {
   });
 
-  it('should have the iati-files endpoint', function(done) {
+  it('should have the iati-files endpoint', (done) => {
     chai.request(api)
-      .get(version.restApiRoot + '/iati-files/')
-      .end(function(err, res) {
+      .get(`${version.restApiRoot}/iati-files/`)
+      .end((err, res) => {
         res.should.have.status(200);
         done();
       });
   });
 
-  it('should have a container files endpoint', function(done) {
+  it('should have a container files endpoint', (done) => {
     chai.request(api)
-      .get(version.restApiRoot + '/iati-files/any-container-name/files')
-      .end(function(err, res) {
+      .get(`${version.restApiRoot}/iati-files/any-container-name/files`)
+      .end((err, res) => {
         res.should.have.status(200);
         done();
       });
   });
 
-  it('should handle uploading a small file as source', function(done) {
+  it('should handle uploading a small file as source', (done) => {
     chai.request(api)
-      .post(version.restApiRoot + '/iati-files/file/source')
+      .post(`${version.restApiRoot}/iati-files/file/source`)
       .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
-              'file-small.xml')
-      .end(function(err, res) {
+        'file-small.xml')
+      .end((err, res) => {
         res.should.have.status(200);
         done();
       });
   });
 
-  it('should handle uploading a large file as source', function(done) {
+  it('should handle uploading a large file as source', (done) => {
     chai.request(api)
-      .post(version.restApiRoot + '/iati-files/file/source')
+      .post(`${version.restApiRoot}/iati-files/file/source`)
       .attach('file', fs.readFileSync('./test/fixtures/file-large.xml'),
-              'file-large.xml')
-      .end(function(err, res) {
+        'file-large.xml')
+      .end((err, res) => {
         res.should.have.status(200);
         done();
       });

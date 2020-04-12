@@ -1,10 +1,8 @@
 'use strict';
 
-var config = require('../config/google-storage');
-var app = require('../../server/server');
-var version = require('../../server/config.local');
-var utils = require('../../utils/convertors');
-var dataset = require('./iati-dataset.json');
+const config = require('../config/google-storage');
+const utils = require('../../utils/convertors');
+const dataset = require('./iati-dataset.json');
 
 module.exports = function(Iatifile) {
   Iatifile.fileDownload = function(req, res, type, filename, cb) {
@@ -13,8 +11,8 @@ module.exports = function(Iatifile) {
 
   Iatifile.remoteMethod('fileDownload', {
     accepts: [
-      {arg: 'req', type: 'object', 'http': {source: 'req'}},
-      {arg: 'res', type: 'object', 'http': {source: 'res'}},
+      {arg: 'req', type: 'object', http: {source: 'req'}},
+      {arg: 'res', type: 'object', http: {source: 'res'}},
       {arg: 'type', type: 'string', required: true},
       {arg: 'filename', type: 'string', required: true},
     ],
@@ -26,42 +24,24 @@ module.exports = function(Iatifile) {
       return cb({messsage: 'Unsupported type', statusCode: 400});
     }
 
-    var File = app.models['iati-dataset'];
-
     Iatifile.upload(
       config.container_public[type],
       req,
       res,
-      function(err, uploadedFile) {
+      (err, uploadedFile) => {
         if (err) {
           return cb(err);
         }
 
         cb(null, uploadedFile);
-
-        // var fileInfo = uploadedFile.files.file[0];
-
-        // File.create({
-        //   filename: fileInfo.originalFilename,
-        //   md5: fileInfo.name,
-        //   type: fileInfo.type,
-        //   url: version.restApiRoot + '/iati-files/file/' + type + '/' + fileInfo.name,
-        //   status: 'File uploaded'},
-        //   function(err, data) {
-        //     if (err !== null) {
-        //       return cb(err);
-        //     }
-
-        //     cb(null, data);
-        //   }
-        // );
-      });
+      }
+    );
   };
 
   Iatifile.remoteMethod('fileUpload', {
     accepts: [
-      {arg: 'req', type: 'object', 'http': {source: 'req'}},
-      {arg: 'res', type: 'object', 'http': {source: 'res'}},
+      {arg: 'req', type: 'object', http: {source: 'req'}},
+      {arg: 'res', type: 'object', http: {source: 'res'}},
       {arg: 'type', type: 'string', required: true},
     ],
     returns: [

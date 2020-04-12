@@ -2,5 +2,17 @@
   "extends": "loopback",
   "parserOptions": {
     "ecmaVersion": 6
+  },
+  "rules": {
+    "strict": "off",
+    "camelcase": "off",
+    "no-unused-vars": "warn",
+    "consistent-return": "warn",
+    "max-len": ["error", {"code": 120}],
+    "newline-before-return": "error",
+    "newline-after-var": "error"
+  },
+  "globals": {
+    "chai": true
   }
 }
