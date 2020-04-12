@@ -33,7 +33,7 @@ describe('When working with uploaded files to test', () => {
           version.restApiRoot
         }/iati-testfiles/file/source`
       )
-      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+      .attach('files', fs.readFileSync('./test/fixtures/file-small.xml'),
         'file-small.xml')
       .end((err, res) => {
         res.should.have.status(200);
@@ -48,7 +48,7 @@ describe('When working with uploaded files to test', () => {
           version.restApiRoot
         }/iati-testfiles/${config.container_upload.source}/upload`
       )
-      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+      .attach('files', fs.readFileSync('./test/fixtures/file-small.xml'),
         'file-small.xml')
       .end((err, res) => {
         res.should.have.status(200);
@@ -59,7 +59,7 @@ describe('When working with uploaded files to test', () => {
   it('should handle uploading a large file as source', (done) => {
     chai.request(api)
       .post(`${version.restApiRoot}/iati-testfiles/file/source`)
-      .attach('file', fs.readFileSync('./test/fixtures/file-large.xml'),
+      .attach('files', fs.readFileSync('./test/fixtures/file-large.xml'),
         'file-large.xml')
       .end((err, res) => {
         res.should.have.status(200);
@@ -70,11 +70,11 @@ describe('When working with uploaded files to test', () => {
   it('should handle uploading a small file as source', (done) => {
     chai.request(api)
       .post(`${version.restApiRoot}/iati-testfiles/file/source`)
-      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+      .attach('files', fs.readFileSync('./test/fixtures/file-small.xml'),
         'file-small.xml')
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.filename.should.equal('file-small.xml');
+        res.body[0].filename.should.equal('file-small.xml');
         done();
       });
   });
@@ -82,7 +82,7 @@ describe('When working with uploaded files to test', () => {
   it('should handle uploading a small file as feedback', (done) => {
     chai.request(api)
       .post(`${version.restApiRoot}/iati-testfiles/file/feedback`)
-      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+      .attach('files', fs.readFileSync('./test/fixtures/file-small.xml'),
         'file-small.xml')
       .end((err, res) => {
         res.should.have.status(200);
@@ -93,7 +93,7 @@ describe('When working with uploaded files to test', () => {
   it('should handle uploading a small file as json', (done) => {
     chai.request(api)
       .post(`${version.restApiRoot}/iati-testfiles/file/json`)
-      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+      .attach('files', fs.readFileSync('./test/fixtures/file-small.xml'),
         'file-small.xml')
       .end((err, res) => {
         res.should.have.status(200);
@@ -104,7 +104,7 @@ describe('When working with uploaded files to test', () => {
   it('should handle uploading a small file as svrl', (done) => {
     chai.request(api)
       .post(`${version.restApiRoot}/iati-testfiles/file/svrl`)
-      .attach('file', fs.readFileSync('./test/fixtures/file-small.xml'),
+      .attach('files', fs.readFileSync('./test/fixtures/file-small.xml'),
         'file-small.xml')
       .end((err, res) => {
         res.should.have.status(200);
