@@ -2,43 +2,41 @@
   "iati-filestore": {
     "name": "iati-filestore",
     "connector": "loopback-component-storage",
-    "provider": "google",
-    "projectId": "dataworkbench-io",
-    "maxFileSize": "250000000"
+    "maxFileSize": "250000000",
+    "provider": "filesystem",
+    "root": "./test/tmp"    
   },
   "iati-publishers": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "iati-publishers",
-    "connector": "mongodb"
+    "connector": "memory",
+    "allowExtendedOperators": true
   },
   "iati-datasets": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "iati-datasets",
-    "connector": "mongodb",
+    "connector": "memory",
     "allowExtendedOperators": true
   },
   "workspaces": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "workspaces",
-    "connector": "mongodb"
+    "connector": "memory",
+    "allowExtendedOperators": true
   },
   "versions": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "versions",
-    "connector": "mongodb"
+    "connector": "memory",
+    "allowExtendedOperators": true
   },
   "iati-testfilestore": {
     "name": "iati-testfilestore",
     "connector": "loopback-component-storage",
-    "provider": "google",
-    "projectId": "dataworkbench-io",
+    "maxFileSize": "250000000",
     "nameConflict": "makeUnique",
-    "maxFileSize": "250000000"
+    "provider": "filesystem",
+    "root": "./test/tmp"
   },
   "iati-testdatasets": {
-    "url": "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/iati-registry?replicaSet=rs0",
     "name": "iati-testdatasets",
-    "connector": "mongodb",
+    "connector": "memory",
     "allowExtendedOperators": true
   }
 }

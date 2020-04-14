@@ -1,5 +1,3 @@
 'use strict';
 
-module.exports = function(Iatifiledetails) {
-
-};
+module.exports = function(Iatifiledetails) {};

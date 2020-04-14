@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const path = require('path');
+
 const {NODE_ENV, API_TYPE} = process.env;
 const fs = require('fs');
 
@@ -10,10 +11,11 @@ module.exports = (config) => {
     API_TYPE === 'public' &&
     fs.existsSync(path.resolve(__dirname, `./api.${NODE_ENV}.js`))
   ) {
+    // eslint-disable-next-line
     const api = require(`./api.${NODE_ENV}`);
     const modelList = Object.keys(api);
 
-    modelList.forEach(modelName => {
+    modelList.forEach((modelName) => {
       _.set(
         config,
         `${modelName}.options.remoting.sharedMethods`,
