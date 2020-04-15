@@ -78,7 +78,7 @@ const fetchDatastorePage = async(url) => {
 }
 
 const fetchFiles = async () => {
-  console.log('starting datastore sync');
+  console.log('datastore sync starting');
   // const sha1sValidator = await Dataset.find({ order: 'sha1 ASC', fields: {sha1: true}, where: {sha1: {exists: true}} });
   const filesResponse = await axios.get(googleStorageConfig.validator.api_url + '/iati-datasets?filter={"where":{"sha1":{"exists":true}}}');
   const filesValidator = filesResponse.data;
@@ -121,6 +121,8 @@ const fetchFiles = async () => {
       console.log('Error sending: ', err.message)
     }
   }
+
+  console.log('datastore sync completed', googleStorageConfig.datastore.workers);
 }
 
 console.log('datastore sync cron schedule:', googleStorageConfig.datastore.cronschedule);
