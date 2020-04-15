@@ -91,7 +91,7 @@ const fetchFiles = async () => {
   const filesDatastoreUrl = _.filter(filesDatastoreRaw,
     function(o) {return o.internal_url != null}
   );
-  const filesDatastore = _filter(filesDatastoreUrl,
+  const filesDatastore = _.filter(filesDatastoreUrl,
     function(o) {return o.sha1 != ''}
   );
 
