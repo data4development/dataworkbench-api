@@ -57,6 +57,10 @@
       "type": "date",
       "description": "Timestamp of latest update of the dataset record"
     },
+    "created": {
+      "type": "date",
+      "description": "Timestamp of created of the dataset record"
+    },
     "feedback-updated": {
       "type": "date",
       "description": "Timestamp of data quality feedback"
@@ -68,6 +72,15 @@
     "json-updated": {
       "type": "date",
       "description": "Timestamp of JSON report"
+    },
+    "sourceUrl": {
+      "type": "string",
+      "description": "URL for downloading"
+    },
+    "sha1": {
+      "type": "string",
+      "description": "Datastore hash",
+      "index": {"unique": true}
     }
   },
   "validations": [],

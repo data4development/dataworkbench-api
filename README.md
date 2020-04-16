@@ -3,6 +3,14 @@ DataWorkbench API
 
 This is a Loopback application to provide an API for the DataWorkbench data.
 
+The application is currently "polymorphic" and can run in three different ways:
+
+* "public": suitable for public exposure, several API end points have been closed
+* "private": used inside the cluster, with all end points available
+* "datastore": used to run a regular synchronisation with the datastore
+
+The startup mode is determined by environment variables, see below.
+
 Development
 -----------
 
@@ -49,6 +57,10 @@ Project documentation
 
 `API_TYPE` - could be `public|empty`. If it's `public` we close all routes and open only the routes which exist in `server/custom-config/api.__env__.js`
 
+`RUN_JOBS` - could be `run|empty`. This var used to run `job tasks` (only on one instance), to retrieve files from the IATI Datastore.
+
+`DATASTORE_CRONSCHEDULE` - contains the desired cronjob schedule when running jobs.
+
 ## Model-config
 
 We added the specific layer for `model-config.__env__.js`. Every file must use `bootstrap(config)` from `server/custom-config/bootstrap.js`
@@ -63,3 +75,7 @@ const bootstrap = require('./custom-config/bootstrap');
 
 module.exports = bootstrap(modelConfig);
 ```
+
+### Datastore cloning job
+
+Copy new files from the [Datastore](https://api.datastore.iati.cloud/api/datasets). Run as a cronjob (default: refresh once per hour).

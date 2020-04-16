@@ -24,4 +24,18 @@ module.exports = {
     svrl: process.env.CONTAINER_UPLOAD_SVRL ||
       'dataworkbench-testsvrl-staging-d4d-dataworkbench',
   },
+
+  validator: {
+    api_url: process.env.VALIDATOR_API_URL ||
+      'http://validator-api/api/v1',
+  },
+
+  datastore: {
+    api_url: process.env.DATASTORE_API_URL ||
+      'https://iati.cloud/api',
+    pagesize: process.env.DATASTORE_PAGESIZE || 1000,
+    cronschedule: process.env.DATASTORE_CRONSCHEDULE ||
+      '51 * * * *',
+    workers: process.env.DATASTORE_WORKERS || 3,
+  },
 };
