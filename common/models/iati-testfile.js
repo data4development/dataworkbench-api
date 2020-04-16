@@ -32,7 +32,6 @@ module.exports = function(Iatifile) {
 
     debug('Starting upload in %s', type);
     const File = app.models['iati-testdataset'];
-    const saveFile = promisify(File.create).bind(File);
 
     Iatifile.upload(
       config.container_upload[type],
@@ -42,21 +41,23 @@ module.exports = function(Iatifile) {
         if (err) {
           return cb(err);
         }
-        const {files} = uploadedFile.files;
+        console.log('uploadedFile: ', uploadedFile);
+        const [fileInfo] = uploadedFile.files.files;
 
-        Promise.all(
-          files.map((fileInfo) => saveFile(
-            {
-              filename: fileInfo.originalFilename,
-              fileid: fileInfo.name,
-              type: fileInfo.type,
-              url: `${version.restApiRoot}/iati-testfiles/file/${type}/${fileInfo.name}`,
-              status: 'File uploaded (step 1 of 3)',
-            }
-          ))
-        )
-          .then((result) => cb(null, result))
-          .catch((error) => cb(error));
+        File.create({
+          filename: fileInfo.originalFilename,
+          fileid: fileInfo.name,
+          type: fileInfo.type,
+          url: `${version.restApiRoot}/iati-testfiles/file/${type}/${fileInfo.name}`,
+          status: 'File uploaded (step 1 of 3)',
+          tmpworkspaceId: req.query.tmpWorkspaceId,
+        }, (error, result) => {
+          if (err) {
+            return cb(error);
+          }
+
+          return cb(null, result);
+        });
       }
     );
   };
@@ -80,13 +81,13 @@ module.exports = function(Iatifile) {
   });
 
   Iatifile.fetchFilesByURL = function(body, res, type, cb) {
-    // const {url, name} = body;
+    const {urls} = body;
 
-    // axios({
-    //   url,
-    //   method: 'GET',
-    //   responseType: 'arraybuffer',
-    // });
+    axios({
+      // url,
+      method: 'GET',
+      responseType: 'arraybuffer',
+    });
   };
 
   Iatifile.remoteMethod('fetchFilesByURL', {
