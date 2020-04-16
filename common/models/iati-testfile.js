@@ -1,7 +1,6 @@
 'use strict';
 
 const debug = require('debug')('dwb:api:upload');
-const {promisify} = require('util');
 const axios = require('axios');
 
 const config = require('../config/google-storage');
@@ -41,7 +40,6 @@ module.exports = function(Iatifile) {
         if (err) {
           return cb(err);
         }
-        console.log('uploadedFile: ', uploadedFile);
         const [fileInfo] = uploadedFile.files.files;
 
         File.create({

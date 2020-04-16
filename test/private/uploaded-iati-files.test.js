@@ -74,7 +74,7 @@ describe('When working with uploaded files to test', () => {
         'file-small.xml')
       .end((err, res) => {
         res.should.have.status(200);
-        res.body[0].filename.should.equal('file-small.xml');
+        res.body.filename.should.equal('file-small.xml');
         done();
       });
   });
