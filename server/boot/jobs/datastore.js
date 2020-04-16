@@ -122,7 +122,7 @@ const fetchFiles = async () => {
     }
   }
 
-  console.log('datastore sync completed', googleStorageConfig.datastore.workers);
+  console.log('datastore sync completed');
 }
 
 console.log('datastore sync cron schedule:', googleStorageConfig.datastore.cronschedule);
