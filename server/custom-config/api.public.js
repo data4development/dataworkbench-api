@@ -58,6 +58,10 @@ module.exports = {
       'prototype.__count__datasets': true,
       'prototype.__findById__datasets': true,
       'prototype.__create__datasets': true,
+      'prototype.__get__files': true,
+      'prototype.__count__files': true,
+      'prototype.__findById__files': true,
+      'prototype.__create__files': true,
     },
   },
 };

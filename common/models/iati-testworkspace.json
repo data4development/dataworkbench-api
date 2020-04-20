@@ -32,6 +32,11 @@
       "type": "hasMany",
       "model": "iati-testdataset",
       "foreignKey": ""
+    },
+    "files": {
+      "type": "hasMany",
+      "model": "iati-testfile",
+      "foreignKey": ""
     }
   },
   "acls": [],
