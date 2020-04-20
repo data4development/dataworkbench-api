@@ -40,5 +40,9 @@
   "iati-testdataset": {
     "dataSource": "iati-testdatasets",
     "public": true
+  },
+  "iati-testworkspace": {
+    "dataSource": "iati-testworkspaces",
+    "public": true
   }
 }

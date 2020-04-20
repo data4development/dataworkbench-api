@@ -43,8 +43,21 @@ module.exports = {
       find: false,
       count: false,
       findOne: false,
+      create: false,
+      upload: false,
+    },
+  },
+  'iati-testworkspace': {
+    public: {
+      find: false,
+      count: false,
+      findOne: false,
       create: true,
       upload: false,
+      'prototype.__get__datasets': true,
+      'prototype.__count__datasets': true,
+      'prototype.__findById__datasets': true,
+      'prototype.__create__datasets': true,
     },
   },
 };
