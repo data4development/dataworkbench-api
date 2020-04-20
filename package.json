@@ -9,11 +9,11 @@
     "lint": "eslint .",
     "start": "node .",
     "test": "NODE_ENV=test mocha && NODE_ENV=test API_TYPE=public mocha --file ./test/test.js",
-    "dev": "NODE_ENV=sandbox nodemon server/server.js",
+    "dev": "NODE_ENV=local nodemon server/server.js",
     "openapi-spec": "NODE_ENV=test lb export-api-def -o docs/postman/openapi-spec-private.yaml && NODE_ENV=test API_TYPE=public lb export-api-def -o docs/postman/openapi-spec.yaml"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
     "debug": "^4.1.1",

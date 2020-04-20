@@ -1,6 +1,7 @@
 'use strict';
 
 const debug = require('debug')('dwb:api:upload');
+const axios = require('axios');
 
 const config = require('../config/google-storage');
 const app = require('../../server/server');
@@ -39,8 +40,7 @@ module.exports = function(Iatifile) {
         if (err) {
           return cb(err);
         }
-
-        const fileInfo = uploadedFile.files.file[0];
+        const [fileInfo] = uploadedFile.files.files;
 
         File.create({
           filename: fileInfo.originalFilename,
@@ -48,13 +48,13 @@ module.exports = function(Iatifile) {
           type: fileInfo.type,
           url: `${version.restApiRoot}/iati-testfiles/file/${type}/${fileInfo.name}`,
           status: 'File uploaded (step 1 of 3)',
-        },
-        (error, data) => {
-          if (error !== null) {
+          tmpworkspaceId: req.query.tmpWorkspaceId,
+        }, (error, result) => {
+          if (err) {
             return cb(error);
           }
 
-          cb(null, data);
+          return cb(null, result);
         });
       }
     );
@@ -76,5 +76,33 @@ module.exports = function(Iatifile) {
       {arg: 'Content-Type', type: 'application/json', http: {target: 'header'}},
     ],
     http: {verb: 'post', path: '/file/:type'},
+  });
+
+  Iatifile.fetchFilesByURL = function(body, res, type, cb) {
+    const {urls} = body;
+
+    axios({
+      // url,
+      method: 'GET',
+      responseType: 'arraybuffer',
+    });
+  };
+
+  Iatifile.remoteMethod('fetchFilesByURL', {
+    accepts: [
+      {arg: 'body', type: 'object', http: {source: 'body'}},
+      {arg: 'res', type: 'object', http: {source: 'res'}},
+      {arg: 'type', type: 'string', required: true},
+    ],
+    returns: [
+      {
+        arg: 'body',
+        type: 'object',
+        root: true,
+        default: utils.propertiesToResponse(testdataset.properties),
+      },
+      {arg: 'Content-Type', type: 'application/json', http: {target: 'header'}},
+    ],
+    http: {verb: 'post', path: '/urls/:type'},
   });
 };
