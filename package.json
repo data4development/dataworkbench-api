@@ -10,6 +10,7 @@
     "start": "node .",
     "test": "NODE_ENV=test mocha && NODE_ENV=test API_TYPE=public mocha --file ./test/test.js",
     "dev": "NODE_ENV=local nodemon server/server.js",
+    "dev-pub": "NODE_ENV=local API_TYPE=public nodemon server/server.js",
     "openapi-spec": "NODE_ENV=test lb export-api-def -o docs/postman/openapi-spec-private.yaml && NODE_ENV=test API_TYPE=public lb export-api-def -o docs/postman/openapi-spec.yaml"
   },
   "dependencies": {
