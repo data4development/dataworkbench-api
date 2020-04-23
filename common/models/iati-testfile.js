@@ -30,27 +30,7 @@ module.exports = function(Iatifile) {
     }
 
     debug('Starting upload in %s', type);
-    // const File = app.models['iati-testdataset'];
-    const Workspace = app.models['iati-testworkspace'];
-
-    if (!req.tmpWorkspaceId) {
-      const tmpWorkspace = Workspace.create({}, (error, result) => {
-        if (error) {
-          return cb(error);
-        }
-
-        return result;
-      });
-    } else {
-      const tmpWorkspace = Workspace.findById(req.tmpWorkspaceId,
-        (error, result) => {
-          if (error) {
-            return cb(error);
-          }
-
-          return result;
-        });
-    }
+    const File = app.models['iati-testdataset'];
 
     Iatifile.upload(
       config.container_upload[type],
@@ -62,7 +42,7 @@ module.exports = function(Iatifile) {
         }
         const [fileInfo] = uploadedFile.files.files;
 
-        tmpWorkspace.datasets.create({
+        File.create({
           filename: fileInfo.originalFilename,
           fileid: fileInfo.name,
           type: fileInfo.type,
