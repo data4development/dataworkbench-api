@@ -31,12 +31,12 @@
     "datasets": {
       "type": "hasMany",
       "model": "iati-testdataset",
-      "foreignKey": ""
+      "foreignKey": "tmpworkspaceId"
     },
     "files": {
       "type": "hasMany",
       "model": "iati-testfile",
-      "foreignKey": ""
+      "foreignKey": "tmpworkspaceId"
     }
   },
   "acls": [],
