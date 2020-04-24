@@ -54,6 +54,7 @@ module.exports = {
       findOne: false,
       create: true,
       upload: false,
+      fileUpload: true,
       'prototype.__get__datasets': true,
       'prototype.__count__datasets': true,
       'prototype.__findById__datasets': true,
