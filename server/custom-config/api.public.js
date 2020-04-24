@@ -55,6 +55,7 @@ module.exports = {
       create: true,
       upload: false,
       fileUpload: true,
+      'prototype.patchAttributes': true,
       'prototype.__get__datasets': true,
       'prototype.__count__datasets': true,
       'prototype.__findById__datasets': true,
