@@ -14,7 +14,7 @@ module.exports = {
   },
 
   container_upload: {
-    enum: ['source', 'feedback', 'json', 'svrl'],
+    enum: ['feedback', 'json', 'svrl'],
     source: process.env.CONTAINER_UPLOAD_SOURCE ||
       'dataworkbench-test-staging-d4d-dataworkbench',
     feedback: process.env.CONTAINER_UPLOAD_FEEDBACK ||

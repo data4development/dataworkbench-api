@@ -31,15 +31,16 @@ module.exports = function(Iatifile) {
   });
 
   Iatifile.fileUpload = function(req, res, type, cb) {
-    if (!config.container_upload.enum.includes(type)) {
-      return cb({messsage: 'Unsupported type', statusCode: 400});
-    }
+    // todo: eliminate type from API and front-end, we always upload to 'source'
+    // if (!config.container_upload.enum.includes(type)) {
+    //   return cb({messsage: 'Unsupported type', statusCode: 400});
+    // }
 
     debug('Starting upload in %s', type);
     const File = app.models['iati-testdataset'];
 
     Iatifile.upload(
-      config.container_upload[type],
+      config.container_upload['source'],
       req,
       res,
       (err, uploadedFile) => {
@@ -52,7 +53,7 @@ module.exports = function(Iatifile) {
           filename: fileInfo.originalFilename,
           fileid: fileInfo.name,
           type: fileInfo.type,
-          url: `${version.restApiRoot}/iati-testfiles/file/${type}/${fileInfo.name}`,
+          url: `${version.restApiRoot}/iati-testfiles/source/${type}/${fileInfo.name}`,
           status: 'File uploaded (step 1 of 3)',
         }, (error, result) => {
           if (err) {
@@ -69,7 +70,7 @@ module.exports = function(Iatifile) {
     accepts: [
       {arg: 'req', type: 'object', http: {source: 'req'}},
       {arg: 'res', type: 'object', http: {source: 'res'}},
-      {arg: 'type', type: 'string', required: true},
+      {arg: 'type', type: 'string', required: false},
     ],
     returns: [
       {
@@ -166,7 +167,7 @@ module.exports = function(Iatifile) {
     accepts: [
       {arg: 'req', type: 'object', http: {source: 'req'}},
       {arg: 'res', type: 'object', http: {source: 'res'}},
-      {arg: 'type', type: 'string', required: true},
+      {arg: 'type', type: 'string', required: false},
     ],
     returns: [
       {

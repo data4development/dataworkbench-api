@@ -15,16 +15,10 @@ const testdataset = require('./iati-testdataset.json');
 
 module.exports = function(Iatitestworkspace) {
   Iatitestworkspace.fileUpload = function(req, res, id, type, cb) {
-    if (!config.container_upload.enum.includes(type)) {
-      return cb({messsage: 'Unsupported type', statusCode: 400});
-    }
-
-    debug('Starting upload in %s', type);
-
     const File = app.models['iati-testfile'];
 
     File.upload(
-      config.container_upload[type],
+      config.container_upload.source,
       req,
       res,
       (err, uploadedFile) => {
@@ -39,7 +33,7 @@ module.exports = function(Iatitestworkspace) {
             filename: fileInfo.originalFilename,
             fileid: fileInfo.name,
             type: fileInfo.type,
-            url: `${version.restApiRoot}/iati-testfiles/file/${type}/${fileInfo.name}`,
+            url: `${version.restApiRoot}/iati-testfiles/file/source/${fileInfo.name}`,
             status: 'File uploaded (step 1 of 3)',
           }, (workspaceError, result) => {
             if (workspaceError) {
@@ -58,7 +52,7 @@ module.exports = function(Iatitestworkspace) {
       {arg: 'req', type: 'object', http: {source: 'req'}},
       {arg: 'res', type: 'object', http: {source: 'res'}},
       {arg: 'id', type: 'string', required: true},
-      {arg: 'type', type: 'string', required: true},
+      {arg: 'type', type: 'string', required: false},
     ],
     returns: [
       {
@@ -73,11 +67,6 @@ module.exports = function(Iatitestworkspace) {
   });
 
   Iatitestworkspace.fetchFileByURL = function(req, res, type, id, cb) {
-    console.log('Iatitestworkspace: ', id);
-    if (!config.container_upload.enum.includes(type)) {
-      return cb({message: 'Unsupported type', statusCode: 400});
-    }
-
     const {url} = req.body;
 
     const downloadFile = async (sourceUrl, fileName) => {
@@ -119,7 +108,7 @@ module.exports = function(Iatitestworkspace) {
           name: `unknown_publisher-${file.name}`,
           filename: file.name,
           fileid: file.name,
-          url: `${version.restApiRoot}/iati-testfiles/file/${type}/${file.name}`,
+          url: `${version.restApiRoot}/iati-testfiles/file/source/${file.name}`,
           sourceUrl: file.sourceUrl,
           md5: file.md5,
           status: 'File uploaded (step 1 of 3)',
@@ -160,7 +149,7 @@ module.exports = function(Iatitestworkspace) {
     accepts: [
       {arg: 'req', type: 'object', http: {source: 'req'}},
       {arg: 'res', type: 'object', http: {source: 'res'}},
-      {arg: 'type', type: 'string', required: true},
+      {arg: 'type', type: 'string', required: false},
       {arg: 'id', type: 'string', required: true},
     ],
     returns: [
