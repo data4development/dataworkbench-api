@@ -1,4 +1,4 @@
-FROM gcr.io/google_appengine/nodejs
+FROM gcr.io/google_appengine/nodejs:2020-02-19_10_57
 
 LABEL maintainer="Rolf Kleef <rolf@data4development.nl>" \
   description="DataWorkbench API" \
