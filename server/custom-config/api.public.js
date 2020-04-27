@@ -40,7 +40,7 @@ module.exports = {
   },
   'iati-testdataset': {
     public: {
-      find: false,
+      find: true,
       count: false,
       findOne: false,
       create: false,
