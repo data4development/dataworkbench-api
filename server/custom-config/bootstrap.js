@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const path = require('path');
 
-const {NODE_ENV, API_TYPE} = process.env;
+const {API_TYPE} = process.env;
 const fs = require('fs');
 
 console.log(`API_TYPE=${API_TYPE}`);

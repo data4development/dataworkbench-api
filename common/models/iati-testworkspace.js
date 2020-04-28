@@ -1,7 +1,6 @@
 'use strict';
 
 const debug = require('debug')('dwb:api:upload');
-const axios = require('axios');
 
 const config = require('../config/google-storage');
 const app = require('../../server/server');
@@ -37,9 +36,9 @@ module.exports = function(Iatitestworkspace) {
             type: fileInfo.type,
             url: `${version.restApiRoot}/iati-testfiles/file/${type}/${fileInfo.name}`,
             status: 'File uploaded (step 1 of 3)',
-          }, (error, result) => {
-            if (err) {
-              return cb(error);
+          }, (workspaceError, result) => {
+            if (workspaceError) {
+              return cb(workspaceError);
             }
 
             return cb(null, result);
