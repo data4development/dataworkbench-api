@@ -7,16 +7,41 @@
     "completesvrl": {
       "description": "Datasets of publishers with all relevant fields for SVRL processing",
       "where": {
-        "name": {"exists": true},
-        "url": {"exists": true},
-        "md5": {"exists": true},
-        "publisher": {"exists": true},
-        "filename": {"exists": true},
-        "downloaded": {"exists": true},
-        "updated": {"exists": true},
-        "svrl-updated": {"exists": true}
+        "name": {
+          "exists": true
+        },
+        "url": {
+          "exists": true
+        },
+        "md5": {
+          "exists": true
+        },
+        "publisher": {
+          "exists": true
+        },
+        "filename": {
+          "exists": true
+        },
+        "downloaded": {
+          "exists": true
+        },
+        "updated": {
+          "exists": true
+        },
+        "svrl-updated": {
+          "exists": true
+        }
       },
-      "fields": ["name", "url", "md5", "publisher", "filename", "downloaded", "updated", "svrl-updated"]
+      "fields": [
+        "name",
+        "url",
+        "md5",
+        "publisher",
+        "filename",
+        "downloaded",
+        "updated",
+        "svrl-updated"
+      ]
     }
   },
   "options": {
@@ -57,6 +82,10 @@
       "type": "date",
       "description": "Timestamp of latest update of the dataset record"
     },
+    "created": {
+      "type": "date",
+      "description": "Timestamp of created of the dataset record"
+    },
     "feedback-updated": {
       "type": "date",
       "description": "Timestamp of data quality feedback"
@@ -68,6 +97,17 @@
     "json-updated": {
       "type": "date",
       "description": "Timestamp of JSON report"
+    },
+    "sourceUrl": {
+      "type": "string",
+      "description": "URL for downloading"
+    },
+    "sha1": {
+      "type": "string",
+      "index": {
+        "unique": true
+      },
+      "description": "Datastore hash"
     }
   },
   "validations": [],

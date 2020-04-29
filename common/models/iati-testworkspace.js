@@ -13,34 +13,12 @@ const version = require('../../server/config.local');
 const utils = require('../../utils/convertors');
 const testdataset = require('./iati-testdataset.json');
 
-const getFileBaseName = (url) => (`${uuid()}.xml`);
+module.exports = function(Iatitestworkspace) {
+  Iatitestworkspace.fileUpload = function(req, res, id, type, cb) {
+    const File = app.models['iati-testfile'];
 
-module.exports = function(Iatifile) {
-  Iatifile.fileDownload = function(req, res, type, filename, cb) {
-    Iatifile.download(config.container_upload[type], filename, req, res, cb);
-  };
-
-  Iatifile.remoteMethod('fileDownload', {
-    accepts: [
-      {arg: 'req', type: 'object', http: {source: 'req'}},
-      {arg: 'res', type: 'object', http: {source: 'res'}},
-      {arg: 'type', type: 'string', required: true},
-      {arg: 'filename', type: 'string', required: true},
-    ],
-    http: {verb: 'get', path: '/file/:type/:filename'},
-  });
-
-  Iatifile.fileUpload = function(req, res, type, cb) {
-    // todo: eliminate type from API and front-end, we always upload to 'source'
-    // if (!config.container_upload.enum.includes(type)) {
-    //   return cb({messsage: 'Unsupported type', statusCode: 400});
-    // }
-
-    debug('Starting upload in %s', type);
-    const File = app.models['iati-testdataset'];
-
-    Iatifile.upload(
-      config.container_upload['source'],
+    File.upload(
+      config.container_upload.source,
       req,
       res,
       (err, uploadedFile) => {
@@ -48,28 +26,32 @@ module.exports = function(Iatifile) {
           return cb(err);
         }
         const [fileInfo] = uploadedFile.files.files;
+        const Workspace = app.models['iati-testworkspace'];
 
-        File.create({
-          filename: fileInfo.originalFilename,
-          fileid: fileInfo.name,
-          type: fileInfo.type,
-          url: `${version.restApiRoot}/iati-testfiles/source/${type}/${fileInfo.name}`,
-          status: 'File uploaded (step 1 of 3)',
-        }, (error, result) => {
-          if (err) {
-            return cb(error);
-          }
+        Workspace.findById(id, (error, workspace) => {
+          workspace.datasets.create({
+            filename: fileInfo.originalFilename,
+            fileid: fileInfo.name,
+            type: fileInfo.type,
+            url: `${version.restApiRoot}/iati-testfiles/file/source/${fileInfo.name}`,
+            status: 'File uploaded (step 1 of 3)',
+          }, (workspaceError, result) => {
+            if (workspaceError) {
+              return cb(workspaceError);
+            }
 
-          return cb(null, result);
+            return cb(null, result);
+          });
         });
       }
     );
   };
 
-  Iatifile.remoteMethod('fileUpload', {
+  Iatitestworkspace.remoteMethod('fileUpload', {
     accepts: [
       {arg: 'req', type: 'object', http: {source: 'req'}},
       {arg: 'res', type: 'object', http: {source: 'res'}},
+      {arg: 'id', type: 'string', required: true},
       {arg: 'type', type: 'string', required: false},
     ],
     returns: [
@@ -81,14 +63,10 @@ module.exports = function(Iatifile) {
       },
       {arg: 'Content-Type', type: 'application/json', http: {target: 'header'}},
     ],
-    http: {verb: 'post', path: '/file/:type'},
+    http: {verb: 'post', path: '/:id/file/:type'},
   });
 
-  Iatifile.fetchFileByURL = function(req, res, type, cb) {
-    if (!config.container_upload.enum.includes(type)) {
-      return cb({message: 'Unsupported type', statusCode: 400});
-    }
-
+  Iatitestworkspace.fetchFileByURL = function(req, res, type, id, cb) {
     const {url} = req.body;
 
     const downloadFile = async (sourceUrl, fileName) => {
@@ -101,7 +79,9 @@ module.exports = function(Iatifile) {
       });
 
       return new Promise((resolve, reject) => {
-        const uploadStream = Iatifile.uploadStream(
+        const File = app.models['iati-testfile'];
+
+        const uploadStream = File.uploadStream(
           config.container_upload.source,
           fileName,
         );
@@ -121,26 +101,28 @@ module.exports = function(Iatifile) {
     };
 
     const saveFileMetadata = (file) => new Promise((resolve, reject) => {
-      const TestDataset = app.models['iati-testdataset'];
+      const Workspace = app.models['iati-testworkspace'];
 
-      TestDataset.create(new TestDataset({
-        name: `unknown_publisher-${file.name}`,
-        filename: file.name,
-        url: `${version.restApiRoot}/iati-testfiles/file/${type}/${file.name}`,
-        sourceUrl: file.sourceUrl,
-        md5: file.md5,
-        tmpworkspaceId: file.tmpworkspaceId,
-        status: 'File uploaded (step 1 of 3)',
-      }), (err, data) => {
-        if (err) {
-          return reject(err);
-        }
+      Workspace.findById(file.tmpWorkspaceId, (error, workspace) => {
+        workspace.datasets.create({
+          name: `unknown_publisher-${file.name}`,
+          filename: file.name,
+          fileid: file.name,
+          url: `${version.restApiRoot}/iati-testfiles/file/source/${file.name}`,
+          sourceUrl: file.sourceUrl,
+          md5: file.md5,
+          status: 'File uploaded (step 1 of 3)',
+        }, (err, data) => {
+          if (err) {
+            return reject(err);
+          }
 
-        resolve(data);
+          resolve(data);
+        });
       });
     });
 
-    const name = getFileBaseName(url);
+    const name = `${uuid()}.xml`;
 
     downloadFile(url, name)
       .then(async (fileAsBuffer) => {
@@ -150,7 +132,7 @@ module.exports = function(Iatifile) {
           md5: md5Hash,
           sourceUrl: url,
           name,
-          tmpworkspaceId: req.query.tmpWorkspaceId,
+          tmpWorkspaceId: id,
         });
 
         debug(`saved file: ${name}  url: ${url}`);
@@ -163,11 +145,12 @@ module.exports = function(Iatifile) {
       });
   };
 
-  Iatifile.remoteMethod('fetchFileByURL', {
+  Iatitestworkspace.remoteMethod('fetchFileByURL', {
     accepts: [
       {arg: 'req', type: 'object', http: {source: 'req'}},
       {arg: 'res', type: 'object', http: {source: 'res'}},
       {arg: 'type', type: 'string', required: false},
+      {arg: 'id', type: 'string', required: true},
     ],
     returns: [
       {
@@ -178,6 +161,6 @@ module.exports = function(Iatifile) {
       },
       {arg: 'Content-Type', type: 'application/json', http: {target: 'header'}},
     ],
-    http: {verb: 'post', path: '/url/:type'},
+    http: {verb: 'post', path: '/:id/url/:type'},
   });
 };

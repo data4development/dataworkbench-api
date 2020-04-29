@@ -29,12 +29,13 @@
     },
     "tmpworkspaceId": {
       "type": "string",
-      "description": "Identifier of the temporary workspace"
+      "description": "Identifier of the temporary workspace",
+      "defaultFn": "uuidv4"
     },
     "uploaded": {
       "type": "date",
-      "description": "Timestamp of the upload",
       "required": true,
+      "description": "Timestamp of the upload",
       "defaultFn": "now"
     },
     "filename": {

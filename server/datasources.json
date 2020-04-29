@@ -4,7 +4,7 @@
     "connector": "loopback-component-storage",
     "maxFileSize": "250000000",
     "provider": "filesystem",
-    "root": "./test/tmp"    
+    "root": "./test/tmp"
   },
   "iati-publishers": {
     "name": "iati-publishers",
@@ -36,6 +36,11 @@
   },
   "iati-testdatasets": {
     "name": "iati-testdatasets",
+    "connector": "memory",
+    "allowExtendedOperators": true
+  },
+  "iati-testworkspaces": {
+    "name": "iati-testworkspaces",
     "connector": "memory",
     "allowExtendedOperators": true
   }

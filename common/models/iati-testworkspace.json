@@ -1,0 +1,44 @@
+{
+  "name": "iati-testworkspace",
+  "description": "Temporary workspaces with data sets",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "scope": {
+    "include": "datasets"
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4"
+    },
+    "created": {
+      "type": "date",
+      "required": true,
+      "description": "Timestamp of the creation",
+      "defaultFn": "now"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address for notifications"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "datasets": {
+      "type": "hasMany",
+      "model": "iati-testdataset",
+      "foreignKey": "tmpworkspaceId"
+    },
+    "files": {
+      "type": "hasMany",
+      "model": "iati-testfile",
+      "foreignKey": "tmpworkspaceId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

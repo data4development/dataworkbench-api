@@ -3,16 +3,18 @@
 const _ = require('lodash');
 const path = require('path');
 
-const {NODE_ENV, API_TYPE} = process.env;
+const {API_TYPE} = process.env;
 const fs = require('fs');
+
+console.log(`API_TYPE=${API_TYPE}`);
 
 module.exports = (config) => {
   if (
     API_TYPE === 'public' &&
-    fs.existsSync(path.resolve(__dirname, `./api.${NODE_ENV}.js`))
+    fs.existsSync(path.resolve(__dirname, './api.public.js'))
   ) {
     // eslint-disable-next-line
-    const api = require(`./api.${NODE_ENV}`);
+    const api = require('./api.public');
     const modelList = Object.keys(api);
 
     modelList.forEach((modelName) => {
