@@ -13,8 +13,6 @@ const version = require('../../server/config.local');
 const utils = require('../../utils/convertors');
 const testdataset = require('./iati-testdataset.json');
 
-const getFileBaseName = (url) => (`${uuid()}.xml`);
-
 module.exports = function(Iatitestworkspace) {
   Iatitestworkspace.fileUpload = function(req, res, id, type, cb) {
     if (!config.container_upload.enum.includes(type)) {
@@ -117,11 +115,10 @@ module.exports = function(Iatitestworkspace) {
       const Workspace = app.models['iati-testworkspace'];
 
       Workspace.findById(file.tmpWorkspaceId, (error, workspace) => {
-        console.log('err: ', error);
-        console.log('workspace: ', workspace);
         workspace.datasets.create({
           name: `unknown_publisher-${file.name}`,
           filename: file.name,
+          fileid: file.name,
           url: `${version.restApiRoot}/iati-testfiles/file/${type}/${file.name}`,
           sourceUrl: file.sourceUrl,
           md5: file.md5,
@@ -136,7 +133,7 @@ module.exports = function(Iatitestworkspace) {
       });
     });
 
-    const name = getFileBaseName(url);
+    const name = `${uuid()}.xml`;
 
     downloadFile(url, name)
       .then(async (fileAsBuffer) => {
