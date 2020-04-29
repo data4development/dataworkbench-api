@@ -13,7 +13,7 @@ const version = require('../../server/config.local');
 const utils = require('../../utils/convertors');
 const testdataset = require('./iati-testdataset.json');
 
-const getFileBaseName = (url) => (/\.xml$/.test(path.basename(url)) ? path.basename(url) : `${uuid()}.xml`);
+const getFileBaseName = (url) => (`${uuid()}.xml`);
 
 module.exports = function(Iatitestworkspace) {
   Iatitestworkspace.fileUpload = function(req, res, id, type, cb) {
@@ -155,7 +155,7 @@ module.exports = function(Iatitestworkspace) {
       })
       .catch((error) => {
         console.error('fetchFilesByURL: ', error);
-        cb({message: `App can't to download file from this url ${url}`, statusCode: 400});
+        cb({message: `App is unable to download file from this url ${url}`, statusCode: 400});
       });
   };
 
