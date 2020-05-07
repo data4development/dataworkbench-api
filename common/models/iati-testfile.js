@@ -53,7 +53,7 @@ module.exports = function(Iatifile) {
           filename: fileInfo.originalFilename,
           fileid: fileInfo.name,
           type: fileInfo.type,
-          url: `${version.restApiRoot}/iati-testfiles/source/${type}/${fileInfo.name}`,
+          url: `${version.restApiRoot}/iati-testfiles/file/source/${fileInfo.name}`,
           status: 'File uploaded (step 1 of 3)',
         }, (error, result) => {
           if (err) {
