@@ -40,20 +40,20 @@ module.exports = function(Iatifile) {
     const File = app.models['iati-testdataset'];
 
     Iatifile.upload(
-      config.container_upload['source'],
+      config.container_upload.source,
       req,
       res,
       (err, uploadedFile) => {
         if (err) {
           return cb(err);
         }
-        const [fileInfo] = uploadedFile.files.files;
+        const fileInfo = uploadedFile.files.file[0];
 
         File.create({
           filename: fileInfo.originalFilename,
           fileid: fileInfo.name,
           type: fileInfo.type,
-          url: `${version.restApiRoot}/iati-testfiles/source/${type}/${fileInfo.name}`,
+          url: `${version.restApiRoot}/iati-testfiles/file/source/${fileInfo.name}`,
           status: 'File uploaded (step 1 of 3)',
         }, (error, result) => {
           if (err) {
