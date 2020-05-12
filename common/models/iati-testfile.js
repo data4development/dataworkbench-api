@@ -47,7 +47,7 @@ module.exports = function(Iatifile) {
         if (err) {
           return cb(err);
         }
-        const fileInfo = uploadedFile.files.file[0];
+        const [fileInfo] = uploadedFile.files.file;
 
         File.create({
           filename: fileInfo.originalFilename,

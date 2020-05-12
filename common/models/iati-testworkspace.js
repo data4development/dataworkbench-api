@@ -25,7 +25,7 @@ module.exports = function(Iatitestworkspace) {
         if (err) {
           return cb(err);
         }
-        const [fileInfo] = uploadedFile.files.files;
+        const [fileInfo] = uploadedFile.files.file;
         const Workspace = app.models['iati-testworkspace'];
 
         Workspace.findById(id, (error, workspace) => {
