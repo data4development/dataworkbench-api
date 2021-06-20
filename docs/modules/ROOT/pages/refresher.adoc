@@ -1,7 +1,4 @@
----
-title: IATI Datastore Synchronisation
-order: 3
----
+= IATI Datastore Synchronisation
 
 The IATI Datastore synchronisation consists of several parts:
 
@@ -12,11 +9,12 @@ The IATI Datastore synchronisation consists of several parts:
 
 The update job and janitor job currently run in separate containers with a different stack.
 
-## Data Refresher
+== Data Refresher
 
 The synchronisation with the Datastore is done by running the API container with environment variables to schedule the synchronisation job.
 
-```mermaid
+[mermaid]
+....
 sequenceDiagram
 
 participant DSJ as Data Sync Job
@@ -38,19 +36,20 @@ loop Every 2 hours
     DSt -->>- DSJ: IATI source file
     note over DSJ: Calculate md5
     DSJ ->>+ FS: store file using md5 as name
-    FS -->>- DSJ: 
+    FS -->>- DSJ: _
     DSJ ->>+ DS: store dataset info
-    DS -->>- DSJ: 
+    DS -->>- DSJ: _
   end
   deactivate DSJ
 end
-```
+....
 
-## Datastore
+== Datastore
 
 The IATI Datastore updates the data using the pre-compiled validation reports where available, and asking for ad-hoc validation if there is no pre-compiled validation report.
 
-```mermaid
+[mermaid]
+....
 sequenceDiagram
 participant DSt as IATI Datastore
 participant FS as File Store
@@ -61,7 +60,7 @@ loop For all IATI files
   DSt ->>+ FS: Get JSON report for md5
   alt md5 exists
   	FS -->> DSt: JSON report
-  else 
+  else
     FS -->>- DSt: Status 500
     DSt ->>+ AHV: Upload file
     loop Every x seconds while no JSON report available
@@ -73,4 +72,4 @@ loop For all IATI files
   end
   note over DSt: If no critical errors, include file in IATI Datastore
 end
-```
+....

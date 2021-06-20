@@ -1,0 +1,40 @@
+= {page-component-title}
+
+The IATI data validator API provides access to a store of IATI data files and their validations.
+It is still in development, so the architecture and APIs may change.
+
+The pages here explain the architecture and data model behind the API.
+
+== API end point and metadata documentation
+
+API end point documentation is available in a couple of ways.
+
+=== Postman
+
+The https://api-doc.dataworkbench.io[IATI Validator collection in Postman] shows how the web front-end uses the API.
+It has API calls organised per page of the interface.
+
+In addition, it will have a section on how the DataStore uses the Validator API.
+
+These API calls are also available as a mock server to help in development.
+
+The documentation is based on the source specification, with additional information added.
+
+=== Loopback
+
+The API is developed in Loopback, and provides http://www.dataworkbench.io/explorer[an Explorer] to interact with the it and try out calls.
+
+This can also be used when running a local copy of the API.
+
+=== Specification page
+
+The link:specification.html[Specification page] uses the OpenAPI specification file to create a reference documentation page.
+
+== Query language documentation
+
+The query language is provided by Loopback version 3.
+Filtering, ordering and limiting results and including fields is documented on https://loopback.io/doc/en/lb3/Querying-data.html[the Loopback site].
+
+== Result format documentation
+
+The available validation report formats are documented as part of the link:/IATI-data-validator/formats/[Validator documentation].
