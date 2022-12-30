@@ -40,7 +40,7 @@
     "eslint-config-loopback": "^13.1.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
-    "mocha": "^6.2.0"
+    "mocha": "^10.2.0"
   },
   "repository": {
     "type": "git",
